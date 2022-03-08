@@ -9,7 +9,7 @@
   require_once dirname(__FILE__).'/db/UserDb.php';
 
   // 変数の初期化
-  $sql = "INSERT INTO users VALUES ";
+  $sql = "INSERT INTO users(user_id, student_mail, student_name, student_pass, student_salt, delete_flag, admin_flag) VALUES ";
   $mail = "";
   $userName = "";
 
