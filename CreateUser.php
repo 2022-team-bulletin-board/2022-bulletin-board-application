@@ -13,6 +13,11 @@
   $mail = "";
   $userName = "";
 
+  // TODO
+    // 管理者じゃないと実行できないようにする
+    // if (isset($_POST["管理者情報"])) {} else {indexへ遷移}
+
+
   // リロードによるpostの再送信をできないようにする
   if (isset($_POST["hidden_str"]) && isset($_SESSION["rand_str"]) && $_POST["hidden_str"] == $_SESSION["rand_str"]) {
     $_SESSION["rand_str"] = "";
@@ -62,6 +67,7 @@
     }
   }
 
+  // セッションにランダムな文字列を格納
   $_SESSION["rand_str"] = randomStr();
 
 ?>
