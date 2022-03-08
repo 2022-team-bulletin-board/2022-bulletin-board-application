@@ -1,12 +1,47 @@
+<?php
+    if (isset($_POST["id"]) && isset($_POST["password"])) {
+        echo "aaa";
+    };
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>morijyobi</title>
 </head>
+
 <body>
-    <h1>掲示板つくんでー</h1>
+    <form action="index.php" method="post">
+    <h1>ログイン</h1>
+    <div align="center">
+        <table border="0">
+            <tr>
+                <th>
+                    ユーザID
+                </th>
+                <td>
+                    <input type="text" name="id" value="">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    パスワード
+                </th>
+                <td>
+                    <input type="password" name="password" value="">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="ログイン">
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
 </body>
 </html>
