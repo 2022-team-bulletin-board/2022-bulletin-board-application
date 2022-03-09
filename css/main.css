@@ -30,6 +30,7 @@ li {
   width: 100%;
   padding: 10px 30px;
   color: #707070;
+  background-color: #eee;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.3);
 }
 
@@ -40,16 +41,36 @@ li {
 }
 
 .header-wrapper h1 {
+  font-size: 1.5rem;
   text-transform: capitalize;
 }
 
 .search-box {
+  display: flex;
+}
+
+.search-box input {
   display: block;
-  width: 30%;
+  width: 400px;
+  min-width: 200px;
+  margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #707070;
+}
+
+.btn.search {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.btn.search i  {
+  font-size: 1.5rem;
+  color: #707070;
+  cursor: pointer;
 }
 
 .links-box {
