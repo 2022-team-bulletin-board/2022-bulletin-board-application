@@ -51,6 +51,7 @@
 <p>投稿者名: {$results[0]["qu_name"]}</p>
 <p>投稿日時: {$results[0]["question_created"]}</p>
 <p>更新日時: {$updateDate}</p>
+<p>閲覧数: {$results[0]["question_view"]}</p>
 <p>質問詳細: {$results[0]["question_detail"]}</p>
 </div>
 EOS ;
