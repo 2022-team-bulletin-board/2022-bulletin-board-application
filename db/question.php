@@ -3,17 +3,18 @@
 
   // 現在の関数
     // 投稿詳細: detailQuestion
+    // 閲覧数の追加: questionViewAdd
 
   function detailQuestion($question_id) {
-    // 管理者用のコネクションの挿入
+    // コネクションの挿入
     include dirname(__FILE__).'/userConnetcion.php';
     try {
       // sql分の構築
       $sql = <<<EOF
-select q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view,
-q_u.user_id, q_u.student_name,
-q_a.user_id, q_a.student_name,
-a.answer_detail, a.answer_date, a.answer_update
+select q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view, question_bestanswer, 
+q_u.user_id as qu_id, q_u.student_name as qu_name,
+q_a.user_id as qa_id, q_a.student_name as qa_name,
+a.answer_detail, a.answer_date, a.answer_update, a.answer_id
 from question as q
 left outer join users as q_u on q.user_id = q_u.user_id
 left outer join answer as a on a.question_id = q.question_id
@@ -22,7 +23,7 @@ left outer join (
   ) as q_a on q_a.user_id = a.user_id
 where 
 (q_a.user_id is not null or q.question_bestanswer = a.answer_id) and
-q.question_id = :id and
+q.question_id = 1 and
 q.delete_flag = 0 and
 q_u.user_id is not null
 order by a.answer_id = q.question_bestanswer desc, a.answer_date
@@ -38,6 +39,24 @@ EOF ;
       return $result;
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
-      echo "<br>アカウントの作成に失敗しました。csvファイルの確認をお願いします";
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
+
+  // 詳細ページの閲覧数の追加
+  function questionViewAdd($question_id) {
+    include dirname(__FILE__).'/userConnetcion.php';
+    try {
+      // sql分の構築
+      $sql = "update question set question_view = question_view + 1 where question_id = :id";
+
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':id', $question_id, PDO::PARAM_INT);
+      // 実行
+      $res = $stmt->execute();
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
     }
   }
