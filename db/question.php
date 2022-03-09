@@ -23,7 +23,7 @@ left outer join (
   ) as q_a on q_a.user_id = a.user_id
 where 
 (q_a.user_id is not null or q.question_bestanswer = a.answer_id) and
-q.question_id = 1 and
+q.question_id = :id and
 q.delete_flag = 0 and
 q_u.user_id is not null
 order by a.answer_id = q.question_bestanswer desc, a.answer_date
