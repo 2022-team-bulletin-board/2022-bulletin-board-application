@@ -53,6 +53,8 @@ $(function () {
             let cnt = 0;
             for(let element in value){
               if (cnt++ === 0) {
+                continue;
+              } else if (cnt++ === 1){
                 $('<h3>' + value[element] + '</h3>').appendTo(trJQ_r);   
               } else {
                 $('<p>' + value[element] + '</p>').appendTo(trJQ_r);  
