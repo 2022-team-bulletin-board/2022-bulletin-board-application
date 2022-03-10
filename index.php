@@ -1,6 +1,8 @@
 <?php
-    if (isset($_POST["id"]) && isset($_POST["password"])) {
-        echo "aaa";
+    if(isset($_POST["id"]) && isset($_POST["password"])) {
+        if($_POST["id"] == true && $_POST["password"] == true){
+            echo "空じゃないよ";
+        };
     };
 ?>
 
