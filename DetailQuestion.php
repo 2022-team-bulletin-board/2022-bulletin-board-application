@@ -55,6 +55,11 @@
 <p>質問詳細: {$results[0]["question_detail"]}</p>
 </div>
 EOS ;
+?>
+回答を入力: <textarea name="answer" id="answer" cols="30" rows="10"></textarea><br>
+<input type="button" value="回答">
+<p id="answer-success"></p>
+<?php
     foreach ($results as $result) {
       $ansUpdate = isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ";
       $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
@@ -69,5 +74,7 @@ EOS ;
 EOS ;
     }
   ?>
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/answer.js"></script>
 </body>
 </html>
