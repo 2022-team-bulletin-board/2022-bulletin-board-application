@@ -1,0 +1,9 @@
+.content pre:not(:last-child) {
+    margin-bottom: 0;
+}
+
+#postButton:hover {
+    background-color: #707070;
+    color: white;
+    transition: all .3s 0s ease;
+}
