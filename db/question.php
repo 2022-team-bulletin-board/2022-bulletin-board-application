@@ -69,7 +69,7 @@ EOF ;
       //sql文作成
       $sql = "select q.question_id,question_title,question_detail,question_created,question_bestanswer,COUNT(ans.answer_id) as answer_count FROM question as q
       left outer join answer as ans on q.question_id = ans.question_id
-      where q.question_title like :keyword
+      where q.question_title like :keyword and q.delete_flag = 0
       group by q.question_id;";
 
       $stmt = $pdo->prepare($sql);
