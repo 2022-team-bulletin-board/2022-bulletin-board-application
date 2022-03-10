@@ -45,7 +45,7 @@ li {
   text-transform: capitalize;
 }
 
-.search-box {
+.search-box form{
   display: flex;
 }
 
