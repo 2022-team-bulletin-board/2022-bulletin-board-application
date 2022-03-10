@@ -1,9 +1,18 @@
 <?php
     include 'header.php';
+    require_once dirname(__FILE__).'/db/UserDb.php';
+    require_once dirname(__FILE__).'/func/UsersFunc.php';
     
-    if(isset($_POST["id"]) && isset($_POST["password"])) {
-        if($_POST["id"] == true && $_POST["password"] == true){
-            echo "空じゃないよ";
+    if(isset($_POST["mail"]) && isset($_POST["password"])) {
+        if($_POST["mail"] == true && $_POST["password"] == true){
+            $mail = $_POST["mail"];
+            $password = $_POST["password"];
+
+            $salt = selectUserSalt($mail);
+            $hashPw = hash256($password, $salt["student_salt"]);
+
+            $judge = selectUser($mail, $hashPw);
+            echo $judge["user_id"], $judge["admin_flag"];
         };
     };
 ?>
@@ -25,18 +34,18 @@
         <table border="0">
             <tr>
                 <th>
-                    ユーザID
+                    mail address
                 </th>
                 <td>
-                    <input type="text" name="id" value="">
+                    <input type="text" name="mail" value="aiueo">
                 </td>
             </tr>
             <tr>
                 <th>
-                    パスワード
+                    password
                 </th>
                 <td>
-                    <input type="password" name="password" value="">
+                    <input type="password" name="password" value="4kcbiso17bi8gg4osogs">
                 </td>
             </tr>
             <tr>
