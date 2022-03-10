@@ -19,4 +19,13 @@
       echo "<br>アカウントの作成に失敗しました。csvファイルの確認をお願いします";
     }
   }
+
+  // ログイン機能(mailをチェックして、あればソルトを返す)
+  function selectUserSalt($sql) {
+    // ユーザー用のコネクションの挿入
+    include dirname(__FILE__).'/userConnection.php';
+    try {
+      
+    }
+  }
   
