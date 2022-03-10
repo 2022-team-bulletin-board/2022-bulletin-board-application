@@ -67,18 +67,18 @@ EOF ;
 
     try {
       //sql文作成
-      $sql = "select q.question_id,question_title,question_detail,question_created,COUNT(q.question_id) as answer_count FROM question as q
+      $sql = "select q.question_id,question_title,question_detail,question_created,question_bestanswer,COUNT(ans.answer_id) as answer_count FROM question as q
       left outer join answer as ans on q.question_id = ans.question_id
       where q.question_title like :keyword
       group by q.question_id;";
 
       $stmt = $pdo->prepare($sql);
-      $stmt->bindValue(':keyword',$search_word, PDO::PARAM_STR);
+      $stmt->bindValue(':keyword','%'.$search_word.'%', PDO::PARAM_STR);
 
-      $res = $stmt->execute();
+      $stmt->execute();
       $result = $stmt->fetchall(PDO::FETCH_ASSOC);
       return $result;
-      
+
     } catch(PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
       echo "dbの実行に失敗しました。管理者への連絡をお願いします。";

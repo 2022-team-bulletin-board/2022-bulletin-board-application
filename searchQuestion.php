@@ -1,3 +1,20 @@
+<?php 
+
+  session_start();
+
+  require_once dirname(__FILE__).'/db/question.php';
+
+  if (isset($_GET["search_word"]) && $_GET["search_word"] !== "" ) {
+    $keyword = htmlspecialchars($_GET["search_word"]);
+    $results = searchQuestionWithWord($keyword);
+    $size = count($results);
+    $result_text = $size > 0 ? "${$size}件ヒットしました。" : "見つかりませんでした。";
+  } else {
+    header("Location:index.php");
+  } 
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,40 +31,39 @@
   <main>
     <section id="">
       <div class="container">
-        <div class="search-result-text">検索結果：</div>
+        <div class="search-result-text"><?php echo "「${keyword}」"?>の検索結果：<?php echo $size > 0 ? $size.'件ヒットしました。' : '見つかりませんでした。'?></div>
       
         <ul class="searched-list">
-          <!-- 繰り返し表示される部分 -->
+          <?php foreach($results as $result):?>
           <li class="searched-item">
             <a href="#">
-              <h3 class="question-title">質問のタイトルが表示されます</h3>
+              <h3 class="question-title"><?php echo $result['question_title']; ?></h3>
             </a>
-            <p class="question-content">質問の最初の方の表示と、タグを表示させます。タイトル同様はみでた箇所は</p>
+            <p class="question-content"><?php echo $result['question_detail']; ?></p>
             <div class="bottom-info">
               <div class="tags">
-                <span class="tag answer-count">1回答</span>
+                <?php if($result['question_bestanswer'] !== null): ?>
+                  <span class="tag answer-count best">
+                    <i class="fa-solid fa-check"></i><?php echo $result['answer_count'].'回答'; ?>
+                  </span>
+                <?php elseif($result['answer_count'] ==  0): ?>
+                  <span class="tag answer-count yet">
+                    <?php echo '未回答'; ?>
+                  </span>
+                <?php else: ?>
+                  <span class="tag answer-count">
+                    <?php echo $result['answer_count'].'回答'; ?>
+                  </span>
+                <?php endif; ?>
+                <!-- タグをつける場合ここで繰り返し 下記はダミー　-->
                 <span class="tag">Java</span>
                 <span class="tag">PHP</span>
                 <span class="tag">基本情報技術者試験</span>
               </div>
-              <span class="answered-date">回答日時：2022-3-10</span>
+              <span class="answered-date">投稿日時：<?php echo $result['question_created'];?></span>
             </div>
           </li>
-          <li class="searched-item">
-            <a href="#">
-              <h3 class="question-title">質問のタイトルが表示されます</h3>
-            </a>
-            <p class="question-content">質問の最初の方の表示と、タグを表示させます。タイトル同様はみでた箇所は</p>
-            <div class="bottom-info">
-              <div class="tags">
-                <span class="tag answer-count best"><i class="fa-solid fa-check"></i>1回答</span>
-                <span class="tag">Java</span>
-                <span class="tag">PHP</span>
-                <span class="tag">基本情報技術者試験</span>
-              </div>
-              <span class="answered-date">回答日時：2022-3-10</span>
-            </div>
-          </li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </section>

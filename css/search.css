@@ -70,8 +70,12 @@ section {
 .tag.answer-count.best {
   color: var(--color-white);
   border: 1px solid#368749;
-  margin-right: 20px;
   background: #368749;
+}
+
+.tag.answer-count.yet {
+  color: #ffc107;
+  border: 1px solid #ffc107;
 }
 
 .tag.answer-count.best i {
