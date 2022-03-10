@@ -77,6 +77,7 @@ EOS ;
 EOS ;
 $answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
     }
+    // 非同期で使う変数の定義
     echo "<script>let answerId = " . $answerId . "</script>";
   ?>
 </div>

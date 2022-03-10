@@ -18,6 +18,7 @@ order by answer_id';
 
       $result = $stmt->fetchall(PDO::FETCH_ASSOC);
 
+      // 取得結果をjson形式で送信
       echo json_encode($result);
 
     } catch (PDOException $e) {

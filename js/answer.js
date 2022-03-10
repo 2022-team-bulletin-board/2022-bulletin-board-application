@@ -3,6 +3,7 @@ const url = new URL(window.location.href)
 // URLSearchParamsオブジェクトを取得
 const params = url.searchParams;
 
+// コメントと追加していくdomの取得
 const answerdiv = document.getElementById("answer-div");
 
 $(function () {
@@ -35,6 +36,7 @@ $(function () {
     showAnswer();
   }, 1000);
 
+  // 回答を取得する関数
   function showAnswer() {
     $.ajax({
       url: 'db/selectAnswer.php',
@@ -44,6 +46,7 @@ $(function () {
       success: function(data) {
         // console.log(answerId)
         if(data.length !== 0){
+          // dom操作
           data.forEach(value => {
           if (value.answer_id != answerId){
             let trJQ_r = $('<div></div>').appendTo(answerdiv);
