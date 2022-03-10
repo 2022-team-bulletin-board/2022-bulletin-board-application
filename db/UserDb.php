@@ -2,7 +2,7 @@
   // このファイルではユーザーに関するdb処理を記述してほしいです
 
   // 現在の関数
-  // ・登録処理
+  // ・登録処理: insertUserSql
   
   // 新規ユーザー作成関数
   function insertUserSql($sql) {

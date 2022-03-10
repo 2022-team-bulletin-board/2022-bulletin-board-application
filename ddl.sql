@@ -53,3 +53,13 @@ CREATE USER 'admin'@'localhost' IDENTIFIED BY '@Morijyobi2021';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.answer to 'admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.question to 'admin'@'localhost';
 GRANT SELECT, UPDATE, DELETE, INSERT ON bba.users to 'admin'@'localhost';
+
+-- サンプルデータ挿入
+
+-- user_idを現在登録されている中で最も新しいアカウントのidにする
+insert into question(user_id, question_title, question_detail) values ( (select max(user_id) from users), "サンプル投稿１", "サンプル投稿の質問詳細" );
+
+-- 最低でも4人のユーザーがいる想定の回答データ
+insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 1 from users), (select max(question_id) from question), "サンプルアンサーの詳細" );
+insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 2 from users), (select max(question_id) from question), "サンプルアンサーの詳細2" );
+insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 3 from users), (select max(question_id) from question), "サンプルアンサーの詳細3" );
