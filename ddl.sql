@@ -63,3 +63,39 @@ insert into question(user_id, question_title, question_detail) values ( (select 
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 1 from users), (select max(question_id) from question), "サンプルアンサーの詳細" );
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 2 from users), (select max(question_id) from question), "サンプルアンサーの詳細2" );
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 3 from users), (select max(question_id) from question), "サンプルアンサーの詳細3" );
+
+select (select count(*) from answer WHERE question_id = 2) as ans_cnt, q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view, question_bestanswer, 
+q_u.user_id as qu_id, q_u.student_name as qu_name,
+q_a.user_id as qa_id, q_a.student_name as qa_name,
+a.answer_detail, a.answer_date, a.answer_update, a.answer_id
+from question as q
+left outer join users as q_u on q.user_id = q_u.user_id
+left outer join answer as a on a.question_id = q.question_id
+left outer join (
+    select * from users where delete_flag = 0
+  ) as q_a on q_a.user_id = a.user_id
+where 
+((q_a.user_id is not null or (select count(*) from answer WHERE question_id = 2) = 0) or q.question_bestanswer = a.answer_id) and
+q.question_id = 2 and
+q.delete_flag = 0 and
+q_u.user_id is not null
+order by a.answer_id = q.question_bestanswer desc, a.answer_date
+
+select count(*) from answer = 1;
+
+
+select (select count(*) from answer WHERE question_id = 2) as ans_cnt, q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view, question_bestanswer, 
+q_u.user_id as qu_id, q_u.student_name as qu_name,
+q_a.user_id as qa_id, q_a.student_name as qa_name,
+a.answer_detail, a.answer_date, a.answer_update, a.answer_id
+from question as q
+left outer join users as q_u on q.user_id = q_u.user_id
+left outer join answer as a on a.question_id = q.question_id
+left outer join (
+    select * from users where delete_flag = 0
+  ) as q_a on q_a.user_id = a.user_id
+where 
+q.question_id = 2 and
+q.delete_flag = 0 and
+q_u.user_id is not null
+order by a.answer_id = q.question_bestanswer desc, a.answer_date\G
