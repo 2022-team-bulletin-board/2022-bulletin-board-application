@@ -18,3 +18,8 @@
   function hash256($pw, $salt) {
     return hash('sha256', $pw.$salt);
   }
+
+  // htmlspecialcharsの実行関数
+  function hsc($str){
+    return htmlspecialchars($str, ENT_QUOTES, "utf-8");
+  }

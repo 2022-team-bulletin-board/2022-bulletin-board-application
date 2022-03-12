@@ -97,7 +97,7 @@ EOF ;
 
       // pdoのインスタンス化
       $stmt = $pdo->prepare($sql);
-      $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+      $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
       // 実行
       $res = $stmt->execute();
       // 実行結果の取り出し
