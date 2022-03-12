@@ -8,7 +8,6 @@
   function detailQuestion($question_id) {
     // コネクションの挿入
     include dirname(__FILE__).'/userConnetcion.php';
-    echo $question_id;
     try {
       // sql分の構築
       $sql = <<<EOF

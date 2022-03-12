@@ -60,14 +60,18 @@ EOS ;
 ?>
 回答を入力: <textarea name="answer" id="answer" cols="30" rows="10"></textarea><br>
 <input type="button" value="回答">
+<?php
+  if ($results[0]["ans_cnt"] !== 0) {
+?>
 <div id="answer-div">
 <p id="answer-success"></p>
 <?php
-    foreach ($results as $result) {
-      $ansUpdate = isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ";
-      $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
-      $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "";
-      echo <<<"EOS"
+  foreach ($results as $result) {
+    $answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
+    $ansUpdate = isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ";
+    $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
+    $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "";
+    echo <<<"EOS"
 <div>
 <h3>回答者: {$ansUser}  {$best}</h3>
 <p>回答日時: {$result["answer_date"]}</p>
@@ -75,8 +79,8 @@ EOS ;
 <p>回答: {$result["answer_detail"]}</p>
 </div>
 EOS ;
-$answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
     }
+  }
     // 非同期で使う変数の定義
     echo "<script>let answerId = " . $answerId . "</script>";
   ?>
