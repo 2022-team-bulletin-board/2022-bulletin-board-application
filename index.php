@@ -15,12 +15,17 @@
                 $judge = selectUser($mail, $hashPw);
             
                 if($judge != "passwordfail"){
-                    echo "test ${judge["user_id"]} {$judge["admin_flag"]}";
+                    if($judge["admin_flag"] == 1){
+                        $_SESSION["user_id"] = $judge["user_id"];
+                        $_SESSION["admin_id"] = true;
+                    } else {
+                        $_SESSION["user_id"] = $judge["user_id"];
+                    }
                 } else {
-                    echo "ログインに失敗しました。<br>パスワードが間違っています。";
+                    echo '<p class="error-text">ログインに失敗しました。<br>パスワードが間違っています。</p>';
                 }
             } else {
-                echo "ログインに失敗しました。<br>メールアドレスが間違っています。";
+                echo '<p class="error-text">ログインに失敗しました。<br>メールアドレスが間違っています。';
             }
         };
     };
@@ -33,6 +38,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/login.css">
     <title>morijyobi</title>
 </head>
 
@@ -46,7 +52,7 @@
                     mail address
                 </th>
                 <td>
-                    <input type="text" name="mail" value="aiueo">
+                    <input type="text" name="mail" value="">
                 </td>
             </tr>
             <tr>
@@ -54,7 +60,7 @@
                     password
                 </th>
                 <td>
-                    <input type="password" name="password" value="4kcbiso17bi8gg4osogs">
+                    <input type="password" name="password" value="">
                 </td>
             </tr>
             <tr>
