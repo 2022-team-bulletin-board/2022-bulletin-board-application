@@ -92,16 +92,24 @@ EOS ;
 <p id="answer-success"></p>
 <?php
   foreach ($results as $result) {
-    $answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
-    $ansUpdate = isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ";
-    $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
-    $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "";
+    $answerId = hsc($result["answer_id"] > $answerId ? $result["answer_id"] : $answerId);
+    $ansUpdate = hsc(isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ");
+    $ansUser = hsc(isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー");
+    $best = hsc($results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "");
+    $answerDetail = hsc($result["answer_detail"]);
+    $answerDetail = preg_replace_callback(
+      $pattern, 
+      function($matches) {
+        global $cnt;
+        return $cnt++ % 2 == 0 ? '<pre><code class="language-">' : "</pre></code>";
+      }, 
+    $answerDetail);
     echo <<<"EOS"
 <div>
 <h3>回答者: {$ansUser}  {$best}</h3>
 <p>回答日時: {$result["answer_date"]}</p>
 <p>回答更新日: {$ansUpdate}</p>
-<p>回答: {$result["answer_detail"]}</p>
+<p>回答: {$answerDetail}</p>
 </div>
 EOS ;
     }

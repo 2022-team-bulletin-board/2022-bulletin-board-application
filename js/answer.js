@@ -26,6 +26,7 @@ $(function () {
         success: function (data) {
           $("#answer-success").text("回答完了");
           // 回答が完了したら読み込み
+          document.getElementById("answer").value = "";
           showAnswer();
         }
       })
