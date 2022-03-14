@@ -93,7 +93,18 @@
       </div>
       <div class="columns is-mobile is-vcentered">
         <div class="column">
-          <button class="button is-small is-link is-inverted">編集</button>
+          <button id="questionEdit" class="button is-small is-link is-inverted">編集</button>
+        </div>
+        <div id="questionEditModal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content px-4 py-5">
+            <h2 class="subtitle">質問の編集</h2>
+            <form action="">
+              <textarea name="" id="questionEditArea" cols="30" rows="10"></textarea>
+              <button class="button mt-5 is-medium customButton">編集を確定する</button>
+            </form>
+          </div>
+          <button id="questionEditModalClose" class="modal-close is-large" aria-label="close"></button>
         </div>
         <div class="columns questionDateWrapper is-mobile">
           <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
@@ -187,7 +198,7 @@ EOS ;
       <h2 class="subtitle mt-6">回答する</h2>
       <form action="./catch.php" method="get">
         <textarea name="Answer" id="Answer"></textarea>
-        <button class="button is-large mt-5 mb-6  answerButton">
+        <button class="button is-large mt-5 mb-6 customButton answerButton">
           回答を投稿
         </button>
       </form>
@@ -203,6 +214,36 @@ EOS ;
             element: document.getElementById('Answer'),
             maxHeight: "200px"
         });
+
+        const questionEditMDE = new EasyMDE({
+            element: document.getElementById('questionEditArea')
+        })
+
+
+        const modal = document.getElementById('questionEditModal');
+        document.getElementById('questionEdit').addEventListener('click', () => {
+            openModal(modal);
+        });
+
+        document.getElementById('questionEditModalClose').addEventListener('click', () => {
+            closeModal(modal);
+        })
+
+        function openModal($el) {
+            $el.classList.add('is-active');
+        }
+
+        function closeModal($el) {
+            $el.classList.remove('is-active');
+        }
+
+        document.addEventListener('keydown', (event) => {
+            const e = event || window.event;
+
+            if (e.keyCode === 27) {
+                closeModal(modal);
+            }
+        })
     })
 </script>
 </body>

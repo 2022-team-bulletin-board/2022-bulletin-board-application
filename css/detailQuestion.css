@@ -1,3 +1,15 @@
+.customButton {
+    border-color: #707070;
+    box-shadow: 3px 4px 6px #888888;
+}
+
+.customButton:hover {
+    background-color: #707070;
+    color: white;
+    transition: all .3s 0s ease;
+}
+
+
 .userInfo, .answerUserInfo {
     border-bottom: solid 1px #888787;
 }
@@ -28,12 +40,25 @@
     width: 100%;
 }
 
+.modal-content {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.modal-content .button {
+    float: right;
+}
+
 .answerButton {
     float: right;
 }
 
-.answerButton:hover {
-    background-color: #707070;
-    color: white;
-    transition: all .3s 0s ease;
+/* easyMDE */
+.EasyMDEContainer {
+    box-shadow: 1px 1px 4px #888888;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.editor-toolbar {
+    background-color: #f0f8ff;
 }
