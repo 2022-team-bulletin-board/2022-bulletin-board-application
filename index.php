@@ -9,10 +9,19 @@
             $password = $_POST["password"];
 
             $salt = selectUserSalt($mail);
-            $hashPw = hash256($password, $salt["student_salt"]);
+            if($salt != "mailfail"){
+                $hashPw = hash256($password, $salt["student_salt"]);
 
-            $judge = selectUser($mail, $hashPw);
-            echo $judge["user_id"], $judge["admin_flag"];
+                $judge = selectUser($mail, $hashPw);
+            
+                if($judge != "passwordfail"){
+                    echo "test ${judge["user_id"]} {$judge["admin_flag"]}";
+                } else {
+                    echo "ログインに失敗しました。<br>パスワードが間違っています。";
+                }
+            } else {
+                echo "ログインに失敗しました。<br>メールアドレスが間違っています。";
+            }
         };
     };
 ?>
@@ -37,7 +46,7 @@
                     mail address
                 </th>
                 <td>
-                    <input type="text" name="mail" value="">
+                    <input type="text" name="mail" value="aiueo">
                 </td>
             </tr>
             <tr>
@@ -45,7 +54,7 @@
                     password
                 </th>
                 <td>
-                    <input type="password" name="password" value="">
+                    <input type="password" name="password" value="4kcbiso17bi8gg4osogs">
                 </td>
             </tr>
             <tr>

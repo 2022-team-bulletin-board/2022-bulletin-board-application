@@ -33,7 +33,11 @@
       // 実行
       $res = $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      return $result;
+      if($result != null){
+        return $result;
+      } else {
+        return "mailfail";
+      }
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
     }
@@ -52,7 +56,11 @@
       // 実行
       $res = $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      return $result;
+      if($result != ""){
+        return $result;
+      } else {
+        return "passwordfail";
+      }
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
     }
