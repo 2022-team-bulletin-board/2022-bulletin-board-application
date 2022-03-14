@@ -1,5 +1,6 @@
 <?php
     require_once dirname(__FILE__).'/db/question.php';
+    require_once dirname(__FILE__).'/func/checkTimeDiff.php';
 
     // セッションの開始
     session_start();
@@ -46,7 +47,8 @@
 <section class="main section">
   <div class="column is-centered is-8-widescreen is-10-tablet is-offset-2-widescreen is-offset-1-tablet is-offset-1">
   <?php
-  $updateDate = isset($results[0]["question_update"]) ? $results[0]["question_update"] : "更新ナシ";
+  $updateDate = isset($results[0]["question_update"]) ? checkDiffTime($results[0]["question_update"]) : "更新ナシ";
+  $questionCreated = checkDiffTime($results[0]["question_created"]);
   echo <<< "EOS"
     <h1 class="title is-medium has-text-left">
       {$results[0]["question_title"]}
@@ -67,7 +69,7 @@
           </p>
           <p class="column is-3 has-text-right
             pb-0 mb-0">
-            {$results[0]["question_created"]}
+            {$questionCreated}
           </p>
         </div>
       </div>
@@ -110,8 +112,6 @@
           <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
           <p class="has-text-left column is-3 has-text-right">
             {$updateDate}
-            <!--            日付の表示を、桁が変わったタイミングで更新する   -->
-            <!--            バックエンドかフロントで処理する    -->
           </p>
         </div>
       </div>
@@ -121,9 +121,12 @@ EOS ;
     $answerCount = count($results);
     echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
     foreach ($results as $result) {
-      $ansUpdate = isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ";
+      $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
       $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
       $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
+
+      $answerDate = checkDiffTime($result['answer_date']);
+
       if ($best) {
         echo <<<"EOS"
     <div class="content bestAnswer">
@@ -141,7 +144,7 @@ EOS ;
             </div>
             <p class="has-text-left column is-3 has-text-right">質問日時</p>
             <p class="has-text-left column is-3 has-text-right">
-              {$result["answer_date"]}
+              {$answerDate}
             </p>
           </div>
         </div>
@@ -196,7 +199,7 @@ EOS ;
   ?>
     <div class="content answer">
       <h2 class="subtitle mt-6">回答する</h2>
-      <form action="./catch.php" method="get">
+      <form action="#" method="get">
         <textarea name="Answer" id="Answer"></textarea>
         <button class="button is-large mt-5 mb-6 customButton answerButton">
           回答を投稿
