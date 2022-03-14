@@ -1,57 +1,87 @@
 <?php
-    require_once dirname(__FILE__).'/db/question.php';
-    require_once dirname(__FILE__).'/func/checkTimeDiff.php';
+require_once dirname(__FILE__) . '/db/question.php';
+require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
+require_once dirname(__FILE__) . '/func/UsersFunc.php';
 
-    $answerId = 0;
+$answerId = 0;
 
-    // セッションの開始
-    session_start();
+// セッションの開始
+session_start();
 
-    // if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
-    //     isset($_GET["question_id"]) && $_GET["question_id"] !== "" 
-    //   ) {
+// if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
+//     isset($_GET["question_id"]) && $_GET["question_id"] !== ""
+//   ) {
 
-      // セッションからユーザーidの取り出し
-      // $user_id = $_SESSION["user_id"];
+// セッションからユーザーidの取り出し
+// $user_id = $_SESSION["user_id"];
 
-      // getからquestion_idの取り出し
-      $question_id = $_GET["question_id"];
-      // question.phpのdetailQuestionを呼び出し、結果を取得
-      $results = detailQuestion($question_id);
-      // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
-      if(count($results) === 0){
-        header("Location:notFoundError.php");
-      }
+// getからquestion_idの取り出し
+$question_id = $_GET["question_id"];
+// question.phpのdetailQuestionを呼び出し、結果を取得
+$results = detailQuestion($question_id);
+// resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
+if (count($results) === 0) {
+  header("Location:notFoundError.php");
+}
 
-      // question_idの存在が確認できたので閲覧数の追加
-      questionViewAdd($question_id);
+// question_idの存在が確認できたので閲覧数の追加
+questionViewAdd($question_id);
 
 
-    // } else {
-    //   header("Location:index.php");
-    //   exit();
-    // }
+// } else {
+//   header("Location:index.php");
+//   exit();
+// }
 ?>
 <!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=chrome">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/prism.css">
   <link rel="stylesheet" href="./css/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
+  <script src="js/prism.js"></script>
 
   <title>質問詳細</title>
 </head>
 <body>
 <section class="main section">
   <div class="column is-centered is-8-widescreen is-10-tablet is-offset-2-widescreen is-offset-1-tablet is-offset-1">
-  <?php
-  $updateDate = isset($results[0]["question_update"]) ? checkDiffTime($results[0]["question_update"]) : "更新ナシ";
-  $questionCreated = checkDiffTime($results[0]["question_created"]);
-  echo <<< "EOS"
+    <?php
+    $updateDate = isset($results[0]["question_update"]) ? checkDiffTime($results[0]["question_update"]) : "更新ナシ";
+    $questionCreated = checkDiffTime($results[0]["question_created"]);
+    $updateDate = isset($results[0]["question_update"]) ? $results[0]["question_update"] : "更新ナシ";
+    $title = hsc($results[0]["question_title"]);
+    $quName = hsc($results[0]["qu_name"]);
+    $quCreated = hsc($results[0]["question_created"]);
+    $view = hsc($results[0]["question_view"]);
+    $detail = hsc($results[0]["question_detail"]);
+
+    $pattern = "/(`{3}\S+(\r\n|\n))|(`{3})/";
+
+    $cnt = 0;
+
+    $detail = preg_replace_callback(
+      $pattern,
+      function ($matches) {
+        global $cnt;
+        preg_match('/`{3}\S+\r\n/', $matches[0], $date_match);
+        $date_match = isset($date_match[0]) ? $date_match[0] : "";
+        $date_match = str_replace("```", "", $date_match);
+        $date_match = str_replace("\r\n", "", $date_match);
+        $date_match = str_replace("\n", "", $date_match);
+        return $cnt++ % 2 == 0 ? '<pre><code class="language-' . $date_match . '">' : "</pre></code>";
+      },
+      $detail);
+    if ($cnt % 2 == 1) {
+      $cnt++;
+      $detail = $detail . "</pre></code>";
+    }
+
+    echo <<< "EOS"
     <h1 class="title is-medium has-text-left">
       {$results[0]["question_title"]}
     </h1>
@@ -119,18 +149,41 @@
       </div>
     </div>
 
-EOS ;
-    $answerCount = count($results);
-    echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
-    foreach ($results as $result) {
-      $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
-      $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
-      $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
+EOS;
+    if ($results[0]["ans_cnt"] !== 0) {
+      foreach ($results as $result) {
+        $answerId = hsc($result["answer_id"] > $answerId ? $result["answer_id"] : $answerId);
+        $ansUpdate = hsc(isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ");
+        $ansUser = hsc(isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー");
+        $best = hsc($results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "");
+        $answerDetail = hsc($result["answer_detail"]);
+        $answerDetail = preg_replace_callback(
+          $pattern,
+          function ($matches) {
+            global $cnt;
+            preg_match('/`{3}\S+(\r\n|\n)/', $matches[0], $date_match);
+            $date_match = isset($date_match[0]) ? $date_match[0] : "";
+            $date_match = str_replace("```", "", $date_match);
+            $date_match = str_replace("\r\n", "", $date_match);
+            $date_match = str_replace("\n", "", $date_match);
+            return $cnt++ % 2 == 0 ? '<pre><code class="language-' . $date_match . '">' : "</pre></code>";
+          },
+          $answerDetail);
+        if ($cnt % 2 == 1) {
+          $cnt++;
+          $answerDetail = $answerDetail . "</pre></code>";
+        }
+        $answerCount = count($results);
+        echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
+        foreach ($results as $result) {
+          $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
+          $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
+          $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
 
-      $answerDate = checkDiffTime($result['answer_date']);
+          $answerDate = checkDiffTime($result['answer_date']);
 
-      if ($best) {
-        echo <<<"EOS"
+          if ($best) {
+            echo <<<"EOS"
     <div class="content bestAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
         <figure class="image is-64x64 is-vcentered">
@@ -163,9 +216,9 @@ EOS ;
         </p>
       </div>
     </div>
-EOS ;
-      } else {
-        echo <<<"EOS"
+EOS;
+          } else {
+            echo <<<"EOS"
     <div class="content normalAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
         <figure class="image is-64x64 is-vcentered">
@@ -195,12 +248,14 @@ EOS ;
         </p>
       </div>
     </div>
-EOS ;
-$answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
+EOS;
+          }
+        }
+      }
     }
     // 非同期で使う変数の定義
     echo "<script>let answerId = " . $answerId . "</script>";
-  ?>
+    ?>
 
     <div class="content answer">
       <h2 class="subtitle mt-6">回答する</h2>
@@ -211,7 +266,6 @@ $answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
         </button>
       </form>
     </div>
-
   </div>
 </section>
 

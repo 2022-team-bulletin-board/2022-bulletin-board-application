@@ -6,6 +6,7 @@
   // ・ランダムな文字列を生成する
   // ・ハッシュ化
     // ログイン処理を書く際にも使えるので使ってみてください
+  // ・htmlspecialcharsの実行
 
   include dirname(__FILE__).'/sendMail.php';
 
@@ -17,4 +18,9 @@
   // ハッシュ化する関数
   function hash256($pw, $salt) {
     return hash('sha256', $pw.$salt);
+  }
+
+  // htmlspecialcharsの実行関数
+  function hsc($str){
+    return htmlspecialchars($str, ENT_QUOTES, "utf-8");
   }

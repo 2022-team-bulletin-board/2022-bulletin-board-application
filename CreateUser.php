@@ -29,7 +29,7 @@
         chmod("files/" . $_FILES["upfile"]["name"], 0644);
         $fileName = $_FILES["upfile"]["name"];
         // ファイルが存在しているかチェックする
-        if (($handle = fopen($fileName, "r")) !== FALSE) {
+        if (($handle = fopen("files/" . $fileName, "r")) !== FALSE) {
           // 1行ずつfgetcsv()関数を使って読み込む
           while (($data = fgetcsv($handle))) {
             $cnt = 0;
