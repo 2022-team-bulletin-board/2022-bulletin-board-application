@@ -37,7 +37,7 @@
                     mail address
                 </th>
                 <td>
-                    <input type="text" name="mail" value="aiueo">
+                    <input type="text" name="mail" value="">
                 </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@
                     password
                 </th>
                 <td>
-                    <input type="password" name="password" value="4kcbiso17bi8gg4osogs">
+                    <input type="password" name="password" value="">
                 </td>
             </tr>
             <tr>
