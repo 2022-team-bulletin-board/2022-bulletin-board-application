@@ -40,7 +40,7 @@ create table answer(
   FOREIGN KEY (question_id) REFERENCES question(question_id)
 );
 
-ALTER TABLE question ADD FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id);
+ALTER TABLE question ADD FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
 
 # 一般ユーザーの作成(select, insert, update, delete)
 CREATE USER 'student'@'localhost' IDENTIFIED BY '@Morijyobi2021';
@@ -63,3 +63,6 @@ insert into question(user_id, question_title, question_detail) values ( (select 
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 1 from users), (select max(question_id) from question), "サンプルアンサーの詳細" );
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 2 from users), (select max(question_id) from question), "サンプルアンサーの詳細2" );
 insert into answer(user_id, question_id, answer_detail) values( (select max(user_id) - 3 from users), (select max(question_id) from question), "サンプルアンサーの詳細3" );
+
+-- 回答テーブルと質問テーブルのために新たに制約を追加
+-- ALTER TABLE question Add FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
