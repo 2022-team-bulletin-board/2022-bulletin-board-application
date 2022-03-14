@@ -2,7 +2,7 @@
     include 'header.php';
     require_once dirname(__FILE__).'/db/UserDb.php';
     require_once dirname(__FILE__).'/func/UsersFunc.php';
-    
+
     if(isset($_POST["mail"]) && isset($_POST["password"])) {
         if($_POST["mail"] == true && $_POST["password"] == true){
             $mail = $_POST["mail"];
@@ -39,20 +39,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/login.css">
+    <script type="text/javascript" src="js/login.js"></script>
     <title>morijyobi</title>
 </head>
 
 <body>
     <form action="index.php" method="post">
-    <h1>ログイン</h1>
     <div align="center">
+        <h1>ログイン</h1>
         <table border="0">
             <tr>
                 <th>
                     mail address
                 </th>
                 <td>
-                    <input type="text" name="mail" value="">
+                    <input type="text" id="mail" name="mail" value="sample@jp.com">
                 </td>
             </tr>
             <tr>
@@ -60,12 +61,12 @@
                     password
                 </th>
                 <td>
-                    <input type="password" name="password" value="">
+                    <input type="password" id="password" name="password" value="morijyobi2021">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="ログイン">
+                    <input type="submit" id="login" value="ログイン" disabled="true">
                 </td>
             </tr>
         </table>
