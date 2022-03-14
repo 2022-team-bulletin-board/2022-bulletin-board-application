@@ -53,7 +53,6 @@ questionViewAdd($question_id);
     <?php
     $updateDate = isset($results[0]["question_update"]) ? checkDiffTime($results[0]["question_update"]) : "更新ナシ";
     $questionCreated = checkDiffTime($results[0]["question_created"]);
-    $updateDate = isset($results[0]["question_update"]) ? $results[0]["question_update"] : "更新ナシ";
     $title = hsc($results[0]["question_title"]);
     $quName = hsc($results[0]["qu_name"]);
     $quCreated = hsc($results[0]["question_created"]);
@@ -151,11 +150,16 @@ questionViewAdd($question_id);
 
 EOS;
     if ($results[0]["ans_cnt"] !== 0) {
+      $answerCount = count($results);
+      echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
       foreach ($results as $result) {
         $answerId = hsc($result["answer_id"] > $answerId ? $result["answer_id"] : $answerId);
-        $ansUpdate = hsc(isset($result["answer_update"]) ? $result["answer_update"] : "更新ナシ");
+        $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
         $ansUser = hsc(isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー");
-        $best = hsc($results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "");
+//        ベストアンサーの判定をboolで行うか、文字列をそのまま表示するのか
+//        $best = hsc($results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "");
+        $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
+        $answerDate = checkDiffTime($result['answer_date']);
         $answerDetail = hsc($result["answer_detail"]);
         $answerDetail = preg_replace_callback(
           $pattern,
@@ -173,17 +177,8 @@ EOS;
           $cnt++;
           $answerDetail = $answerDetail . "</pre></code>";
         }
-        $answerCount = count($results);
-        echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
-        foreach ($results as $result) {
-          $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
-          $ansUser = isset($result["qa_name"]) ? $result["qa_name"] : "削除済みユーザー";
-          $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
-
-          $answerDate = checkDiffTime($result['answer_date']);
-
-          if ($best) {
-            echo <<<"EOS"
+        if ($best) {
+          echo <<<"EOS"
     <div class="content bestAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
         <figure class="image is-64x64 is-vcentered">
@@ -217,8 +212,8 @@ EOS;
       </div>
     </div>
 EOS;
-          } else {
-            echo <<<"EOS"
+        } else {
+          echo <<<"EOS"
     <div class="content normalAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
         <figure class="image is-64x64 is-vcentered">
@@ -249,7 +244,6 @@ EOS;
       </div>
     </div>
 EOS;
-          }
         }
       }
     }
