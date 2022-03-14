@@ -1,0 +1,17 @@
+:root {
+    --postQ-font-color-1: #707070;
+    --postQ-font-color-2: #888787;
+    --postQ-border-color-1: #707070;
+}
+
+.f-color-1 {
+    color: var(--postQ-font-color-1);
+}
+
+.f-color-2 {
+    color: var(--postQ-font-color-2);
+}
+
+.b-color-1 {
+    border-color: var(--postQ-border-color-1);
+}

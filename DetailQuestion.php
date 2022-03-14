@@ -2,6 +2,8 @@
     require_once dirname(__FILE__).'/db/question.php';
     require_once dirname(__FILE__).'/func/checkTimeDiff.php';
 
+    $answerId = 0;
+
     // セッションの開始
     session_start();
 
@@ -194,9 +196,12 @@ EOS ;
       </div>
     </div>
 EOS ;
-      }
+$answerId = $result["answer_id"] > $answerId ? $result["answer_id"] : $answerId;
     }
+    // 非同期で使う変数の定義
+    echo "<script>let answerId = " . $answerId . "</script>";
   ?>
+
     <div class="content answer">
       <h2 class="subtitle mt-6">回答する</h2>
       <form action="#" method="get">
@@ -210,6 +215,8 @@ EOS ;
   </div>
 </section>
 
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -249,5 +256,6 @@ EOS ;
         })
     })
 </script>
+
 </body>
 </html>
