@@ -56,10 +56,7 @@
   $view = hsc($results[0]["question_view"]);
   $detail = hsc($results[0]["question_detail"]);
 
-  // $detail = preg_replace("/(\'){3})/", '<pre><code class="language-">', $detail);
-  // $detail = preg_replace("/(\'){4})/", '</code></pre>', $detail);
-
-  $pattern = "/(`{3}\S+\r\n)|(`{3})/";
+  $pattern = "/(`{3}\S+(\r\n|\n))|(`{3})/";
 
   $cnt = 0;
 
@@ -67,14 +64,18 @@
       $pattern, 
       function($matches) {
         global $cnt;
-        // echo $matches[0];
         preg_match('/`{3}\S+\r\n/', $matches[0], $date_match);
         $date_match = isset($date_match[0]) ? $date_match[0] : "";
         $date_match = str_replace("```", "", $date_match);
         $date_match = str_replace("\r\n", "", $date_match);
+        $date_match = str_replace("\n", "", $date_match);
         return $cnt++ % 2 == 0 ? '<pre><code class="language-' . $date_match . '">' : "</pre></code>";
       }, 
     $detail);
+  if ($cnt % 2 == 1) {
+    $cnt++;
+    $detail = $detail . "</pre></code>";
+  }
 
   echo <<< "EOS"
 <div>
@@ -105,9 +106,18 @@ EOS ;
       $pattern, 
       function($matches) {
         global $cnt;
-        return $cnt++ % 2 == 0 ? '<pre><code class="language-">' : "</pre></code>";
+        preg_match('/`{3}\S+(\r\n|\n)/', $matches[0], $date_match);
+        $date_match = isset($date_match[0]) ? $date_match[0] : "";
+        $date_match = str_replace("```", "", $date_match);
+        $date_match = str_replace("\r\n", "", $date_match);
+        $date_match = str_replace("\n", "", $date_match);
+        return $cnt++ % 2 == 0 ? '<pre><code class="language-' . $date_match . '">' : "</pre></code>";
       }, 
     $answerDetail);
+    if ($cnt % 2 == 1) {
+      $cnt++;
+      $answerDetail = $answerDetail . "</pre></code>";
+    }
     echo <<<"EOS"
 <div>
 <h3>回答者: {$ansUser}  {$best}</h3>
