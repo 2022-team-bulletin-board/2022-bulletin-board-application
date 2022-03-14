@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!--  css-link  -->
     <link rel="stylesheet" href="./css/framework/bulma/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
 
     <link rel="stylesheet" href="./css/color.css">
     <link rel="stylesheet" href="./css/postQuestion.css">
@@ -32,7 +32,7 @@
                 <h2 class="subtitle has-text-left control is-size-4 mb-3">本文</h2>
             </div>
             <div class="control content">
-                <textarea id="simpleMDE" name="" cols="30" rows="10"></textarea>
+                <textarea id="easyMDE" name="" cols="30" rows="10"></textarea>
             </div>
         </div>
 <!--        tag input area-->
@@ -54,12 +54,11 @@
     </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script>
-    let simpleMDE = new SimpleMDE({
-        element: document.getElementById('simpleMDE')
+    let easyMDE = new EasyMDE({
+        element: document.getElementById('easyMDE')
     });
-
 </script>
 </body>
 </html>
