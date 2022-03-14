@@ -59,16 +59,20 @@
   // $detail = preg_replace("/(\'){3})/", '<pre><code class="language-">', $detail);
   // $detail = preg_replace("/(\'){4})/", '</code></pre>', $detail);
 
-  $pattern = "/`{3}/";
+  $pattern = "/(`{3}\S+\r\n)|(`{3})/";
 
   $cnt = 0;
-
 
   $detail = preg_replace_callback(
       $pattern, 
       function($matches) {
         global $cnt;
-        return $cnt++ % 2 == 0 ? '<pre><code class="language-">' : "</pre></code>";
+        // echo $matches[0];
+        preg_match('/`{3}\S+\r\n/', $matches[0], $date_match);
+        $date_match = isset($date_match[0]) ? $date_match[0] : "";
+        $date_match = str_replace("```", "", $date_match);
+        $date_match = str_replace("\r\n", "", $date_match);
+        return $cnt++ % 2 == 0 ? '<pre><code class="language-' . $date_match . '">' : "</pre></code>";
       }, 
     $detail);
 

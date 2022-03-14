@@ -43,32 +43,35 @@ $(function () {
       url: 'db/selectAnswer.php',
       type: 'POST',
       dataType: "json",
-      data: {answerId: answerId},
-      success: function(data) {
+      data: {
+        answerId: answerId,
+        question_id: params.get("question_id")
+      },
+      success: function (data) {
         // console.log(answerId)
-        if(data.length !== 0){
+        if (data.length !== 0) {
           // dom操作
           data.forEach(value => {
-          if (value.answer_id != answerId){
-            let trJQ_r = $('<div></div>').appendTo(answerdiv);
-            let cnt = 0;
-            for(let element in value){
-              if (cnt++ === 0) {
-                continue;
-              } else if (cnt++ === 1){
-                $('<h3>' + value[element] + '</h3>').appendTo(trJQ_r);   
-              } else {
-                $('<p>' + value[element] + '</p>').appendTo(trJQ_r);  
+            if (value.answer_id != answerId) {
+              let trJQ_r = $('<div></div>').appendTo(answerdiv);
+              let cnt = 0;
+              for (let element in value) {
+                if (cnt++ === 0) {
+                  continue;
+                } else if (cnt++ === 1) {
+                  $('<h3>' + value[element] + '</h3>').appendTo(trJQ_r);
+                } else {
+                  $('<p>' + value[element] + '</p>').appendTo(trJQ_r);
+                }
               }
+              $('body').append(answerdiv);
             }
-            $('body').append(answerdiv);
-          }
-        });
+          });
         }
-      
-        if(data.length > 0){
+
+        if (data.length > 0) {
           // console.log("新しく増えたよ")
-          answerId = data[data.length-1].answer_id;
+          answerId = data[data.length - 1].answer_id;
           // console.log(answerId);
         }
       },
