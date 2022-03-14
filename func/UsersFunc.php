@@ -6,6 +6,7 @@
   // ・ランダムな文字列を生成する
   // ・ハッシュ化
     // ログイン処理を書く際にも使えるので使ってみてください
+  // ・htmlspecialcharsの実行
 
   include dirname(__FILE__).'/sendMail.php';
 

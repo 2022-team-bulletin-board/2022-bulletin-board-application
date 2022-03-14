@@ -1,5 +1,6 @@
 <?php
     require_once dirname(__FILE__).'/db/question.php';
+    require_once dirname(__FILE__).'/func/UsersFunc.php';
 
     $answerId = 0;
 
@@ -49,14 +50,36 @@
 <body>
   <?php
   $updateDate = isset($results[0]["question_update"]) ? $results[0]["question_update"] : "更新ナシ";
+  $title = hsc($results[0]["question_title"]);
+  $quName = hsc($results[0]["qu_name"]);
+  $quCreated = hsc($results[0]["question_created"]);
+  $view = hsc($results[0]["question_view"]);
+  $detail = hsc($results[0]["question_detail"]);
+
+  // $detail = preg_replace("/(\'){3})/", '<pre><code class="language-">', $detail);
+  // $detail = preg_replace("/(\'){4})/", '</code></pre>', $detail);
+
+  $pattern = "/`{3}/";
+
+  $cnt = 0;
+
+
+  $detail = preg_replace_callback(
+      $pattern, 
+      function($matches) {
+        global $cnt;
+        return $cnt++ % 2 == 0 ? '<pre><code class="language-">' : "</pre></code>";
+      }, 
+    $detail);
+
   echo <<< "EOS"
 <div>
-<h2>title: {$results[0]["question_title"]}</h2>
-<p>投稿者名: {$results[0]["qu_name"]}</p>
-<p>投稿日時: {$results[0]["question_created"]}</p>
+<h2>title: {$title}</h2>
+<p>投稿者名: {$quName}</p>
+<p>投稿日時: {$quCreated}</p>
 <p>更新日時: {$updateDate}</p>
-<p>閲覧数: {$results[0]["question_view"]}</p>
-<p>質問詳細: {$results[0]["question_detail"]}</p>
+<p>閲覧数: {$view}</p>
+<p>質問詳細: {$detail}</p>
 </div>
 EOS ;
 ?>
