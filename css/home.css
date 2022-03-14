@@ -95,6 +95,10 @@ section {
   border-radius: 5px;
 }
 
+.my-list .tag {
+  font-size: 0.7rem;
+}
+
 .tag.answer-count {
   color: #368749;
   border: 1px solid#368749;
