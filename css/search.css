@@ -35,6 +35,9 @@ section {
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .question-content {
