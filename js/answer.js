@@ -3,6 +3,9 @@ const url = new URL(window.location.href)
 // URLSearchParamsオブジェクトを取得
 const params = url.searchParams;
 
+// 正規表現のパターンの定義
+const regex = /(`{3}\S+(\r\n|\n))|(`{3})/;
+
 // コメントと追加していくdomの取得
 const answerdiv = document.getElementById("answer-div");
 
@@ -55,13 +58,23 @@ $(function () {
             if (value.answer_id != answerId) {
               let trJQ_r = $('<div></div>').appendTo(answerdiv);
               let cnt = 0;
+              let codeCnt = 0;
               for (let element in value) {
+                // console.log(value[element]);
+                var text = value[element];
                 if (cnt++ === 0) {
                   continue;
-                } else if (cnt++ === 1) {
-                  $('<h3>' + value[element] + '</h3>').appendTo(trJQ_r);
                 } else {
-                  $('<p>' + value[element] + '</p>').appendTo(trJQ_r);
+                  var bar = text.match(regex);
+                  if (bar?.[0]) {
+                    var language = bar[0].replace("```", "");
+                    language = language.replace("\r\n", "");
+                    language = language.replace("\n", "");
+                    // console.log(language);
+                    text = text.replace(bar[0], '<pre class="language-' + language + '"><code class="language-' + language + '">');
+                    text = text.replace("```", "</code></pre>");
+                  }
+                  $('<p>' + text + '</p>').appendTo(trJQ_r);
                 }
               }
               $('body').append(answerdiv);
