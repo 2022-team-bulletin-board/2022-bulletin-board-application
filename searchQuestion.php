@@ -8,7 +8,7 @@
     $keyword = htmlspecialchars($_GET["search_word"]);
     $results = searchQuestionWithWord($keyword);
     $size = count($results);
-    $result_text = $size > 0 ? "${$size}件ヒットしました。" : "見つかりませんでした。";
+    $result_text = $size > 0 ? "${size}件ヒットしました。" : "見つかりませんでした。";
   } else {
     header("Location:index.php");
   } 
@@ -31,7 +31,7 @@
   <main>
     <section id="">
       <div class="container">
-        <div class="search-result-text"><?php echo "「${keyword}」"?>の検索結果：<?php echo $size > 0 ? $size.'件ヒットしました。' : '見つかりませんでした。'?></div>
+        <div class="search-result-text"><?php echo "「${keyword}」"?>の検索結果：<?php echo $result_text; ?></div>
       
         <ul class="searched-list">
           <?php foreach($results as $result):?>
