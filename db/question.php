@@ -71,11 +71,12 @@ EOF ;
       //sql文作成
       $sql = "select q.question_id,q.question_title,q.question_detail,q.question_created,q.question_bestanswer,COUNT(ans.answer_id) as answer_count FROM question as q
       left outer join answer as ans on q.question_id = ans.question_id
-      where ( q.question_title like :keyword or q.question_detail like :keyword ) and q.delete_flag = 0
+      where ( q.question_title like :keyword1 or q.question_detail like :keyword2 ) and q.delete_flag = 0
       group by q.question_id, q.question_title, q.question_detail, q.question_created, q.question_bestanswer;";
 
       $stmt = $pdo->prepare($sql);
-      $stmt->bindValue(':keyword','%'.$search_word.'%', PDO::PARAM_STR);
+      $stmt->bindValue(':keyword1','%'.$search_word.'%', PDO::PARAM_STR);
+      $stmt->bindValue(':keyword2','%'.$search_word.'%', PDO::PARAM_STR);
 
       $stmt->execute();
       $result = $stmt->fetchall(PDO::FETCH_ASSOC);
