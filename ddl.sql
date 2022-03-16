@@ -13,7 +13,7 @@ CREATE TABLE users (
   admin_flag boolean DEFAULT false
 );
 -- 管理者のアカウントのみ最初からいれる
-INSERT INTO users VALUES(null, "admin", "sample@jp.com", "2ba1a731ccf5fd0865fa58e9dd335b4f409734d41f31a638f9f28cbbd7acaf80", "qwertyuisdfg", false, true);
+INSERT INTO users VALUES(null, "admin", "sample@jp.com", "339ff53caac9a14a40f2e7cb7de73a00e6535a9caede80bd929bd6dc077c8506", "qwertyuisdfg", false, true);
 
 -- 追加機能用に閲覧数・ベストアンサーをつけておく
 create table question(
