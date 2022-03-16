@@ -36,7 +36,7 @@
         <ul class="searched-list">
           <?php foreach($results as $result):?>
           <li class="searched-item">
-            <a href="#">
+            <a href="/2022-bulletin-board-application/DetailQuestion.php?question_id=<?php echo $result['question_id']; ?>">
               <h3 class="question-title"><?php echo $result['question_title']; ?></h3>
             </a>
             <p class="question-content"><?php echo $result['question_detail']; ?></p>
