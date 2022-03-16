@@ -18,8 +18,10 @@
                     if($judge["admin_flag"] == 1){
                         $_SESSION["user_id"] = $judge["user_id"];
                         $_SESSION["admin_id"] = true;
+                        header('Location: home.php');
                     } else {
                         $_SESSION["user_id"] = $judge["user_id"];
+                        header('Location: home.php');
                     }
                 } else {
                     echo '<p class="error-text">ログインに失敗しました。<br>パスワードが間違っています。</p>';
@@ -39,38 +41,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="text/javascript" src="js/login.js"></script>
     <title>morijyobi</title>
 </head>
 
 <body>
-    <form action="index.php" method="post">
-    <div align="center">
-        <h1>ログイン</h1>
-        <table border="0">
-            <tr>
-                <th>
-                    mail address
-                </th>
-                <td>
-                    <input type="text" id="mail" name="mail" value="sample@jp.com">
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    password
-                </th>
-                <td>
-                    <input type="password" id="password" name="password" value="morijyobi2021">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" id="login" value="ログイン" disabled="true">
-                </td>
-            </tr>
-        </table>
+<form class="login" action="index.php" method="post">
+  <fieldset>
+  	<legend class="legend">Login</legend>
+    <div class="input">
+    	<input type="email" id="mail" name="mail" placeholder="Email" required />
+      <span><i class="fa fa-envelope"></i></span>
     </div>
+    <div class="input">
+    	<input type="password" id="password" name="password" placeholder="Password" required />
+      <span><i class="fa fa-lock"></i></span>
+    </div>
+    <button type="submit" id="login" class="submit" disabled="true"><i class="fa fa-long-arrow-right"></i></button>
+  </fieldset>
 </form>
 </body>
 </html>
