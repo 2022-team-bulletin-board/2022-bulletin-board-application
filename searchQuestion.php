@@ -4,7 +4,7 @@
 
   require_once dirname(__FILE__).'/db/question.php';
 
-  if (isset($_GET["search_word"]) && $_GET["search_word"] !== "" ) {
+  if (isset($_GET["search_word"]) ) {
     $keyword = htmlspecialchars($_GET["search_word"]);
     $results = searchQuestionWithWord($keyword);
     $size = count($results);
@@ -31,7 +31,7 @@
   <main>
     <section id="">
       <div class="container">
-        <div class="search-result-text"><?php echo "「${keyword}」"?>の検索結果：<?php echo $result_text; ?></div>
+        <div class="search-result-text"><?php echo $keyword === '' ? '' : "「${keyword}」の検索結果：${result_text}"?></div>
       
         <ul class="searched-list">
           <?php foreach($results as $result):?>
