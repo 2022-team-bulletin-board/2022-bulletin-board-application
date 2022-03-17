@@ -82,7 +82,7 @@ questionViewAdd($question_id);
 
     echo <<< "EOS"
     <h1 class="title is-medium has-text-left">
-      {$results[0]["question_title"]}
+      {$title}
     </h1>
     <!--    ユーザー情報の表示部分   -->
     <div class="content columns is-mobile is-multiline mt-4 userInfo">
@@ -91,7 +91,7 @@ questionViewAdd($question_id);
       </figure>
       <div class="column pb-0 userInfoDiv">
         <p class="is-size-6-widescreen is-size-7-mobile mb-0">
-          {$results[0]["qu_name"]}
+          {$quName}
         </p>
         <div class="columns questionDateWrapper is-mobile">
           <p class="column is-3 is-offset-7-widescreen is-offset-6
@@ -108,7 +108,7 @@ questionViewAdd($question_id);
         <div class="columns is-mobile">
           <p class="has-text-right column mb-0 py-0 is-2 is-offset-8-widescreen is-offset-8">閲覧数</p>
           <p class="has-text-centered mb-0 pt-0 column is-2">
-            <span>{$results[0]["question_view"]}</span>回
+            <span>{$view}</span>回
           </p>
         </div>
       </div>
@@ -116,7 +116,7 @@ questionViewAdd($question_id);
 
     <div class="content question">
       <div id="questionTextArea" class="p-4">
-        {$results[0]["question_detail"]}
+        {$detail}
       </div>
       <div id="questionTagArea" class="px-4 tags mt-3">
 <!--        <span class="tag is-link is-light">タグの</span>-->
@@ -149,12 +149,10 @@ questionViewAdd($question_id);
     </div>
     <div class="content answer mb-6">
       <h2 class="subtitle mt-6">回答する</h2>
-      <form action="#" method="get">
-        <textarea name="Answer" id="Answer"></textarea>
-        <button class="button is-large mt-5 mb-6 customButton answerButton">
+        <textarea name="answer" id="Answer"></textarea>
+        <button class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn">
           回答を投稿
         </button>
-      </form>
     </div>
 
 EOS;
@@ -209,7 +207,7 @@ EOS;
         </div>
       </div>
       <div class="py-4 px-6 answerTextArea">
-        {$result["answer_detail"]}
+        {$answerDetail}
       </div>
       <div class="columns answerDateWrapper mb-5 is-mobile">
         <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
@@ -241,7 +239,7 @@ EOS;
         </div>
       </div>
       <div class="py-4 px-6 answerTextArea">
-        {$result["answer_detail"]}
+        {$answerDetail}
       </div>
       <div class="columns answerDateWrapper mb-5 is-mobile">
         <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
@@ -267,42 +265,6 @@ EOS;
 <script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script>
-    window.addEventListener('DOMContentLoaded', () => {
-        const easyMDE = new EasyMDE({
-            element: document.getElementById('Answer'),
-            maxHeight: "200px"
-        });
-
-        const questionEditMDE = new EasyMDE({
-            element: document.getElementById('questionEditArea')
-        })
-
-
-        const modal = document.getElementById('questionEditModal');
-        document.getElementById('questionEdit').addEventListener('click', () => {
-            openModal(modal);
-        });
-
-        document.getElementById('questionEditModalClose').addEventListener('click', () => {
-            closeModal(modal);
-        })
-
-        function openModal($el) {
-            $el.classList.add('is-active');
-        }
-
-        function closeModal($el) {
-            $el.classList.remove('is-active');
-        }
-
-        document.addEventListener('keydown', (event) => {
-            const e = event || window.event;
-
-            if (e.keyCode === 27) {
-                closeModal(modal);
-            }
-        })
-    })
 </script>
 
 </body>
