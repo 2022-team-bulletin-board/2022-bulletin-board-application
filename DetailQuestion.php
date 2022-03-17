@@ -86,11 +86,12 @@ questionViewAdd($question_id);
       <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
           {$results[0]["question_title"]}
       </h1>
-      <span class="icon is-small" style="float: right; margin-top: 15px; font-family: 'Font Awesome 5 free';"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
+<!--      質問者にのみ表示するアイコン-->
+      <span class="icon is-small titleIcon" data-view="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
     
     <form action="" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
-      <input type="text" class="input is-8 mr-3">
+      <input type="text" class="input is-8 mr-3" value="{$results[0]['question_title']}">
       <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit">保存</button>
       <button type="submit" class="button is-small is-1 toggleTitleEdit">破棄</button>
     </form>
@@ -135,8 +136,18 @@ questionViewAdd($question_id);
 <!--        <span class="tag is-link is-light">表示される</span>-->
       </div>
       <div class="columns is-mobile is-vcentered">
-        <div class="column">
-          <button id="questionEdit" class="button is-medium is-link is-inverted">編集</button>
+<!--        質問者にのみ、編集、削除ボタンを表示する-->
+<!--        非表示にする際は、↓ の div を data-view="false" にする-->
+        <div class="column is-grouped questionEditButtonGroup" data-view="true">
+          <button class="button is-link is-inverted mr-3 modalButton"
+                  data-modal-field="questionEditModal">
+            <span class="icon"><i class="fas fa-edit"></i></span>
+            <span>編集</span>
+          </button>
+          <button class="button is-danger modalButton" data-modal-field="questionDeleteModal">
+            <span class="icon"><i class="fas fa-trash-alt"></i></span>
+            <span>削除</span>
+          </button>
         </div>
         <div id="questionEditModal" class="modal">
           <div class="modal-background"></div>
@@ -147,8 +158,26 @@ questionViewAdd($question_id);
               <button class="button mt-5 is-medium customButton">編集を確定する</button>
             </form>
           </div>
-          <button id="questionEditModalClose" class="modal-close is-large" aria-label="close"></button>
+          <button id="questionEditModalClose" class="modal-close is-large modalCloseButton"
+                  aria-label="close" data-modal-field="questionEditModal"></button>
         </div>
+        <div id="questionDeleteModal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">本当に削除しますか？</p>
+              <button class="delete modalCloseButton" data-modal-field="questionDeleteModal" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              なんか削除することでのデメリットとかここに書きます。
+            </section>
+              <footer class="modal-card-foot">
+                <button class="button is-danger modalCloseButton" data-modal-field="questionDeleteModal">削除</button>
+                <button class="button modalCloseButton" data-modal-field="questionDeleteModal">戻る</button>
+              </footer>
+          </div>
+        </div>
+        
         <div class="columns questionDateWrapper is-mobile">
           <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
           <p class="has-text-left column is-3 has-text-right">
@@ -161,7 +190,7 @@ questionViewAdd($question_id);
       <h2 class="subtitle mt-6">回答する</h2>
       <form action="" method="get">
         <textarea name="Answer" id="Answer"></textarea>
-        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="answerButton">
+        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton">
           回答を投稿
         </button>
       </form>
@@ -276,7 +305,7 @@ EOS;
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
-<script src="js/viewEditTitle.js"></script>
+<script src="js/viewToggle.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const easyMDE = new EasyMDE({
@@ -286,36 +315,6 @@ EOS;
 
         const questionEditMDE = new EasyMDE({
             element: document.getElementById('questionEditArea')
-        })
-
-        const button = document.getElementById('answerButton').addEventListener('click', () => {
-            console.log(easyMDE.value());
-        });
-
-
-        const modal = document.getElementById('questionEditModal');
-        document.getElementById('questionEdit').addEventListener('click', () => {
-            openModal(modal);
-        });
-
-        document.getElementById('questionEditModalClose').addEventListener('click', () => {
-            closeModal(modal);
-        })
-
-        function openModal($el) {
-            $el.classList.add('is-active');
-        }
-
-        function closeModal($el) {
-            $el.classList.remove('is-active');
-        }
-
-        document.addEventListener('keydown', (event) => {
-            const e = event || window.event;
-
-            if (e.keyCode === 27) {
-                closeModal(modal);
-            }
         })
     })
 </script>
