@@ -8,6 +8,12 @@
           }
     }
 
+    class EmptyValue extends Exception {
+        public function __construct(){
+            $this->message = '<p class="error-text">値が見つかりませんでした。<br>もう一度入力をお願いします。</p>';
+          }
+    }
+
     try {
         if(isset($_POST["mail"]) && isset($_POST["password"])) {
             if($_POST["mail"] && $_POST["password"]){
@@ -35,11 +41,15 @@
                 } else {
                     throw new NotFoundValue();
                 }
-            };
-        };
+            } else {
+                throw new EmptyValue();
+            }
+        } 
     } catch(NotFoundValue $v){
         echo $v->getMessage();
-    };
+    } catch(EmptyValue $v){
+        echo $v->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
