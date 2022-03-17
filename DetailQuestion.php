@@ -40,7 +40,7 @@ questionViewAdd($question_id);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/prism.css">
-  <link rel="stylesheet" href="./css/bulma/css/bulma.min.css">
+  <link rel="stylesheet" href="./css/framework/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
   <script src="js/prism.js"></script>
@@ -147,11 +147,20 @@ questionViewAdd($question_id);
         </div>
       </div>
     </div>
+    <div class="content answer mb-6">
+      <h2 class="subtitle mt-6">回答する</h2>
+      <form action="#" method="get">
+        <textarea name="Answer" id="Answer"></textarea>
+        <button class="button is-large mt-5 mb-6 customButton answerButton">
+          回答を投稿
+        </button>
+      </form>
+    </div>
 
 EOS;
     if ($results[0]["ans_cnt"] !== 0) {
       $answerCount = count($results);
-      echo "<h2 class=\"subtitle mt-6\">${answerCount}件の回答</h2>";
+      echo "<h2 class=\"subtitle mt-6 answerTitle\">${answerCount}件の回答</h2>";
       foreach ($results as $result) {
         $answerId = hsc($result["answer_id"] > $answerId ? $result["answer_id"] : $answerId);
         $ansUpdate = isset($result["answer_update"]) ? checkDiffTime($result["answer_update"]) : "更新ナシ";
@@ -226,7 +235,7 @@ EOS;
           <div class="columns questionDateWrapper is-mobile">
             <p class="has-text-left column is-3 has-text-right is-offset-6 is-offset-7-widescreen">質問日時</p>
             <p class="has-text-left column is-3 has-text-right">
-              {$result["answer_date"]}
+              {$answerDate}
             </p>
           </div>
         </div>
@@ -251,15 +260,6 @@ EOS;
     echo "<script>let answerId = " . $answerId . "</script>";
     ?>
 
-    <div class="content answer">
-      <h2 class="subtitle mt-6">回答する</h2>
-      <form action="#" method="get">
-        <textarea name="Answer" id="Answer"></textarea>
-        <button class="button is-large mt-5 mb-6 customButton answerButton">
-          回答を投稿
-        </button>
-      </form>
-    </div>
   </div>
 </section>
 
