@@ -2,8 +2,8 @@
     <div class="header-wrapper">
       <h1>bulletin borad app</h1>
       <div class="search-box">
-        <input type="search" name="question_id" placeholder="検索したいワードを入力してください">
-        <form action="#" method="GET" id="search-form">
+        <form action="searchQuestion.php" method="GET" id="search-form">
+          <input type="search" name="search_word" placeholder="検索したいワードを入力してください">
           <button type="submit" class="btn search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
