@@ -62,6 +62,31 @@ EOF ;
       echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
     }
   }
+  
+  // 質問検索用
+  function searchQuestionWithWord($search_word) {
+    include dirname(__FILE__).'/userConnetcion.php';
+
+    try {
+      //sql文作成
+      $sql = "select q.question_id,q.question_title,q.question_detail,q.question_created,q.question_bestanswer,COUNT(ans.answer_id) as answer_count from question as q
+      left outer join(select * from answer where user_id not in (select user_id from users where delete_flag = 1)) as ans on q.question_id = ans.question_id
+      where ( q.question_title like :keyword1 or q.question_detail like :keyword2 ) and q.delete_flag = 0
+      group by q.question_id, q.question_title, q.question_detail, q.question_created, q.question_bestanswer;";
+
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':keyword1','%'.$search_word.'%', PDO::PARAM_STR);
+      $stmt->bindValue(':keyword2','%'.$search_word.'%', PDO::PARAM_STR);
+
+      $stmt->execute();
+      $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return $result;
+
+    } catch(PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
 
   // 質問投稿処理
   function insertQuestion($userId, $title, $detail) {
