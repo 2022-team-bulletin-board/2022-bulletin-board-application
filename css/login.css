@@ -23,7 +23,8 @@
   .login {
     position: relative;
     top: 50%;
-    width: 250px;
+    width: 40%;
+    max-width: 400px;
     display: table;
     margin: -150px auto 0 auto;
     background: #fff;
@@ -35,26 +36,14 @@
     width: 100%;
     display: block;
     background: #ff7052;
-    padding: 15px;
+    padding: 10px;
     color: #fff;
     font-size: 20px;
-  }
-  .legend:after {
-    content: "";
-    background-size: 100px 100px;
-    background-repeat: no-repeat;
-    background-position: 152px -16px;
-    opacity: 0.06;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    position: absolute;
   }
   
   .input {
     position: relative;
-    width: 90%;
+    width: 100%;
     margin: 15px auto;
   }
   .input span {
