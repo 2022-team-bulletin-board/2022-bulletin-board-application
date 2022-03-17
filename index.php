@@ -10,16 +10,15 @@
 
     try {
         if(isset($_POST["mail"]) && isset($_POST["password"])) {
-            if($_POST["mail"] == true && $_POST["password"] == true){
-                $_SESSION["mail"] = $_POST["mail"];
-                
+            if($_POST["mail"] && $_POST["password"]){
                 $password = $_POST["password"];
+                $mail = $_POST["mail"];
                 
-                $salt = selectUserSalt($_SESSION["mail"]);
+                $salt = selectUserSalt($mail);
                 if($salt != "mailfail"){
                     $hashPw = hash256($password, $salt["student_salt"]);
     
-                    $judge = selectUser($_SESSION["mail"], $hashPw);
+                    $judge = selectUser($mail, $hashPw);
                 
                     if($judge != "passwordfail"){
                         if($judge["admin_flag"] == 1){
@@ -61,15 +60,15 @@
   <fieldset>
   	<legend class="legend">Login</legend>
     <div class="input">
-    	<input type="email" id="mail" name="mail" placeholder="Email" 
-            value="<?php echo isset($_POST["mail"]) ? $_SESSION["mail"] : ""; ?>" required />
+    	<input type="email" id="mail" name="mail" placeholder="Email" tabindex="1" 
+            value="<?php echo isset($_POST["mail"]) ? $_POST["mail"]: ""; ?>" required />
       <span><i class="fa fa-envelope"></i></span>
     </div>
     <div class="input">
-    	<input type="password" id="password" name="password" placeholder="Password" required />
+    	<input type="password" id="password" name="password" placeholder="Password" tabindex="2" required />
       <span><i class="fa fa-lock"></i></span>
     </div>
-    <button type="submit" id="login" class="submit" disabled="true"><i class="fa fa-long-arrow-right"></i></button>
+    <button type="submit" id="login" class="submit" tabindex="3"><i class="fa fa-long-arrow-right"></i></button>
   </fieldset>
 </form>
 </body>
