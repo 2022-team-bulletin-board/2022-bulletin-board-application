@@ -7,7 +7,8 @@
     <title>ユーザー情報変更画面</title>
 </head>
 <body>
-    <button type="submit" id="name" class="submit"><i class="fa fa-long-arrow-right"></i></button>
-    <button type="submit" id="password" class="submit"><i class="fa fa-long-arrow-right"></i></button>
+    <h1>どちらの情報を変更しますか？</h1>
+    <button type="submit" id="name" class="submit">名前</button>
+    <button type="submit" id="password" class="submit" span="20">パスワード</button>
 </body>
 </html>
