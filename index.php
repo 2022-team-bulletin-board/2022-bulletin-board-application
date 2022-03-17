@@ -2,34 +2,44 @@
     include 'header.php';
     require_once dirname(__FILE__).'/db/UserDb.php';
     require_once dirname(__FILE__).'/func/UsersFunc.php';
+    class NotFoundValue extends Exception {
+        public function __construct(){
+            $this->message = '<p class="error-text">ログインに失敗しました。<br>メールアドレスかパスワードが間違っています。</p>';
+          }
+    }
 
-    if(isset($_POST["mail"]) && isset($_POST["password"])) {
-        if($_POST["mail"] == true && $_POST["password"] == true){
-            $mail = $_POST["mail"];
-            $password = $_POST["password"];
-
-            $salt = selectUserSalt($mail);
-            if($salt != "mailfail"){
-                $hashPw = hash256($password, $salt["student_salt"]);
-
-                $judge = selectUser($mail, $hashPw);
-            
-                if($judge != "passwordfail"){
-                    if($judge["admin_flag"] == 1){
-                        $_SESSION["user_id"] = $judge["user_id"];
-                        $_SESSION["admin_id"] = true;
-                        header('Location: home.php');
+    try {
+        if(isset($_POST["mail"]) && isset($_POST["password"])) {
+            if($_POST["mail"] == true && $_POST["password"] == true){
+                $_SESSION["mail"] = $_POST["mail"];
+                
+                $password = $_POST["password"];
+                
+                $salt = selectUserSalt($_SESSION["mail"]);
+                if($salt != "mailfail"){
+                    $hashPw = hash256($password, $salt["student_salt"]);
+    
+                    $judge = selectUser($_SESSION["mail"], $hashPw);
+                
+                    if($judge != "passwordfail"){
+                        if($judge["admin_flag"] == 1){
+                            $_SESSION["user_id"] = $judge["user_id"];
+                            $_SESSION["admin_id"] = true;
+                            header('Location: home.php');
+                        } else {
+                            $_SESSION["user_id"] = $judge["user_id"];
+                            header('Location: home.php');
+                        }
                     } else {
-                        $_SESSION["user_id"] = $judge["user_id"];
-                        header('Location: home.php');
+                        throw new NotFoundValue();
                     }
                 } else {
-                    echo '<p class="error-text">ログインに失敗しました。<br>パスワードが間違っています。</p>';
+                    throw new NotFoundValue();
                 }
-            } else {
-                echo '<p class="error-text">ログインに失敗しました。<br>メールアドレスが間違っています。';
-            }
+            };
         };
+    } catch(NotFoundValue $v){
+        echo $v->getMessage();
     };
 ?>
 
@@ -51,7 +61,8 @@
   <fieldset>
   	<legend class="legend">Login</legend>
     <div class="input">
-    	<input type="email" id="mail" name="mail" placeholder="Email" required />
+    	<input type="email" id="mail" name="mail" placeholder="Email" 
+            value="<?php echo isset($_POST["mail"]) ? $_SESSION["mail"] : ""; ?>" required />
       <span><i class="fa fa-envelope"></i></span>
     </div>
     <div class="input">
