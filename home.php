@@ -4,14 +4,6 @@
 
   require_once dirname(__FILE__).'/db/question.php';
 
-  // if (isset($_GET["search_word"]) && $_GET["search_word"] !== "" ) {
-  //   $keyword = htmlspecialchars($_GET["search_word"]);
-  //   $size = count($results);
-  //   $result_text = $size > 0 ? "${$size}件ヒットしました。" : "見つかりませんでした。";
-  // } else {
-  //   header("Location:index.php");
-  // } 
-
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +22,6 @@
   <main>
     <section id="home">
       <div class="container">
-        <!-- <div class="search-result-text"><?php echo "「${keyword}」"?>の検索結果：<?php echo $size > 0 ? $size.'件ヒットしました。' : '見つかりませんでした。'?></div> -->
         <div class="home-inner-wrapper">
           <div class="latest-list-container">
             <div class="top-title">最新の質問</div>
