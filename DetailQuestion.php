@@ -43,6 +43,7 @@ questionViewAdd($question_id);
   <link rel="stylesheet" href="./css/framework/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
   <script src="js/prism.js"></script>
 
   <title>質問詳細</title>
@@ -81,9 +82,18 @@ questionViewAdd($question_id);
     }
 
     echo <<< "EOS"
-    <h1 class="title is-medium has-text-left">
-      {$results[0]["question_title"]}
-    </h1>
+    <div id="questionTitleView" class="columns icon-text toggleTitle" data-view="true">
+      <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
+          {$results[0]["question_title"]}
+      </h1>
+      <span class="icon is-small" style="float: right; margin-top: 15px; font-family: 'Font Awesome 5 free';"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
+    </div>
+    
+    <form action="" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
+      <input type="text" class="input is-8 mr-3">
+      <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit">保存</button>
+      <button type="submit" class="button is-small is-1 toggleTitleEdit">破棄</button>
+    </form>
     <!--    ユーザー情報の表示部分   -->
     <div class="content columns is-mobile is-multiline mt-4 userInfo">
       <figure class="image is-64x64 is-vcentered">
@@ -126,7 +136,7 @@ questionViewAdd($question_id);
       </div>
       <div class="columns is-mobile is-vcentered">
         <div class="column">
-          <button id="questionEdit" class="button is-small is-link is-inverted">編集</button>
+          <button id="questionEdit" class="button is-medium is-link is-inverted">編集</button>
         </div>
         <div id="questionEditModal" class="modal">
           <div class="modal-background"></div>
@@ -149,9 +159,9 @@ questionViewAdd($question_id);
     </div>
     <div class="content answer mb-6">
       <h2 class="subtitle mt-6">回答する</h2>
-      <form action="#" method="get">
+      <form action="" method="get">
         <textarea name="Answer" id="Answer"></textarea>
-        <button class="button is-large mt-5 mb-6 customButton answerButton">
+        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="answerButton">
           回答を投稿
         </button>
       </form>
@@ -266,6 +276,7 @@ EOS;
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script src="js/viewEditTitle.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
         const easyMDE = new EasyMDE({
@@ -276,6 +287,10 @@ EOS;
         const questionEditMDE = new EasyMDE({
             element: document.getElementById('questionEditArea')
         })
+
+        const button = document.getElementById('answerButton').addEventListener('click', () => {
+            console.log(easyMDE.value());
+        });
 
 
         const modal = document.getElementById('questionEditModal');

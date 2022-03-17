@@ -1,3 +1,11 @@
+.toggleTitle[data-view='true'] {
+    display: flex;
+}
+
+.toggleTitle[data-view='false'] {
+    display: none;
+}
+
 .customButton {
     border-color: #707070;
     box-shadow: 3px 4px 6px #888888;
