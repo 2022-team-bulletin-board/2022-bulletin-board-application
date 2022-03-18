@@ -1,37 +1,37 @@
 <?php
-require_once dirname(__FILE__) . '/db/question.php';
-require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
-require_once dirname(__FILE__) . '/func/UsersFunc.php';
+  require_once dirname(__FILE__) . '/db/question.php';
+  require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
+  require_once dirname(__FILE__) . '/func/UsersFunc.php';
 
-$answerId = 0;
+  $answerId = 0;
 
-// セッションの開始
-session_start();
+  // セッションの開始
+  session_start();
 
-// if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
-//     isset($_GET["question_id"]) && $_GET["question_id"] !== ""
-//   ) {
+  if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
+      isset($_GET["question_id"]) && $_GET["question_id"] !== ""
+    ) {
 
-// セッションからユーザーidの取り出し
-// $user_id = $_SESSION["user_id"];
+  // セッションからユーザーidの取り出し
+  $user_id = $_SESSION["user_id"];
 
-// getからquestion_idの取り出し
-$question_id = $_GET["question_id"];
-// question.phpのdetailQuestionを呼び出し、結果を取得
-$results = detailQuestion($question_id);
-// resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
-if (count($results) === 0) {
-  header("Location:notFoundError.php");
-}
+  // getからquestion_idの取り出し
+  $question_id = $_GET["question_id"];
+  // question.phpのdetailQuestionを呼び出し、結果を取得
+  $results = detailQuestion($question_id);
+  // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
+  if (count($results) === 0) {
+    header("Location:notFoundError.php");
+  }
 
-// question_idの存在が確認できたので閲覧数の追加
-questionViewAdd($question_id);
+  // question_idの存在が確認できたので閲覧数の追加
+  questionViewAdd($question_id);
 
 
-// } else {
-//   header("Location:index.php");
-//   exit();
-// }
+  } else {
+    header("Location:index.php");
+    exit();
+  }
 ?>
 <!doctype html>
 <html lang="ja">

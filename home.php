@@ -1,14 +1,16 @@
 <?php 
+  session_start();
+
+  var_dump($_SESSION);
 
   // if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "") {
-    session_start();
 
-    require_once dirname(__FILE__).'/db/question.php';
-    require_once dirname(__FILE__).'/func/UsersFunc.php';
+  //   require_once dirname(__FILE__).'/db/question.php';
+  //   require_once dirname(__FILE__).'/func/UsersFunc.php';
 
-    $results = selectRecommendedQuestion();
-    $userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : 1;
-    $myResults = selectMyQuestion($userId);
+  //   $results = selectRecommendedQuestion();
+  //   $userId = $_SESSION["user_id"];
+  //   $myResults = selectMyQuestion($userId);
   // } else {
   //   header("Location:index.php");
   //   exit();
