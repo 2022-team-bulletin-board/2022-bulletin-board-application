@@ -22,30 +22,30 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
 
-    const modal = document.getElementById('questionEditModal');
-    document.getElementById('questionEdit').addEventListener('click', () => {
-      openModal(modal);
-    });
+    // const modal = document.getElementById('questionEditModal');
+    // document.getElementById('questionEdit').addEventListener('click', () => {
+    //   openModal(modal);
+    // });
 
-    document.getElementById('questionEditModalClose').addEventListener('click', () => {
-      closeModal(modal);
-    })
+    // document.getElementById('questionEditModalClose').addEventListener('click', () => {
+    //   closeModal(modal);
+    // })
 
-    function openModal($el) {
-      $el.classList.add('is-active');
-    }
+    // function openModal($el) {
+    //   $el.classList.add('is-active');
+    // }
 
-    function closeModal($el) {
-      $el.classList.remove('is-active');
-    }
+    // function closeModal($el) {
+    //   $el.classList.remove('is-active');
+    // }
 
-    document.addEventListener('keydown', (event) => {
-      const e = event || window.event;
+    // document.addEventListener('keydown', (event) => {
+    //   const e = event || window.event;
 
-      if (e.keyCode === 27) {
-        closeModal(modal);
-      }
-    })
+    //   if (e.keyCode === 27) {
+    //     closeModal(modal);
+    //   }
+    // })
 
     $('#ans_btn').on('click', () => {
       let value = easyMDE.value();

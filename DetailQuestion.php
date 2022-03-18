@@ -188,9 +188,8 @@ questionViewAdd($question_id);
     </div>
     <div class="content answer mb-6">
       <h2 class="subtitle mt-6">回答する</h2>
-      <form action="" method="get">
         <textarea name="Answer" id="Answer"></textarea>
-        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton">
+        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn">
           回答を投稿
         </button>
     </div>
