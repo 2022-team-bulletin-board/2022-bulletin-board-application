@@ -4,7 +4,7 @@
   require_once dirname(__FILE__).'/db/question.php';
 
   // ログイン済みかの確認
-  // if (isset($_SESSION["user_id"] && $_SESSION["user_id"] !== "") {
+  if (isset($_SESSION["user_id"] && $_SESSION["user_id"] !== "") {
 
     // 質問投稿機能の実装
     // postにデータがあり、titleは100文字以内・詳細は空白ではなく、リロード対策用のhidden文字列がセッションの値と同じなら登録処理を実行する
@@ -14,7 +14,7 @@
       $detail = $_POST["detail"];
 
       // 登録処理用テスト用変数
-      $userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : "1" ;
+      $userId = $_SESSION["user_id"];
       insertQuestion($userId, $title, $detail);
 
       $questionId = latestUserQuestion($userId);
@@ -32,10 +32,10 @@
     $_SESSION["randomStr"] = $randomStr;
 
   // ログインしていないならindexに遷移
-  // } else {
-    // header("Location:index.php");
-    // exit();
-  // }
+  } else {
+    header("Location:index.php");
+    exit();
+  }
 ?>
 <!doctype html>
 <html lang="ja">

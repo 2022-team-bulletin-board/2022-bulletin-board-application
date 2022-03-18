@@ -15,7 +15,7 @@
       // sql分の構築
       $sql = "select q.question_id,q.question_title,q.question_detail,q.question_created,q.question_bestanswer,COUNT(ans.answer_id) as answer_count from question as q
       left outer join(select * from answer where user_id not in (select user_id from users where delete_flag = 1)) as ans on q.question_id = ans.question_id
-      where q.delete_flag = 0 and q.question_created >= (NOW() - INTERVAL 7 DAY) and q.user_id = 1
+      where q.delete_flag = 0 and q.question_created >= (NOW() - INTERVAL 7 DAY) and q.user_id = :id
       group by q.question_id, q.question_title, q.question_detail, q.question_created, q.question_bestanswer
       order by q.question_created desc";
 
