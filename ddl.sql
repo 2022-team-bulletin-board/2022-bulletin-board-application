@@ -8,7 +8,7 @@ CREATE TABLE users (
   student_name VARCHAR(50) NOT NULL,
   student_mail VARCHAR(255) NOT NULL UNIQUE,
   student_pass VARCHAR(64) NOT NULL,
-  student_salt VARCHAR(20) NOT NULL,
+  student_salt VARCHAR(19) NOT NULL,
   delete_flag boolean DEFAULT false,
   admin_flag boolean DEFAULT false
 );
@@ -43,16 +43,20 @@ create table answer(
 ALTER TABLE question ADD FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
 
 # 一般ユーザーの作成(select, insert, update, delete)
-CREATE USER 'student'@'localhost' IDENTIFIED BY '@Morijyobi2021';
+CREATE USER 'student'@'localhost' IDENTIFIED BY '@Morijyobi1921';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.answer to 'student'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.question to 'student'@'localhost';
 GRANT SELECT, UPDATE ON bba.users to 'student'@'localhost';
 
 # 管理者の作成(select, insert, update, delete)
-CREATE USER 'admin'@'localhost' IDENTIFIED BY '@Morijyobi2021';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '@Morijyobi1921';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.answer to 'admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.question to 'admin'@'localhost';
 GRANT SELECT, UPDATE, DELETE, INSERT ON bba.users to 'admin'@'localhost';
+
+-- EXECUTE権限の追加
+CREATE USER 'EXECUTE_USER'@'localhost' IDENTIFIED BY '@Morijyobi1921';
+GRANT EXECUTE ON bba.* to 'EXECUTE_USER'@'localhost';
 
 -- サンプルデータ挿入
 
@@ -66,3 +70,36 @@ insert into answer(user_id, question_id, answer_detail) values( (select max(user
 
 -- 回答テーブルと質問テーブルのために新たに制約を追加
 -- ALTER TABLE question Add FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
+
+DELIMITER //
+CREATE PROCEDURE answer_insert_func(IN question_id_ins int, IN user_id_ins int, IN answer_detail_ins TEXT)
+BEGIN
+   if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 0 
+	THEN insert into answer(question_id, user_id, answer_detail) values(question_id_ins, user_id_ins, answer_detail_ins);
+   ELSE select "自分の投稿";
+   END IF;
+END 
+//
+DELIMITER ;
+
+-- 実行例
+-- call answer_insert_func(19, 2, "a");
+
+select (select count(*) from answer WHERE question_id = 19) as ans_cnt, q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view, question_bestanswer, 
+q_u.user_id as qu_id, q_u.student_name as qu_name,
+q_a.user_id as qa_id, q_a.student_name as qa_name,
+a.answer_detail, a.answer_date, a.answer_update, a.answer_id
+from question as q
+left outer join users as q_u on q.user_id = q_u.user_id
+left outer join answer as a on a.question_id = q.question_id
+left outer join (
+    select * from users where delete_flag = 0
+  ) as q_a on q_a.user_id = a.user_id
+where 
+((q_a.user_id is not null or (select count(*) from answer WHERE question_id = 19) = 0) or q.question_bestanswer = a.answer_id) and
+q.question_id = 19 and
+q.delete_flag = 0 and
+q_u.user_id is not null
+order by a.answer_id = q.question_bestanswer desc, a.answer_date 
+
+DROP PROCEDURE IF EXISTS func;
