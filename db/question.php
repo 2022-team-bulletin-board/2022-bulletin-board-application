@@ -23,7 +23,7 @@
       // 実行
       $res = $stmt->execute();
       $result = $stmt->fetchall(PDO::FETCH_ASSOC);
-      return $result;
+      return count($result) == 0 ? null : $result;
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
       echo "dbの実行に失敗しました。管理者への連絡をお願いします。";

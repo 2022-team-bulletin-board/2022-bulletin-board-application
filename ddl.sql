@@ -95,8 +95,7 @@ CREATE PROCEDURE question_title_update_func(IN question_id_ins int, IN user_id_i
 BEGIN
    if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 1
 	  THEN 
-      UPDATE question SET question_title = title WHERE question_id = question_id_ins;
-      SELECT "更新完了" as result;
+      UPDATE question SET question_title = title, question_update = NOW() WHERE question_id = question_id_ins;
     ELSE 
       select "不正を検知" as result;
   END IF;

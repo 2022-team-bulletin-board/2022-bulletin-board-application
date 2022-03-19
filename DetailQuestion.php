@@ -8,8 +8,6 @@
   // セッションの開始
   session_start();
 
-  var_dump($_SESSION);
-
   if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
       isset($_GET["question_id"]) && $_GET["question_id"] !== ""
     ) {
@@ -17,6 +15,7 @@
     if (isset($_SESSION["update_result"])) {
       $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
       echo $alert;
+      unset($_SESSION["update_result"]);
     }
 
     // セッションからユーザーidの取り出し
@@ -93,15 +92,23 @@
       <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
           {$title}
       </h1>
+EOS ;
+if ($results[0]["qu_id"] == $user_id) {
+        echo <<< "EOS"
 <!--      質問者にのみ表示するアイコン-->
       <span class="icon is-small titleIcon" data-view="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
-    
-    <form action="./func/updateQuestionTitle.php" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
+      <form action="./func/updateQuestionTitle.php" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
       <input type="text" class="input is-8 mr-3" name="title" value="{$title}">
       <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit" name="question_id" value="{$question_id}">保存</button>
       <button type="submit" class="button is-small is-1 toggleTitleEdit">破棄</button>
     </form>
+EOS;
+    } else {
+      echo "</div>";
+    }
+
+    echo <<< "EOS"
     <!--    ユーザー情報の表示部分   -->
     <div class="content columns is-mobile is-multiline mt-4 userInfo">
       <figure class="image is-64x64 is-vcentered">
@@ -143,6 +150,9 @@
 <!--        <span class="tag is-link is-light">表示される</span>-->
       </div>
       <div class="columns is-mobile is-vcentered">
+EOS ;
+if ($results[0]["qu_id"] == $user_id) {
+  echo <<< "EOS"
 <!--        質問者にのみ、編集、削除ボタンを表示する-->
 <!--        非表示にする際は、↓ の div を data-view="false" にする-->
         <div class="column is-grouped questionEditButtonGroup" data-view="true">
@@ -184,6 +194,10 @@
               </footer>
           </div>
         </div>
+EOS ;
+}
+
+echo <<< "EOS"
         
         <div class="columns questionDateWrapper is-mobile">
           <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
