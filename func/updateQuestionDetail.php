@@ -13,8 +13,6 @@
   // セッションからユーザーidの取り出し
   $userId = $_SESSION["user_id"];
 
-  var_dump($_POST);
-
   // postからdetail, idの取り出し
   $detail = $_POST["detail"];
   $questionId = $_POST["question_id"];
