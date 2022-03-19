@@ -105,3 +105,20 @@ DELIMITER ;
 
 -- 実行例
 -- call answer_insert_func(1, 1, "更新サンプル");
+
+-- 自分の投稿以外のdetailを編集させないためのプロシージャ
+DELIMITER //
+CREATE PROCEDURE question_detail_update_func(IN question_id_ins int, IN user_id_ins int, IN detail TEXT)
+BEGIN
+   if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 1
+	  THEN 
+      UPDATE question SET question_detail = detail, question_update = NOW() WHERE question_id = question_id_ins;
+    ELSE 
+      select "不正を検知" as result;
+  END IF;
+END 
+//
+DELIMITER ;
+
+-- 実行例
+-- call answer_insert_func(1, 1, "更新サンプル");

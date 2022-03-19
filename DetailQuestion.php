@@ -170,9 +170,9 @@ if ($results[0]["qu_id"] == $user_id) {
           <div class="modal-background"></div>
           <div class="modal-content px-4 py-5">
             <h2 class="subtitle">質問の編集</h2>
-            <form action="func/updateQuestionDetail.php">
-              <textarea name="" id="questionEditArea" cols="30" rows="10">{$detail}</textarea>
-              <button class="button mt-5 is-medium customButton">編集を確定する</button>
+            <form action="./func/updateQuestionDetail.php" method="POST">
+              <textarea name="detail" id="questionEditArea" cols="30" rows="10">{$detail}</textarea>
+              <button class="button mt-5 is-medium customButton" name="question_id" value="{$question_id}">編集を確定する</button>
             </form>
           </div>
           <button id="questionEditModalClose" class="modal-close is-large modalCloseButton"
