@@ -19,11 +19,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const questionEditMDE = new EasyMDE({
       element: document.getElementById('questionEditArea')
-    })
-
+    });
 
     // const modal = document.getElementById('questionEditModal');
-    // document.getElementById('questionEdit').addEventListener('click', () => {
+    // document.getElementById('questionEditArea').addEventListener('click', () => {
     //   openModal(modal);
     // });
 

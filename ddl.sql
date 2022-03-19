@@ -71,35 +71,38 @@ insert into answer(user_id, question_id, answer_detail) values( (select max(user
 -- 回答テーブルと質問テーブルのために新たに制約を追加
 -- ALTER TABLE question Add FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
 
+-- 回答をインサートする際に、質問が自分の投稿かを参照し自分のなら実行しない
 DELIMITER //
 CREATE PROCEDURE answer_insert_func(IN question_id_ins int, IN user_id_ins int, IN answer_detail_ins TEXT)
 BEGIN
    if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 0 
-	THEN insert into answer(question_id, user_id, answer_detail) values(question_id_ins, user_id_ins, answer_detail_ins);
-   ELSE select "自分の投稿";
-   END IF;
+	  THEN 
+      insert into answer(question_id, user_id, answer_detail) values(question_id_ins, user_id_ins, answer_detail_ins);
+    ELSE 
+      select "自分の投稿";
+  END IF;
 END 
 //
 DELIMITER ;
 
 -- 実行例
 -- call answer_insert_func(19, 2, "a");
+-- DROP PROCEDURE IF EXISTS プロシージャ名;
 
-select (select count(*) from answer WHERE question_id = 19) as ans_cnt, q.question_id, q.question_title, q.question_detail, q.question_created, q.question_update, q.question_view, question_bestanswer, 
-q_u.user_id as qu_id, q_u.student_name as qu_name,
-q_a.user_id as qa_id, q_a.student_name as qa_name,
-a.answer_detail, a.answer_date, a.answer_update, a.answer_id
-from question as q
-left outer join users as q_u on q.user_id = q_u.user_id
-left outer join answer as a on a.question_id = q.question_id
-left outer join (
-    select * from users where delete_flag = 0
-  ) as q_a on q_a.user_id = a.user_id
-where 
-((q_a.user_id is not null or (select count(*) from answer WHERE question_id = 19) = 0) or q.question_bestanswer = a.answer_id) and
-q.question_id = 19 and
-q.delete_flag = 0 and
-q_u.user_id is not null
-order by a.answer_id = q.question_bestanswer desc, a.answer_date 
+-- 自分の投稿以外のtitleを編集させないためのプロシージャ
+DELIMITER //
+CREATE PROCEDURE question_title_update_func(IN question_id_ins int, IN user_id_ins int, IN title VARCHAR(100))
+BEGIN
+   if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 1
+	  THEN 
+      UPDATE question SET question_title = title WHERE question_id = question_id_ins;
+      SELECT "更新完了" as result;
+    ELSE 
+      select "不正を検知" as result;
+  END IF;
+END 
+//
+DELIMITER ;
 
-DROP PROCEDURE IF EXISTS func;
+-- 実行例
+-- call answer_insert_func(1, 1, "更新サンプル");

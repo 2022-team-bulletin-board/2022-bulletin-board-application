@@ -8,24 +8,31 @@
   // セッションの開始
   session_start();
 
+  var_dump($_SESSION);
+
   if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
       isset($_GET["question_id"]) && $_GET["question_id"] !== ""
     ) {
 
-  // セッションからユーザーidの取り出し
-  $user_id = $_SESSION["user_id"];
+    if (isset($_SESSION["update_result"])) {
+      $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
+      echo $alert;
+    }
 
-  // getからquestion_idの取り出し
-  $question_id = $_GET["question_id"];
-  // question.phpのdetailQuestionを呼び出し、結果を取得
-  $results = detailQuestion($question_id);
-  // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
-  if (count($results) === 0) {
-    header("Location:notFoundError.php");
-  }
+    // セッションからユーザーidの取り出し
+    $user_id = $_SESSION["user_id"];
 
-  // question_idの存在が確認できたので閲覧数の追加
-  questionViewAdd($question_id);
+    // getからquestion_idの取り出し
+    $question_id = $_GET["question_id"];
+    // question.phpのdetailQuestionを呼び出し、結果を取得
+    $results = detailQuestion($question_id);
+    // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
+    if (count($results) === 0) {
+      header("Location:notFoundError.php");
+    }
+
+    // question_idの存在が確認できたので閲覧数の追加
+    questionViewAdd($question_id);
 
 
   } else {
@@ -64,7 +71,7 @@
 
     $cnt = 0;
 
-    $detail = preg_replace_callback(
+    $detail2 = preg_replace_callback(
       $pattern,
       function ($matches) {
         global $cnt;
@@ -78,7 +85,7 @@
       $detail);
     if ($cnt % 2 == 1) {
       $cnt++;
-      $detail = $detail . "</pre></code>";
+      $detail2 = $detail2 . "</pre></code>";
     }
 
     echo <<< "EOS"
@@ -90,9 +97,9 @@
       <span class="icon is-small titleIcon" data-view="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
     
-    <form action="" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
-      <input type="text" class="input is-8 mr-3" value="{$results[0]['question_title']}">
-      <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit">保存</button>
+    <form action="./func/updateQuestionTitle.php" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
+      <input type="text" class="input is-8 mr-3" name="title" value="{$title}">
+      <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit" name="question_id" value="{$question_id}">保存</button>
       <button type="submit" class="button is-small is-1 toggleTitleEdit">破棄</button>
     </form>
     <!--    ユーザー情報の表示部分   -->
@@ -127,7 +134,7 @@
 
     <div class="content question">
       <div id="questionTextArea" class="p-4">
-        {$detail}
+        {$detail2}
       </div>
       <div id="questionTagArea" class="px-4 tags mt-3">
 <!--        <span class="tag is-link is-light">タグの</span>-->
@@ -153,8 +160,8 @@
           <div class="modal-background"></div>
           <div class="modal-content px-4 py-5">
             <h2 class="subtitle">質問の編集</h2>
-            <form action="">
-              <textarea name="" id="questionEditArea" cols="30" rows="10"></textarea>
+            <form action="func/updateQuestionDetail.php">
+              <textarea name="" id="questionEditArea" cols="30" rows="10">{$detail}</textarea>
               <button class="button mt-5 is-medium customButton">編集を確定する</button>
             </form>
           </div>
