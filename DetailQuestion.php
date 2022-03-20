@@ -189,7 +189,7 @@ if ($results[0]["qu_id"] == $user_id) {
               なんか削除することでのデメリットとかここに書きます。
             </section>
               <footer class="modal-card-foot">
-                <button class="button is-danger modalCloseButton" data-modal-field="questionDeleteModal">削除</button>
+                <button class="button is-danger modalCloseButton" data-modal-field="questionDeleteModal" onclick="location.href='./func/deleteQuestion.php?question_id={$question_id}'">削除</button>
                 <button class="button modalCloseButton" data-modal-field="questionDeleteModal">戻る</button>
               </footer>
           </div>

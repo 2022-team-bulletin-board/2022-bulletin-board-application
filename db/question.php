@@ -10,6 +10,26 @@
     // titleの編集: titleUpdate
     // detailの編集: detailUpdate
 
+    function deleteQuestion($userId, $questionId) {
+      include dirname(__FILE__).'/executeUserconnection.php';
+      try {
+        // sql分の構築
+        $sql = "call question_delete_func(:question_id, :user_id)";
+      
+        // pdoのインスタンス化
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':question_id', $questionId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        // 実行
+        $res = $stmt->execute();
+        $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+        return count($result) == 0 ? null : $result;
+      } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+        echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+      }
+    }
+
   function detailUpdate($userId, $questionId, $detail) {
     include dirname(__FILE__).'/executeUserconnection.php';
     try {

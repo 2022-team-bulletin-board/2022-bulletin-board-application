@@ -122,3 +122,27 @@ DELIMITER ;
 
 -- 実行例
 -- call answer_insert_func(1, 1, "更新サンプル");
+
+-- 自分の投稿以外を削除させないためのプロシージャ
+DELIMITER //
+CREATE PROCEDURE question_delete_func(IN question_id_ins int, IN user_id_ins int)
+BEGIN
+   if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 1
+	  THEN 
+      -- question_idが不正値でないことは確認済みのため、user_idの比較は行わない
+      if (SELECT count(*) from question where question_bestanswer is not null and question_id = question_id_ins) = 0
+        THEN
+          UPDATE question SET delete_flag = 1 WHERE question_id = question_id_ins;
+          DELETE FROM answer WHERE question_id = question_id_ins;
+        ELSE
+          SELECT "ベストアンサーが決まっているため、削除不可です。" as result;
+      END IF;
+    ELSE 
+      select "不正を検知" as result;
+  END IF;
+END 
+//
+DELIMITER ;
+
+-- 実行例
+-- call answer_insert_func(1, 1, "更新サンプル");
