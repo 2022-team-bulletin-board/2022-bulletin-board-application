@@ -40,4 +40,5 @@
         </ul>
       </nav>
     </div>
+    <script src="./js/header.js"></script>
   </header>

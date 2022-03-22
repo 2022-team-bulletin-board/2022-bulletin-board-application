@@ -102,28 +102,35 @@ li {
 .menu-btn span,
 .menu-btn span:before,
 .menu-btn span:after {
-    content: '';
-    display: block;
-    height: 3px;
-    width: 25px;
-    border-radius: 3px;
-    background-color: #707070;
-    position: absolute;
-}
-.menu-btn span:before {
-    bottom: 8px;
-}
-.menu-btn span:after {
-    top: 8px;
+  content: '';
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #707070;
+  position: absolute;
+  transition: 0.4s;
 }
 
-.sp-nav.active .menu-btn span:before {
+.menu-btn span:before {
+  bottom: 8px;
+}
+
+.menu-btn span:after {
+  top: 8px;
+}
+
+.menu-btn.active span {
+  background: transparent;
+}
+
+.menu-btn.active span:before {
   bottom: 0;
 	transform: rotate(135deg);
 }
 
-.sp-nav.active .menu-btn span::after {
-  bottom: 0;
+.menu-btn.active span::after {
+  top: 0;
 	transform: rotate(-135deg);
 }
 
