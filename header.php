@@ -15,5 +15,29 @@
         <a href="./home.php" class="header-link">ホーム</a>
         <a href="./logout.php" class="header-link">ログアウト</a>
       </div>
+      <div class="humburger-menu">
+        <div class="menu-btn">
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="sp-nav">
+
+      <nav class="drawer-content">
+        <ul class="drawer-menu">
+          <li class="drawer-menu-item">
+            <a href="./postQuestion.php">質問する</a>
+          </li>
+          <li class="drawer-menu-item">
+            <a href="./changeUserInfo.php">ユーザー情報</a>
+          </li>
+          <li class="drawer-menu-item">
+            <a href="./home.php">ホーム</a>
+          </li>
+          <li class="drawer-menu-item">
+            <a href="./logout.php">ログアウト</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </header>
