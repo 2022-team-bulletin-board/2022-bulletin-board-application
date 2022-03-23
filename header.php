@@ -1,6 +1,6 @@
 <header class="header">
     <div class="header-wrapper">
-      <h1>bulletin borad app</h1>
+      <a href="./home.php"><h1>bulletin borad app</h1></a>
       <div class="search-box">
         <form action="searchQuestion.php" method="GET" id="search-form">
           <input type="search" name="search_word" placeholder="検索したいワードを入力してください">
