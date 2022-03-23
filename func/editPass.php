@@ -16,11 +16,11 @@
 
     updatePass($userId, $pw);
     // 遷移先は任意でお願いします。
-    header("Location:home.php");
+    header("Location:../home.php");
     exit();
   } else {
     // 遷移先は任意でお願いします。
-    header("Location:index.php");
+    header("Location:../index.php");
     exit();
   }
 ?>
