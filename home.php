@@ -56,9 +56,9 @@
                       </span>
                     <?php endif; ?>
                     <!-- タグをつける場合ここで繰り返し 下記はダミー　-->
-                    <span class="tag">Java</span>
+                    <!-- <span class="tag">Java</span>
                     <span class="tag">PHP</span>
-                    <span class="tag">基本情報技術者試験</span>
+                    <span class="tag">基本情報技術者試験</span> -->
                   </div>
                   <span class="answered-date">投稿日時：<?php echo $result['question_created'];?></span>
                 </div>
