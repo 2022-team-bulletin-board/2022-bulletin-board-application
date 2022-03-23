@@ -7,6 +7,9 @@
   <title>Document</title>
 </head>
 <body>
+  <!-- 誰かデザインよろしく..... -->
   <p>アクセスしようとしたページは現在ご覧になれません</p>
+  <a href="#" onclick="history.back(-1);return false;">前のページに戻る</a>
+  
 </body>
 </html>

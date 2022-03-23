@@ -1,0 +1,96 @@
+.toggleTitle[data-view='true'] {
+    display: flex;
+}
+
+.toggleTitle[data-view='false'] {
+    display: none;
+}
+
+.titleIcon[data-view='true'] {
+    float: right;
+    margin-top: 15px;
+    font-family: 'Font Awesome 5 free';
+}
+
+.titleIcon[data-view='false'] {
+    display: none;
+}
+
+.questionEditButtonGroup[data-view='true'] {
+    display: contents;
+}
+
+.questionEditButtonGroup[data-view='false'] {
+    display: none;
+}
+
+/*===================================================*/
+
+.customButton {
+    border-color: #707070;
+    box-shadow: 3px 4px 6px #888888;
+}
+
+.customButton:hover {
+    background-color: #707070;
+    color: white;
+    transition: all .3s 0s ease;
+}
+
+
+.userInfo, .answerUserInfo {
+    border-bottom: solid 1px #888787;
+}
+
+.userInfo .image {
+    margin: auto;
+}
+
+.userInfoHeight .image {
+    margin-bottom: 0!important;
+}
+
+.answerUserInfo .image {
+    margin: auto;
+}
+
+.userInfoDiv {
+    height: 70px;
+}
+
+.questionDate {
+    display: flex;
+    align-items: flex-end;
+    float: right;
+}
+
+.questionDateWrapper, .answerDateWrapper {
+    width: 100%;
+}
+
+.modal-content {
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+.modal-content .button {
+    float: right;
+}
+
+.answerButton {
+    float: right;
+}
+
+.answerTitle {
+    display: inline-block;
+}
+
+/* easyMDE */
+.EasyMDEContainer {
+    box-shadow: 1px 1px 4px #888888;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.editor-toolbar {
+    background-color: #f0f8ff;
+}
