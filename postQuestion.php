@@ -72,8 +72,29 @@
         <div class="control">
           <h2 class="subtitle has-text-left control is-size-4 mb-3">本文</h2>
         </div>
-        <div class="control content">
-          <textarea id="simpleMDE" name="detail" cols="30" rows="10"></textarea>
+        <div class="field">
+            <div class="control">
+                <h2 class="subtitle has-text-left control is-size-4 mb-3">本文</h2>
+            </div>
+            <div class="control content">
+                <textarea id="simpleMDE" name="detail" cols="30" rows="10"></textarea>
+            </div>
+        </div>
+<!--        tag input area-->
+<!--        <div class="field">-->
+<!--            <div class="control">-->
+<!--                <h2 class="subtitle has-text-left control is-size-4 mb-3">タグ</h2>-->
+<!--            </div>-->
+<!--            <div class="control">-->
+<!--                <input-->
+<!--                        type="text"-->
+<!--                        class="input is-expanded"-->
+<!--                >-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        end area-->
+        <div class="field has-text-right">
+            <button id="postButton" class="button is-large">質問する</button>
         </div>
       </div>
       <input type="hidden" name="hidden-filed" value=<?php echo $randomStr; ?>>
@@ -97,12 +118,12 @@
     </div>
   </section>
 
-  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-  <script>
-    let simpleMDE = new SimpleMDE({
-      element: document.getElementById('simpleMDE')
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script>
+    let easyMDE = new EasyMDE({
+        element: document.getElementById('simpleMDE')
     });
-  </script>
+</script>
 </body>
 
 </html>
