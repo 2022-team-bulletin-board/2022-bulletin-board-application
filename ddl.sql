@@ -8,7 +8,7 @@ CREATE TABLE users (
   student_name VARCHAR(50) NOT NULL,
   student_mail VARCHAR(255) NOT NULL UNIQUE,
   student_pass VARCHAR(64) NOT NULL,
-  student_salt VARCHAR(19) NOT NULL,
+  student_salt VARCHAR(30) NOT NULL,
   delete_flag boolean DEFAULT false,
   admin_flag boolean DEFAULT false
 );
