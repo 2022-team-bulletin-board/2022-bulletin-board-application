@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const changedPwFirst = document.getElementById('changedPwFirst');
     const changedPwSecond = document.getElementById('changedPwSecond');
 
+    // エラーテキスト表示用
+    const nameValueError = document.getElementById('nameValueError');
+    const pwValueError = document.getElementById('pwValueError');
+
     // ポップアップの×ボタン
     const clearNameBtn = document.getElementById('clearNameBtn');
     const clearPwBtn = document.getElementById('clearPwBtn');
@@ -32,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearNameBtn.addEventListener('click', () => {
         nameContainer.classList.remove('show');
+        nameValueError.classList.remove('show');
     })
 
     // 名前変更の実行ボタンが押されたとき
@@ -39,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(changedName.value != ""){
             changeNameForm.submit();
         } else {
-            // 空の場合のエラーメッセージ
+            nameValueError.classList.add('show');
         }
     })
 
@@ -50,21 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearPwBtn.addEventListener('click', () => {
         pwContainer.classList.remove('show');
+        pwValueError.classList.remove('show');
     })
 
     changedPwFirst.addEventListener('blur', ()=> {
         if(changedPwSecond.value != ""){
             if(changedPwFirst.value != changedPwSecond.value){
-                // 一致していないメッセージ
+                pwValueError.classList.add('show');
             }
         }
     })
 
-    changedPwSecond.addEventListener('blur', ()=> {
+    changedPwSecond.addEventListener('input', ()=> {
         if(changedPwFirst.value != changedPwSecond.value){
-            // 一致していないメッセージ
-        } else {
-
+            pwValueError.classList.add('show');
         }
     })
 });
