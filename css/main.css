@@ -25,7 +25,6 @@ li {
 }
 
 /* header */
-
 .header {
   width: 100%;
   padding: 10px 30px;
@@ -48,7 +47,7 @@ li {
   text-transform: capitalize;
 }
 
-.search-box form{
+.search-box form {
   min-width: 320px;
   display: flex;
 }
@@ -63,6 +62,11 @@ li {
   border: 1px solid #707070;
 }
 
+.search-box.sp {
+  display: none;
+  margin-bottom: 10px;
+}
+
 .btn.search {
   display: inline-block;
   border: none;
@@ -70,7 +74,7 @@ li {
   padding: 5px;
 }
 
-.btn.search i  {
+.btn.search i {
   font-size: 1.5rem;
   color: #707070;
   cursor: pointer;
@@ -80,6 +84,10 @@ li {
   display: flex;
 }
 
+.links-box.bottom {
+  display: none;
+}
+
 .header-link {
   margin-right: 15px;
   color: #707070;
@@ -87,6 +95,10 @@ li {
 
 .header-link:last-of-type {
   margin-right: 0;
+}
+
+.header-bottom {
+  display: none;
 }
 
 /* ハンバーガーメニュー＆ドロワー */
@@ -102,6 +114,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .menu-btn span,
@@ -125,43 +138,33 @@ li {
   top: 8px;
 }
 
-.menu-btn.active span {
-  background: transparent;
-}
-
-.menu-btn.active span:before {
-  bottom: 0;
-	transform: rotate(135deg);
-}
-
-.menu-btn.active span::after {
-  top: 0;
-	transform: rotate(-135deg);
-}
-
-.drawer-content {
-  width: 300px;
-  height: calc(100vh - 80px);
-  position: fixed;
-  top: 80px;
-  right: 0;
-  background: rgb(160, 160, 160);
-  transform: translateX(100%);
-  transition: 0.4s;
-}
-
-.sp-nav.active .drawer-content {
-  transform: translateX(0);
-}
-
-
 @media screen and (max-width: 1024px) {
   .links-box {
     display: none;
   }
 
-  /* ハンバーガーメニュー */
+  .links-box.sp {
+    display: flex;
+    font-size: 1.1rem;
+  }
+
   .humburger-menu {
     display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-box {
+    display: none;
+  }
+
+  .search-box.sp {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .links-box.sp {
+    font-size: 14px;
   }
 }
