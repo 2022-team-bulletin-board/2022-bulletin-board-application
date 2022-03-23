@@ -1,0 +1,51 @@
+* {
+  transition: all 0.6s;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  color: #888;
+  margin: 0;
+}
+
+#main {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+.fof {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.fof a {
+  font-size: 50px;
+  color: hsl(0deg 0% 53%);
+  text-decoration: none;
+  display: inline-block;
+  padding-right: 12px;
+  animation: type .5s alternate infinite;
+}
+
+@keyframes type {
+  from {
+    box-shadow: inset -3px 0px 0px #888;
+  }
+  to {
+    box-shadow: inset -3px 0px 0px transparent;
+  }
+}
+
+/*
+  Copyright (c) june 16, 2016 Akash Rajendra (@akashrajendra)
+  Released under the MIT license
+  http://opensource.org/licenses/mit-license.php
+*/
+
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAiY3NzLzQweC5jc3MiLAoJInNvdXJjZXMiOiBbCgkJImNzcy9zY3NzLzQweC5zY3NzIgoJXSwKCSJzb3VyY2VzQ29udGVudCI6IFsKCQkiKntcclxuICB0cmFuc2l0aW9uOiBhbGwgMC42cztcclxufVxyXG5cclxuaHRtbCB7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG59XHJcblxyXG5ib2R5e1xyXG4gIGZvbnQtZmFtaWx5OiAnTGF0bycsIHNhbnMtc2VyaWY7XHJcbiAgY29sb3I6ICM4ODg7XHJcbiAgbWFyZ2luOiAwO1xyXG59XHJcblxyXG4jbWFpbntcclxuICBkaXNwbGF5OiB0YWJsZTtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDEwMHZoO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLmZvZntcclxuICBkaXNwbGF5OiB0YWJsZS1jZWxsO1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbn1cclxuXHJcbi5mb2YgaDF7XHJcbiAgZm9udC1zaXplOiA1MHB4O1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBwYWRkaW5nLXJpZ2h0OiAxMnB4O1xyXG4gIGFuaW1hdGlvbjogdHlwZSAuNXMgYWx0ZXJuYXRlIGluZmluaXRlO1xyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIHR5cGV7XHJcbiAgZnJvbXtib3gtc2hhZG93OiBpbnNldCAtM3B4IDBweCAwcHggIzg4ODt9XHJcbiAgdG97Ym94LXNoYWRvdzogaW5zZXQgLTNweCAwcHggMHB4IHRyYW5zcGFyZW50O31cclxufVxyXG5cclxuLypcclxuICBDb3B5cmlnaHQgKGMpIGp1bmUgMTYsIDIwMTYgQWthc2ggUmFqZW5kcmEgKEBha2FzaHJhamVuZHJhKVxyXG4gIFJlbGVhc2VkIHVuZGVyIHRoZSBNSVQgbGljZW5zZVxyXG4gIGh0dHA6Ly9vcGVuc291cmNlLm9yZy9saWNlbnNlcy9taXQtbGljZW5zZS5waHBcclxuKi8iCgldLAoJIm5hbWVzIjogW10sCgkibWFwcGluZ3MiOiAiQUFBQSxBQUFBLENBQUMsQ0FBQTtFQUNDLFVBQVUsRUFBRSxRQUFRO0NBQ3JCOztBQUVELEFBQUEsSUFBSSxDQUFDO0VBQ0gsTUFBTSxFQUFFLElBQUk7Q0FDYjs7QUFFRCxBQUFBLElBQUksQ0FBQTtFQUNGLFdBQVcsRUFBRSxrQkFBa0I7RUFDL0IsS0FBSyxFQUFFLElBQUk7RUFDWCxNQUFNLEVBQUUsQ0FBQztDQUNWOztBQUVELEFBQUEsS0FBSyxDQUFBO0VBQ0gsT0FBTyxFQUFFLEtBQUs7RUFDZCxLQUFLLEVBQUUsSUFBSTtFQUNYLE1BQU0sRUFBRSxLQUFLO0VBQ2IsVUFBVSxFQUFFLE1BQU07Q0FDbkI7O0FBRUQsQUFBQSxJQUFJLENBQUE7RUFDRixPQUFPLEVBQUUsVUFBVTtFQUNuQixjQUFjLEVBQUUsTUFBTTtDQUN2Qjs7QUFFRCxBQUFBLElBQUksQ0FBQyxFQUFFLENBQUE7RUFDTCxTQUFTLEVBQUUsSUFBSTtFQUNmLE9BQU8sRUFBRSxZQUFZO0VBQ3JCLGFBQWEsRUFBRSxJQUFJO0VBQ25CLFNBQVMsRUFBRSwyQkFBMkI7Q0FDdkM7O0FBRUQsVUFBVSxDQUFWLElBQVU7RUFDUixJQUFJO0lBQUMsVUFBVSxFQUFFLHVCQUF1Qjs7RUFDeEMsRUFBRTtJQUFDLFVBQVUsRUFBRSw4QkFBOEI7Ozs7QUFHL0M7Ozs7RUFJRSIKfQ== */
