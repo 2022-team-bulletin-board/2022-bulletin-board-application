@@ -5,7 +5,7 @@
     include 'header.php';
 
     try{
-        if(isset($_SESSION["user_id"]) && $_SESSION["admin_id"] == true){
+        if(isset($_SESSION["user_id"])){
             if(isset($_POST["changedName"])){
                 $change_name_result = updateName($_POST["changedName"], $_SESSION["user_id"]);
                 if($change_name_result){
@@ -20,9 +20,7 @@
     } catch(Exception $e){
         echo $e;
     }
-    
 ?>
-
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -48,6 +46,7 @@
             <form action="changeUserInfo.php" method="POST" id="changeNameForm" class="changeNameForm">
                 <div>
                     <label for="changedName">変更後の名前</label>
+                    <p id="nameValueError" class="nameValueError">入力してください。</p>
                     <input type="text" id="changedName" name="changedName" placeholder="盛岡ジョビ男">
                     <input type="button" id="changeNameBtn" value="名前を変更" class="change-name-btn">
                 </div>
@@ -61,10 +60,11 @@
             <form action="./func/editPass.php" method="POST" id="changePwForm" class="changePwForm">
                 <div>
                     <label for="changedPwFirst">変更後のパスワード:一回目</label>
-                    <input type="text" id="changedPwFirst" name="changedPwFirst">
+                    <input type="password" id="changedPwFirst" name="changedPwFirst">
                     <label for="changedPwSecond">変更後のパスワード:二回目</label>
-                    <input type="text" id="changedPwSecond" name="changedPwSecond">
-                    <input type="submit" id="changePwBtn" value="パスワードを変更" class="change-pw-btn">
+                    <p id="pwValueError" class="pwValueError">パスワードが一致していません。</p>
+                    <input type="password" id="changedPwSecond" name="changedPwSecond">
+                    <input type="button" id="changePwBtn" value="パスワードを変更" class="change-pw-btn">
                 </div>
             </form>
         </div>
