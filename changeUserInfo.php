@@ -60,11 +60,10 @@
             <form action="./func/editPass.php" method="POST" id="changePwForm" class="changePwForm">
                 <div>
                     <label for="changedPwFirst">変更後のパスワード:一回目</label>
-                    <input type="password" id="changedPwFirst" name="changedPwFirst">
+                    <input type="text" id="changedPwFirst" name="pw">
                     <label for="changedPwSecond">変更後のパスワード:二回目</label>
-                    <p id="pwValueError" class="pwValueError">パスワードが一致していません。</p>
-                    <input type="password" id="changedPwSecond" name="changedPwSecond">
-                    <input type="button" id="changePwBtn" value="パスワードを変更" class="change-pw-btn">
+                    <input type="text" id="changedPwSecond" name="rePw">
+                    <input type="submit" id="changePwBtn" value="パスワードを変更" class="change-pw-btn">
                 </div>
             </form>
         </div>

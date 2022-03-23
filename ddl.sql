@@ -8,7 +8,7 @@ CREATE TABLE users (
   student_name VARCHAR(50) NOT NULL,
   student_mail VARCHAR(255) NOT NULL UNIQUE,
   student_pass VARCHAR(64) NOT NULL,
-  student_salt VARCHAR(19) NOT NULL,
+  student_salt VARCHAR(30) NOT NULL,
   delete_flag boolean DEFAULT false,
   admin_flag boolean DEFAULT false
 );
@@ -43,19 +43,19 @@ create table answer(
 ALTER TABLE question ADD FOREIGN KEY (question_bestanswer) REFERENCES answer(answer_id) ON DELETE CASCADE;
 
 # 一般ユーザーの作成(select, insert, update, delete)
-CREATE USER 'student'@'localhost' IDENTIFIED BY '@Morijyobi1921';
+CREATE USER 'student'@'localhost' IDENTIFIED BY '@Morijyobi2021';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.answer to 'student'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.question to 'student'@'localhost';
 GRANT SELECT, UPDATE ON bba.users to 'student'@'localhost';
 
 # 管理者の作成(select, insert, update, delete)
-CREATE USER 'admin'@'localhost' IDENTIFIED BY '@Morijyobi1921';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '@Morijyobi2021';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.answer to 'admin'@'localhost';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bba.question to 'admin'@'localhost';
 GRANT SELECT, UPDATE, DELETE, INSERT ON bba.users to 'admin'@'localhost';
 
 -- EXECUTE権限の追加
-CREATE USER 'EXECUTE_USER'@'localhost' IDENTIFIED BY '@Morijyobi1921';
+CREATE USER 'EXECUTE_USER'@'localhost' IDENTIFIED BY '@Morijyobi2021';
 GRANT EXECUTE ON bba.* to 'EXECUTE_USER'@'localhost';
 
 -- サンプルデータ挿入
