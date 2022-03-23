@@ -19,33 +19,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const questionEditMDE = new EasyMDE({
       element: document.getElementById('questionEditArea')
-    })
-
-
-    const modal = document.getElementById('questionEditModal');
-    document.getElementById('questionEdit').addEventListener('click', () => {
-      openModal(modal);
     });
 
-    document.getElementById('questionEditModalClose').addEventListener('click', () => {
-      closeModal(modal);
-    })
+    // const modal = document.getElementById('questionEditModal');
+    // document.getElementById('questionEditArea').addEventListener('click', () => {
+    //   openModal(modal);
+    // });
 
-    function openModal($el) {
-      $el.classList.add('is-active');
-    }
+    // document.getElementById('questionEditModalClose').addEventListener('click', () => {
+    //   closeModal(modal);
+    // })
 
-    function closeModal($el) {
-      $el.classList.remove('is-active');
-    }
+    // function openModal($el) {
+    //   $el.classList.add('is-active');
+    // }
 
-    document.addEventListener('keydown', (event) => {
-      const e = event || window.event;
+    // function closeModal($el) {
+    //   $el.classList.remove('is-active');
+    // }
 
-      if (e.keyCode === 27) {
-        closeModal(modal);
-      }
-    })
+    // document.addEventListener('keydown', (event) => {
+    //   const e = event || window.event;
+
+    //   if (e.keyCode === 27) {
+    //     closeModal(modal);
+    //   }
+    // })
 
     $('#ans_btn').on('click', () => {
       let value = easyMDE.value();
