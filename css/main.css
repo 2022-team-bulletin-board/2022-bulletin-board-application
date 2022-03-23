@@ -89,6 +89,8 @@ li {
 /* ハンバーガーメニュー＆ドロワー */
 .humburger-menu {
   display: none;
+  position: relative;
+  z-index: 5;
 }
 
 .menu-btn {
@@ -132,6 +134,21 @@ li {
 .menu-btn.active span::after {
   top: 0;
 	transform: rotate(-135deg);
+}
+
+.drawer-content {
+  width: 300px;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  right: 0;
+  background: rgb(160, 160, 160);
+  transform: translateX(100%);
+  transition: 0.4s;
+}
+
+.sp-nav.active .drawer-content {
+  transform: translateX(0);
 }
 
 
