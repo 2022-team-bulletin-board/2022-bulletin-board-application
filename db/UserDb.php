@@ -27,7 +27,8 @@
       echo 'Connection failed: ' . $e->getMessage();
     }
   }
-  
+
+  // ・ユーザー情報変更処理:updateName  
   // 新規ユーザー作成関数
   function insertUserSql($sql) {
     // 管理者用のコネクションの挿入
@@ -83,6 +84,29 @@
         return $result;
       } else {
         return "passwordfail";
+      }
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+    }
+  }
+
+  // ユーザー情報の名前を変更するsql
+  function updateName($changedName, $userId) {
+    // ユーザー用のコネクションの挿入
+    include dirname(__FILE__).'/userConnetcion.php';
+    try {
+      $sql = 'UPDATE users SET student_name=:changedName WHERE user_id=:userId;';
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':changedName', $changedName, PDO::PARAM_STR);
+      $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+      // 実行
+      $res = $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      if(!$result){
+        return true;
+      } else {
+        return false;
       }
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
