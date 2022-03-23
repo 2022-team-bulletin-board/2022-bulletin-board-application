@@ -1,26 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ポップアップを表示するボタン
     const nameButton = document.getElementById('name');
     const passwordButton = document.getElementById('password');
-    const grey = document.getElementById('grey');
-    const popup = document.getElementById('popup');
-    const clearBtn = document.getElementById('clearBtn');
-    const changeBtn = document.getElementById('changeBtn');
+
+    // パスワード/名前のポップアップ全体
+    const nameContainer = document.getElementById('nameContainer');
+    const pwContainer = document.getElementById('pwContainer');
+
+    // 入力用のフォーム
+    const changeNameForm = document.getElementById('changeNameForm');
+    const changePwForm = document.getElementById('changePwForm');
+
+    // 値の入力用
     const changedName = document.getElementById('changedName');
-    let changedNameText = "";
+    const changedPwFirst = document.getElementById('changedPwFirst');
+    const changedPwSecond = document.getElementById('changedPwSecond');
 
-    // console.log(nameButton);
-    
+    // ポップアップの×ボタン
+    const clearNameBtn = document.getElementById('clearNameBtn');
+    const clearPwBtn = document.getElementById('clearPwBtn');
+
+    // 変更実行ボタン
+    const changeNameBtn = document.getElementById('changeNameBtn');
+    const changePwBtn = document.getElementById('changePwBtn');
+
+
+    // 名前変更用のポップアップの切り替え-----------------------------------
     nameButton.addEventListener('click', ()=> {
-        grey.classList.add('show');
+        nameContainer.classList.add('show');
     })
 
-    clearBtn.addEventListener('click', () => {
-        grey.classList.remove('show');
+    clearNameBtn.addEventListener('click', () => {
+        nameContainer.classList.remove('show');
     })
 
-    changeBtn.addEventListener('click', () => {
-        changedNameText = changedName.value;
-        console.log(changedNameText);
+    // 名前変更の実行ボタンが押されたとき
+    changeNameBtn.addEventListener('click', () => {
+        if(changedName.value != ""){
+            changeNameForm.submit();
+        } else {
+            // 空の場合のエラーメッセージ
+        }
     })
 
+    // パスワード変更-----------------------------------
+    passwordButton.addEventListener('click', ()=> {
+        pwContainer.classList.add('show');
+    })
+
+    clearPwBtn.addEventListener('click', () => {
+        pwContainer.classList.remove('show');
+    })
+
+    changedPwFirst.addEventListener('blur', ()=> {
+        if(changedPwSecond.value != ""){
+            if(changedPwFirst.value != changedPwSecond.value){
+                // 一致していないメッセージ
+            }
+        }
+    })
+
+    changedPwSecond.addEventListener('blur', ()=> {
+        if(changedPwFirst.value != changedPwSecond.value){
+            // 一致していないメッセージ
+        } else {
+
+        }
+    })
 });
