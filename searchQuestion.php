@@ -2,13 +2,18 @@
 
   session_start();
 
-  require_once dirname(__FILE__).'/db/question.php';
+  if (isset($_SESSION["user_id"] && $_SESSION["user_id"] !== "") {
 
-  if (isset($_GET["search_word"]) ) {
-    $keyword = htmlspecialchars($_GET["search_word"]);
-    $results = searchQuestionWithWord($keyword);
-    $size = count($results);
-    $result_text = $size > 0 ? "${size}件ヒットしました。" : "見つかりませんでした。";
+    require_once dirname(__FILE__).'/db/question.php';
+
+    if (isset($_GET["search_word"]) ) {
+      $keyword = htmlspecialchars($_GET["search_word"]);
+      $results = searchQuestionWithWord($keyword);
+      $size = count($results);
+      $result_text = $size > 0 ? "${size}件ヒットしました。" : "見つかりませんでした。";
+    } else {
+      header("Location:index.php");
+    } 
   } else {
     header("Location:index.php");
   } 
