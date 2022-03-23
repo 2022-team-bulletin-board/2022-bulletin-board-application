@@ -4,6 +4,29 @@
   // 現在の関数
   // ・登録処理: insertUserSql
   // ・ログイン処理: selectUserSalt, selectUser
+  // ・パスワード更新処理: updatePass
+
+  // パスワード更新処理
+  function updatePass($userId, $pw) {
+    // パスワードの更新の際は、saltも同時に更新する
+    require_once dirname(__FILE__).'/userConnetcion.php';
+    require_once dirname(__FILE__).'/../func/UsersFunc.php';
+    try {
+      $salt = randomStr();
+      $hashPw = hash256($pw, $salt);
+
+      $sql = 'update users set student_pass = :pw, student_salt = :salt where user_id = :id';
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':pw', $hashPw, PDO::PARAM_STR);
+      $stmt->bindValue(':salt', $salt, PDO::PARAM_STR);
+      $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+      // 実行
+      $res = $stmt->execute();
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+    }
+  }
   
   // 新規ユーザー作成関数
   function insertUserSql($sql) {

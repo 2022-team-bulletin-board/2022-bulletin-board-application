@@ -24,3 +24,8 @@
   function hsc($str){
     return htmlspecialchars($str, ENT_QUOTES, "utf-8");
   }
+
+  function pwVal($pw) {
+    $patten = '/\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}+\z/';
+    return preg_match($patten, $pw);
+  }

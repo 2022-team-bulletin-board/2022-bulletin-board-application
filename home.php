@@ -1,6 +1,6 @@
 <?php 
 
-  // if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "") {
+  if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "") {
     session_start();
 
     require_once dirname(__FILE__).'/db/question.php';
@@ -9,10 +9,10 @@
     $results = selectRecommendedQuestion();
     $userId = isset($_SESSION["user_id"]) ? $_SESSION["user_id"] : 1;
     $myResults = selectMyQuestion($userId);
-  // } else {
-  //   header("Location:index.php");
-  //   exit();
-  // }
+  } else {
+    header("Location:index.php");
+    exit();
+  }
 ?>
 
 <!DOCTYPE html>
