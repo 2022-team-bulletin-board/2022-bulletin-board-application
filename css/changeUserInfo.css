@@ -2,6 +2,8 @@
     text-align: center;
 }
 
+
+
 /* 名前変更-------------------------------------------------------------------------------- */
 /* ポップアップをまとめるdiv */
 .nameContainer {
@@ -59,6 +61,16 @@
     border: 1px solid #000;
     border-radius: 5px;
     font-size: 18px;
+}
+
+/* 入力された値がエラーの時 */
+.nameValueError {
+    color:red;
+    display: none;
+}
+
+.nameValueError.show{
+    display: block;
 }
 
 /* 実行ボタン */
@@ -149,6 +161,15 @@
     border: 1px solid #000;
     border-radius: 5px;
     font-size: 18px;
+}
+
+.pwValueError {
+    color:red;
+    display: none;
+}
+
+.pwValueError.show{
+    display: block;
 }
 
 .change-pw-btn {
