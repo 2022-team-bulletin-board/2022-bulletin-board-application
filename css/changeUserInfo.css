@@ -1,3 +1,89 @@
 .center {
     text-align: center;
 }
+
+.grey {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0,0.5);
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+
+.grey.show{
+    display: block;
+}
+
+.popup{
+    width:400px;
+    height: 300px;
+    background:#fff;
+    box-sizing:border-box;
+    position:relative;
+    border-radius: 10px;
+    top:50%;
+    left:50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.changeNameForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.changeNameForm label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #707070;
+}
+
+#nameText {
+    width: 250px;
+    display: block;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    border: none;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.change-btn {
+    margin: 0 auto;
+    padding: 5px 12px;
+    display: block;
+    text-align: center;
+    border: none;
+    border: 1px solid #007bff;
+    background: #fff;
+    border-radius: 5px;
+    outline: none;
+    color: #007bff;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.change-btn:hover {
+    color: #fff;
+    background: #007bff;
+}
+
+.clearBtn{
+    width: 30px;
+    height: 30px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    color: black;
+}
+
+.clearBtn:hover {
+    cursor: pointer;
+}

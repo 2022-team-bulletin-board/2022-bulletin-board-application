@@ -1,3 +1,17 @@
+<?php
+    session_start();
+
+    var_dump($_SESSION);
+
+    // 要変更
+    if(isset($_SESSION["user_id"]) && $_SESSION["admin_id"] == true){
+
+    } else {
+        header('Location: index.php');
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,5 +30,20 @@
     <h1 class="center">どちらの情報を変更しますか？</h1>
     <button type="submit" id="name" class="submit">名前</button>
     <button type="submit" id="password" class="submit">パスワード</button>
+
+    <div id="grey" class="grey">
+        <div id="popup" class="popup">
+        <button type="button" id="clearBtn" class="clearBtn">X</button>
+            <form action="#" method="POST" class="changeNameForm">
+                <div>
+                    <label for="nameText">変更後の名前</label>
+                    <input type="text" id="nameText" placeholder="盛岡ジョビ男">
+                    <input type="submit" value="名前を変更" class="change-btn">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+
 </body>
 </html>
