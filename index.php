@@ -4,8 +4,6 @@
     require_once dirname(__FILE__).'/db/UserDb.php';
     require_once dirname(__FILE__).'/func/UsersFunc.php';
 
-    session_start();
-
     class NotFoundValue extends Exception {
         public function __construct(){
             $this->message = '<p class="error-text">ログインに失敗しました。<br>メールアドレスかパスワードが間違っています。</p>';
