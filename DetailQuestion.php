@@ -1,37 +1,43 @@
 <?php
-require_once dirname(__FILE__) . '/db/question.php';
-require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
-require_once dirname(__FILE__) . '/func/UsersFunc.php';
+  require_once dirname(__FILE__) . '/db/question.php';
+  require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
+  require_once dirname(__FILE__) . '/func/UsersFunc.php';
 
-$answerId = 0;
+  $answerId = 0;
 
-// セッションの開始
-session_start();
+  // セッションの開始
+  session_start();
 
-// if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
-//     isset($_GET["question_id"]) && $_GET["question_id"] !== ""
-//   ) {
+  if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
+      isset($_GET["question_id"]) && $_GET["question_id"] !== ""
+    ) {
 
-// セッションからユーザーidの取り出し
-// $user_id = $_SESSION["user_id"];
+    if (isset($_SESSION["update_result"])) {
+      $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
+      echo $alert;
+      unset($_SESSION["update_result"]);
+    }
 
-// getからquestion_idの取り出し
-$question_id = $_GET["question_id"];
-// question.phpのdetailQuestionを呼び出し、結果を取得
-$results = detailQuestion($question_id);
-// resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
-if (count($results) === 0) {
-  header("Location:notFoundError.php");
-}
+    // セッションからユーザーidの取り出し
+    $user_id = $_SESSION["user_id"];
 
-// question_idの存在が確認できたので閲覧数の追加
-questionViewAdd($question_id);
+    // getからquestion_idの取り出し
+    $question_id = $_GET["question_id"];
+    // question.phpのdetailQuestionを呼び出し、結果を取得
+    $results = detailQuestion($question_id);
+    // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
+    if (count($results) === 0) {
+      header("Location:notFoundError.php");
+    }
+
+    // question_idの存在が確認できたので閲覧数の追加
+    questionViewAdd($question_id);
 
 
-// } else {
-//   header("Location:index.php");
-//   exit();
-// }
+  } else {
+    header("Location:index.php");
+    exit();
+  }
 ?>
 <!doctype html>
 <html lang="ja">
@@ -64,7 +70,7 @@ questionViewAdd($question_id);
 
     $cnt = 0;
 
-    $detail = preg_replace_callback(
+    $detail2 = preg_replace_callback(
       $pattern,
       function ($matches) {
         global $cnt;
@@ -78,7 +84,7 @@ questionViewAdd($question_id);
       $detail);
     if ($cnt % 2 == 1) {
       $cnt++;
-      $detail = $detail . "</pre></code>";
+      $detail2 = $detail2 . "</pre></code>";
     }
 
     echo <<< "EOS"
@@ -86,15 +92,23 @@ questionViewAdd($question_id);
       <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
           {$title}
       </h1>
+EOS ;
+if ($results[0]["qu_id"] == $user_id) {
+        echo <<< "EOS"
 <!--      質問者にのみ表示するアイコン-->
       <span class="icon is-small titleIcon" data-view="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
-    
-    <form action="" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
-      <input type="text" class="input is-8 mr-3" value="{$results[0]['question_title']}">
-      <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit">保存</button>
+      <form action="./func/updateQuestionTitle.php" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
+      <input type="text" class="input is-8 mr-3" name="title" value="{$title}">
+      <button type="submit" class="button is-small is-1 mr-3 toggleTitleEdit" name="question_id" value="{$question_id}">保存</button>
       <button type="submit" class="button is-small is-1 toggleTitleEdit">破棄</button>
     </form>
+EOS;
+    } else {
+      echo "</div>";
+    }
+
+    echo <<< "EOS"
     <!--    ユーザー情報の表示部分   -->
     <div class="content columns is-mobile is-multiline mt-4 userInfo">
       <figure class="image is-64x64 is-vcentered">
@@ -127,7 +141,7 @@ questionViewAdd($question_id);
 
     <div class="content question">
       <div id="questionTextArea" class="p-4">
-        {$detail}
+        {$detail2}
       </div>
       <div id="questionTagArea" class="px-4 tags mt-3">
 <!--        <span class="tag is-link is-light">タグの</span>-->
@@ -136,6 +150,9 @@ questionViewAdd($question_id);
 <!--        <span class="tag is-link is-light">表示される</span>-->
       </div>
       <div class="columns is-mobile is-vcentered">
+EOS ;
+if ($results[0]["qu_id"] == $user_id) {
+  echo <<< "EOS"
 <!--        質問者にのみ、編集、削除ボタンを表示する-->
 <!--        非表示にする際は、↓ の div を data-view="false" にする-->
         <div class="column is-grouped questionEditButtonGroup" data-view="true">
@@ -153,9 +170,9 @@ questionViewAdd($question_id);
           <div class="modal-background"></div>
           <div class="modal-content px-4 py-5">
             <h2 class="subtitle">質問の編集</h2>
-            <form action="">
-              <textarea name="" id="questionEditArea" cols="30" rows="10"></textarea>
-              <button class="button mt-5 is-medium customButton">編集を確定する</button>
+            <form action="./func/updateQuestionDetail.php" method="POST">
+              <textarea name="detail" id="questionEditArea" cols="30" rows="10">{$detail}</textarea>
+              <button class="button mt-5 is-medium customButton" name="question_id" value="{$question_id}">編集を確定する</button>
             </form>
           </div>
           <button id="questionEditModalClose" class="modal-close is-large modalCloseButton"
@@ -172,11 +189,15 @@ questionViewAdd($question_id);
               なんか削除することでのデメリットとかここに書きます。
             </section>
               <footer class="modal-card-foot">
-                <button class="button is-danger modalCloseButton" data-modal-field="questionDeleteModal">削除</button>
+                <button class="button is-danger modalCloseButton" data-modal-field="questionDeleteModal" onclick="location.href='./func/deleteQuestion.php?question_id={$question_id}'">削除</button>
                 <button class="button modalCloseButton" data-modal-field="questionDeleteModal">戻る</button>
               </footer>
           </div>
         </div>
+EOS ;
+}
+
+echo <<< "EOS"
         
         <div class="columns questionDateWrapper is-mobile">
           <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
@@ -188,9 +209,8 @@ questionViewAdd($question_id);
     </div>
     <div class="content answer mb-6">
       <h2 class="subtitle mt-6">回答する</h2>
-      <form action="" method="get">
         <textarea name="Answer" id="Answer"></textarea>
-        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton">
+        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn">
           回答を投稿
         </button>
     </div>
