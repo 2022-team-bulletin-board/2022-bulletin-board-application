@@ -7,20 +7,21 @@ section {
 .container {
   width: calc(100% - 100px);
   max-width: 1500px;
-  margin: 0 auto;
+  margin: 80px auto 0;
 }
 
 .home-inner-wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .latest-list-container {
-  width: 65%;
+  width: 60%;
 }
 
 .my-list-container {
-  width: 30%;
+  width: 35%;
 }
 
 .top-title {
@@ -30,10 +31,6 @@ section {
   margin-bottom: 30px;
   border-bottom: 1px solid #a0a0a0;
 }
-
-/* .my-list-container .top-title {
-  font-size: 1.2rem;
-} */
 
 .my-list-container .question-title {
   font-size: 1rem;
@@ -126,4 +123,25 @@ section {
 .answered-date {
   color: #707070;
   font-size: 0.8rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .latest-list-container {
+    margin-bottom: 30px;
+  }
+
+  .latest-list-container,
+  .my-list-container {
+    width: 100%;
+  }
+
+  .my-list-container .question-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    width: calc(100% - 60px);
+  }
 }
