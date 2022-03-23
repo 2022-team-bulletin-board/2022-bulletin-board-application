@@ -1,9 +1,6 @@
 <?php
     session_start();
 
-    var_dump($_SESSION);
-
-    // 要変更
     if(isset($_SESSION["user_id"]) && $_SESSION["admin_id"] == true){
 
     } else {
@@ -37,8 +34,8 @@
             <form action="#" method="POST" class="changeNameForm">
                 <div>
                     <label for="nameText">変更後の名前</label>
-                    <input type="text" id="nameText" placeholder="盛岡ジョビ男">
-                    <input type="submit" value="名前を変更" class="change-btn">
+                    <input type="text" id="changedName" placeholder="盛岡ジョビ男">
+                    <input type="submit" id="changeBtn" value="名前を変更" class="change-btn">
                 </div>
             </form>
         </div>
