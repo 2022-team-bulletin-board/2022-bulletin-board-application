@@ -25,6 +25,10 @@ li {
 }
 
 /* header */
+.logo {
+  color: #707070;
+}
+
 .header {
   width: 100%;
   padding: 10px 30px;
