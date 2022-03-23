@@ -1,0 +1,147 @@
+@charset 'utf-8';
+
+section {
+  padding: 50px 0;
+}
+
+.container {
+  width: calc(100% - 100px);
+  max-width: 1500px;
+  margin: 80px auto 0;
+}
+
+.home-inner-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.latest-list-container {
+  width: 60%;
+}
+
+.my-list-container {
+  width: 35%;
+}
+
+.top-title {
+  font-size: 1.5rem;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.my-list-container .question-title {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.search-result-text {
+  font-size: 1.5rem;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.searched-list {
+  width: 70%;
+  min-width: 600px;
+}
+
+.list-item {
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e7e7e7;
+}
+
+.question-title {
+  color: #007bff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.question-content {
+  color: #707070;
+  text-indent :1em;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 0.8rem;
+  margin-right: 10px;
+  color: var(--color-white);
+  border: 1px solid#6c757d;
+  background: #6c757d;
+  border-radius: 5px;
+}
+
+.my-list .tag {
+  font-size: 0.7rem;
+}
+
+.tag.answer-count {
+  color: #368749;
+  border: 1px solid#368749;
+  margin-right: 40px;
+  background: inherit;
+}
+
+.tag.answer-count.best {
+  color: var(--color-white);
+  border: 1px solid#368749;
+  background: #368749;
+}
+
+.tag.answer-count.yet {
+  color: #ffc107;
+  border: 1px solid #ffc107;
+}
+
+.tag.answer-count.best i {
+  font-size: 1rem;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.answered-date {
+  color: #707070;
+  font-size: 0.8rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .latest-list-container {
+    margin-bottom: 30px;
+  }
+
+  .latest-list-container,
+  .my-list-container {
+    width: 100%;
+  }
+
+  .my-list-container .question-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    width: calc(100% - 60px);
+  }
+}

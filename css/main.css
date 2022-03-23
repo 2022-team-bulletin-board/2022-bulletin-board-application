@@ -25,6 +25,9 @@ li {
 }
 
 /* header */
+.logo {
+  color: #707070;
+}
 
 .header {
   width: 100%;
@@ -32,6 +35,9 @@ li {
   color: #707070;
   background-color: #eee;
   box-shadow: 0 2px 6px 0 rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .header-wrapper {
@@ -45,19 +51,24 @@ li {
   text-transform: capitalize;
 }
 
-.search-box form{
+.search-box form {
+  min-width: 320px;
   display: flex;
 }
 
 .search-box input {
   display: block;
-  width: 400px;
-  min-width: 200px;
+  width: 100%;
   margin-right: 10px;
   padding: 5px 10px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #707070;
+}
+
+.search-box.sp {
+  display: none;
+  margin-bottom: 10px;
 }
 
 .btn.search {
@@ -67,7 +78,7 @@ li {
   padding: 5px;
 }
 
-.btn.search i  {
+.btn.search i {
   font-size: 1.5rem;
   color: #707070;
   cursor: pointer;
@@ -77,6 +88,10 @@ li {
   display: flex;
 }
 
+.links-box.bottom {
+  display: none;
+}
+
 .header-link {
   margin-right: 15px;
   color: #707070;
@@ -84,4 +99,76 @@ li {
 
 .header-link:last-of-type {
   margin-right: 0;
+}
+
+.header-bottom {
+  display: none;
+}
+
+/* ハンバーガーメニュー＆ドロワー */
+.humburger-menu {
+  display: none;
+  position: relative;
+  z-index: 5;
+}
+
+.menu-btn {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #707070;
+  position: absolute;
+  transition: 0.4s;
+}
+
+.menu-btn span:before {
+  bottom: 8px;
+}
+
+.menu-btn span:after {
+  top: 8px;
+}
+
+@media screen and (max-width: 1024px) {
+  .links-box {
+    display: none;
+  }
+
+  .links-box.sp {
+    display: flex;
+    font-size: 1.1rem;
+  }
+
+  .humburger-menu {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .search-box {
+    display: none;
+  }
+
+  .search-box.sp {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .links-box.sp {
+    font-size: 14px;
+  }
 }

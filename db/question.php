@@ -4,6 +4,123 @@
   // 現在の関数
     // 投稿詳細: detailQuestion
     // 閲覧数の追加: questionViewAdd
+    // 質問検索用: searchQuestionWithWord
+    // 質問投稿用: insertQuestion
+    // ログインユーザーの最新の投稿ID取得用: latestUserQuestion
+    // titleの編集: titleUpdate
+    // detailの編集: detailUpdate
+
+    function deleteQuestion($userId, $questionId) {
+      include dirname(__FILE__).'/executeUserconnection.php';
+      try {
+        // sql分の構築
+        $sql = "call question_delete_func(:question_id, :user_id)";
+      
+        // pdoのインスタンス化
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':question_id', $questionId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        // 実行
+        $res = $stmt->execute();
+        $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+        return count($result) == 0 ? null : $result;
+      } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
+        echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+      }
+    }
+
+  function detailUpdate($userId, $questionId, $detail) {
+    include dirname(__FILE__).'/executeUserconnection.php';
+    try {
+      // sql分の構築
+      $sql = "call question_detail_update_func(:question_id, :user_id, :detail)";
+    
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':question_id', $questionId, PDO::PARAM_INT);
+      $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+      $stmt->bindValue(':detail', $detail, PDO::PARAM_STR);
+      // 実行
+      $res = $stmt->execute();
+      $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return count($result) == 0 ? null : $result;
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
+
+  function titleUpdate($userId, $questionId, $title) {
+    include dirname(__FILE__).'/executeUserconnection.php';
+    try {
+      // sql分の構築
+      $sql = "call question_title_update_func(:question_id, :user_id, :title)";
+    
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':question_id', $questionId, PDO::PARAM_INT);
+      $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+      $stmt->bindValue(':title', $title, PDO::PARAM_STR);
+      // 実行
+      $res = $stmt->execute();
+      $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return count($result) == 0 ? null : $result;
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
+
+  function selectMyQuestion($user_id) {
+    // コネクションの挿入
+    include dirname(__FILE__).'/userConnetcion.php';
+    try {
+      // sql分の構築
+      $sql = "select q.question_id,q.question_title,q.question_detail,q.question_created,q.question_bestanswer,COUNT(ans.answer_id) as answer_count from question as q
+      left outer join(select * from answer where user_id not in (select user_id from users where delete_flag = 1)) as ans on q.question_id = ans.question_id
+      where q.delete_flag = 0 and q.question_created >= (NOW() - INTERVAL 7 DAY) and q.user_id = :id
+      group by q.question_id, q.question_title, q.question_detail, q.question_created, q.question_bestanswer
+      order by q.question_created desc";
+
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
+      // 実行
+      $res = $stmt->execute();
+      // 実行結果の取り出し
+      $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return $result;
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
+
+  function selectRecommendedQuestion() {
+    // コネクションの挿入
+    include dirname(__FILE__).'/userConnetcion.php';
+    try {
+      // sql分の構築
+      $sql = "select q.question_id,q.question_title,q.question_detail,q.question_created,q.question_bestanswer,COUNT(ans.answer_id) as answer_count from question as q
+      left outer join(select * from answer where user_id not in (select user_id from users where delete_flag = 1)) as ans on q.question_id = ans.question_id
+      where q.delete_flag = 0 and q.question_created >= (NOW() - INTERVAL 7 DAY) 
+      group by q.question_id, q.question_title, q.question_detail, q.question_created, q.question_bestanswer
+      order by q.question_view desc, answer_count desc
+      limit 10";
+
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      // 実行
+      $res = $stmt->execute();
+      // 実行結果の取り出し
+      $result = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return $result;
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+      echo "dbの実行に失敗しました。管理者への連絡をお願いします。";
+    }
+  }
 
   function detailQuestion($question_id) {
     // コネクションの挿入
