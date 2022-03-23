@@ -1,7 +1,9 @@
 <?php
   // 回答を持ってくるphp
 
-  if (isset($_POST["answerId"]) && $_POST["answerId"] !== "" && isset($_POST["question_id"]) && $_POST["question_id"] !== "") {
+  session_start();
+
+  if (isset($_POST["answerId"]) && $_POST["answerId"] !== "" && isset($_POST["question_id"]) && $_POST["question_id"] !== "" && isset($_SESSION["user_id"])) {
     include dirname(__FILE__).'/userConnetcion.php';
     try {
       // sql文の構築
