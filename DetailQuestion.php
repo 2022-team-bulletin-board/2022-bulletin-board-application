@@ -87,6 +87,16 @@
       $detail2 = $detail2 . "</pre></code>";
     }
 
+    if ($cnt % 2 == 1) {
+      $cnt++;
+      $detail2 = $detail2 . "</pre></code>";
+    }
+
+    $detail2 = str_replace("\r\n", "<br>", $detail2);
+    $detail2 = str_replace("\n", "<br>", $detail2);
+
+
+
     echo <<< "EOS"
     <div id="questionTitleView" class="columns icon-text toggleTitle" data-view="true">
       <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
@@ -244,6 +254,8 @@ EOS;
           $cnt++;
           $answerDetail = $answerDetail . "</pre></code>";
         }
+        $answerDetail = str_replace("\r\n", "<br>", $answerDetail);
+        $answerDetail = str_replace("\n", "<br>", $answerDetail);
         if ($best) {
           echo <<<"EOS"
     <div class="content bestAnswer">
