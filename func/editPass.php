@@ -25,7 +25,7 @@
   }
 ?>
 
-デバック用コード
+<!-- デバック用コード -->
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
