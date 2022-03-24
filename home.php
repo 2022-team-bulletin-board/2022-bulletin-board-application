@@ -70,7 +70,7 @@
           <div class="my-list-container">
             <div class="top-title">自分の質問</div>
             <ul id="myList" class="my-list">
-              <?php foreach($myResults as $result): ?>
+              <?php foreach($myResults as $myResult): ?>
               <li class="list-item my-lists">
                 <a href="./DetailQuestion.php?question_id=<?php echo $result["question_id"]; ?>">
                   <h3 class="question-title"><?php echo hsc($result["question_title"]); ?></h3>
