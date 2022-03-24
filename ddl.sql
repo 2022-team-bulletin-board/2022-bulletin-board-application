@@ -77,9 +77,15 @@ CREATE PROCEDURE answer_insert_func(IN question_id_ins int, IN user_id_ins int, 
 BEGIN
    if (select count(*) from question where user_id = user_id_ins and question_id = question_id_ins) = 0 
 	  THEN 
-      insert into answer(question_id, user_id, answer_detail) values(question_id_ins, user_id_ins, answer_detail_ins);
+      if (select count(*) from question where question_id = question_id_ins and question_bestanswer is null) = 1
+      THEN 
+        insert into answer(question_id, user_id, answer_detail) values(question_id_ins, user_id_ins, answer_detail_ins);
+        select "回答成功" as result;
+      ELSE
+        select "ベストアンサーが決まっています" as result;
+      END IF;
     ELSE 
-      select "自分の投稿";
+      select "不正を検知" as result;
   END IF;
 END 
 //
