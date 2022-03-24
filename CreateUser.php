@@ -80,6 +80,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="./css/createUser.css">
+  <script src="./js/jquery-3.6.0.min.js"></script>
+  <script src="./js/createUser.js"></script>
   <title>Document</title>
 </head>
 <body>
