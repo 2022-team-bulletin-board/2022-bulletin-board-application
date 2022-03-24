@@ -75,6 +75,17 @@
     }
 }
 
+@media screen and (max-width: 769px) {
+    .bestAnswerUserData:last-child {
+        padding-bottom: 0;
+        transform: translateY(-20px);
+    }
+
+    .bestAnswerUserData p {
+        padding-bottom: 0;
+    }
+}
+
 .questionDate {
     display: flex;
     align-items: flex-end;
@@ -92,6 +103,11 @@
 
 .modal-content .button {
     float: right;
+}
+
+.svgAnimation {
+    width: 75px!important;
+    height: 75px!important;
 }
 
 .answerButton {
