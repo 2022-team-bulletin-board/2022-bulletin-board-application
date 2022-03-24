@@ -49,12 +49,16 @@
   <link rel="stylesheet" href="./css/framework/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="./css/main.css">
+<!--  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <script src="js/prism.js"></script>
 
   <title>質問詳細</title>
 </head>
 <body>
+<?php require_once './header.php'?>
+
 <section class="main section">
   <div class="column is-centered is-8-widescreen is-10-tablet is-offset-2-widescreen is-offset-1-tablet is-offset-1">
     <?php
@@ -86,6 +90,16 @@
       $cnt++;
       $detail2 = $detail2 . "</pre></code>";
     }
+
+    if ($cnt % 2 == 1) {
+      $cnt++;
+      $detail2 = $detail2 . "</pre></code>";
+    }
+
+    $detail2 = str_replace("\r\n", "<br>", $detail2);
+    $detail2 = str_replace("\n", "<br>", $detail2);
+
+
 
     echo <<< "EOS"
     <div id="questionTitleView" class="columns icon-text toggleTitle" data-view="true">
@@ -235,6 +249,8 @@ EOS;
           $cnt++;
           $answerDetail = $answerDetail . "</pre></code>";
         }
+        $answerDetail = str_replace("\r\n", "<br>", $answerDetail);
+        $answerDetail = str_replace("\n", "<br>", $answerDetail);
         if ($best) {
           echo <<<"EOS"
     <div class="content bestAnswer">
@@ -329,5 +345,6 @@ EOS;
         }
     });
 </script>
+<script src="js/main.js"></script>
 </body>
 </html>

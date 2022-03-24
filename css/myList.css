@@ -1,0 +1,35 @@
+.my-list li {
+    transition: 1s;
+    display: none;
+}
+
+.my-list .viewLi {
+    display: list-item;
+}
+
+.view-button {
+    display: grid;
+    text-align: center;
+    color: #4a4a4a;
+}
+
+.view-button:nth-child(n) {
+    cursor: pointer;
+}
+
+.view-button:nth-child(n):hover {
+    transform: scale(1.05, 1.05);
+    transition: .4s;
+}
+
+.view-button[data-disable='true'] {
+    display: none;
+}
+
+.view-button span {
+    font-size: 0.85rem;
+}
+
+.view-button span::before {
+    content: attr(data-child-view number);
+}
