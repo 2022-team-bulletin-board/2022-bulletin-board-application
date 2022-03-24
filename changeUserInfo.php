@@ -5,7 +5,7 @@
     include 'header.php';
 
     try{
-        if(isset($_SESSION["user_id"]) && $_SESSION["admin_id"] == true){
+        if(isset($_SESSION["user_id"])){
             if(isset($_POST["changedName"])){
                 $change_name_result = updateName($_POST["changedName"], $_SESSION["user_id"]);
                 if($change_name_result){
