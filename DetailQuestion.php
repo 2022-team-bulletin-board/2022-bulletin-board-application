@@ -1,43 +1,43 @@
 <?php
-  require_once dirname(__FILE__) . '/db/question.php';
-  require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
-  require_once dirname(__FILE__) . '/func/UsersFunc.php';
+require_once dirname(__FILE__) . '/db/question.php';
+require_once dirname(__FILE__) . '/func/checkTimeDiff.php';
+require_once dirname(__FILE__) . '/func/UsersFunc.php';
 
-  $answerId = 0;
+$answerId = 0;
 
-  // セッションの開始
-  session_start();
+// セッションの開始
+session_start();
 
-  if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
-      isset($_GET["question_id"]) && $_GET["question_id"] !== ""
-    ) {
+if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
+  isset($_GET["question_id"]) && $_GET["question_id"] !== ""
+) {
 
-    if (isset($_SESSION["update_result"])) {
-      $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
-      echo $alert;
-      unset($_SESSION["update_result"]);
-    }
-
-    // セッションからユーザーidの取り出し
-    $user_id = $_SESSION["user_id"];
-
-    // getからquestion_idの取り出し
-    $question_id = $_GET["question_id"];
-    // question.phpのdetailQuestionを呼び出し、結果を取得
-    $results = detailQuestion($question_id);
-    // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
-    if (count($results) === 0) {
-      header("Location:notFoundError.php");
-    }
-
-    // question_idの存在が確認できたので閲覧数の追加
-    questionViewAdd($question_id);
-
-
-  } else {
-    header("Location:index.php");
-    exit();
+  if (isset($_SESSION["update_result"])) {
+    $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
+    echo $alert;
+    unset($_SESSION["update_result"]);
   }
+
+  // セッションからユーザーidの取り出し
+  $user_id = $_SESSION["user_id"];
+
+  // getからquestion_idの取り出し
+  $question_id = $_GET["question_id"];
+  // question.phpのdetailQuestionを呼び出し、結果を取得
+  $results = detailQuestion($question_id);
+  // resultに値がない場合は、存在しないページへのアクセスになるのでエラーページに遷移させる
+  if (count($results) === 0) {
+    header("Location:notFoundError.php");
+  }
+
+  // question_idの存在が確認できたので閲覧数の追加
+  questionViewAdd($question_id);
+
+
+} else {
+  header("Location:index.php");
+  exit();
+}
 ?>
 <!doctype html>
 <html lang="ja">
@@ -50,14 +50,16 @@
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
   <link rel="stylesheet" href="./css/main.css">
-<!--  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <!--  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
   <script src="js/prism.js"></script>
 
   <title>質問詳細</title>
 </head>
 <body>
-<?php require_once './header.php'?>
+<?php require_once './header.php' ?>
 
 <section class="main section">
   <div class="column is-centered is-8-widescreen is-10-tablet is-offset-2-widescreen is-offset-1-tablet is-offset-1">
@@ -100,15 +102,14 @@
     $detail2 = str_replace("\n", "<br>", $detail2);
 
 
-
     echo <<< "EOS"
     <div id="questionTitleView" class="columns icon-text toggleTitle" data-view="true">
       <h1 class="column 12 title is-medium has-text-left icon-text has-icons-right mb-0">
           {$title}
       </h1>
-EOS ;
-if ($results[0]["qu_id"] == $user_id) {
-        echo <<< "EOS"
+EOS;
+    if ($results[0]["qu_id"] == $user_id) {
+      echo <<< "EOS"
 <!--      質問者にのみ表示するアイコン-->
       <span class="icon is-small titleIcon viewAboutBA" data-view="true" data-view-Ba="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
@@ -159,9 +160,9 @@ EOS;
 <!--        <span class="tag is-link is-light">表示される</span>-->
       </div>
       <div class="columns is-mobile is-vcentered">
-EOS ;
-if ($results[0]["qu_id"] == $user_id) {
-  echo <<< "EOS"
+EOS;
+    if ($results[0]["qu_id"] == $user_id) {
+      echo <<< "EOS"
 <!--        質問者にのみ、編集、削除ボタンを表示する-->
 <!--        非表示にする際は、↓ の div を data-view="false" にする-->
         <div class="column is-grouped questionEditButtonGroup viewAboutBA" data-view="true" data-view-Ba="true">
@@ -194,7 +195,7 @@ if ($results[0]["qu_id"] == $user_id) {
               <p class="modal-card-title">本当に削除しますか？</p>
               <button class="delete modalCloseButton" data-modal-field="questionDeleteModal" aria-label="close"></button>
             </header>
-            <section class="modal-card-body">
+            <section class="modal-card-body" style="transform: none!important;">
               なんか削除することでのデメリットとかここに書きます。
             </section>
               <footer class="modal-card-foot">
@@ -203,19 +204,19 @@ if ($results[0]["qu_id"] == $user_id) {
               </footer>
           </div>
         </div>
-EOS ;
-}
+EOS;
+    }
 
-echo <<< "EOS"
+    echo <<< "EOS"
         
         <div class="columns questionDateWrapper is-mobile">
         </div>
       </div>
     </div>
 EOS;
-//    ログインユーザの質問には回答フォームが表示されないようにする
-if ($results[0]["qu_id"] == $user_id) {
-  echo <<< "EOS"
+    //    ログインユーザの質問には回答フォームが表示されないようにする
+    if ($results[0]["qu_id"] != $user_id) {
+      echo <<< "EOS"
     <div class="content answer mb-6 viewAboutBA" data-view-Ba="true">
       <h2 class="subtitle mt-6">回答する</h2>
         <textarea name="Answer" id="Answer"></textarea>
@@ -224,7 +225,8 @@ if ($results[0]["qu_id"] == $user_id) {
         </button>
     </div>
 
-EOS;}
+EOS;
+    }
     if ($results[0]["ans_cnt"] !== 0) {
       $answerCount = count($results);
       $bestAnswerFlg = false;
@@ -323,7 +325,27 @@ EOS;
       <div class="py-4 px-6 answerTextArea">
         {$answerDetail}
       </div>
-      <div class="columns answerDateWrapper mb-5 is-mobile">
+      <div class="answerDateWrapper mb-5 has-text-right viewAboutBA" data-view-Ba="true">
+          <button class="button is-success is-small modalButton" data-modal-field="questionBAModal">
+            <span class="icon"><i class="fa-solid fa-check"></i></span>
+            <span>ベストアンサー</span>
+          </button>
+      </div>
+      <div id="questionBAModal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">本当によろしいですか?</p>
+            <button class="delete modalCloseButton" data-modal-field="questionBAeModal" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body" style="transform: none!important;">
+            1度選んだベストアンサーは後から変更できません。本当によろしいですか?
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-success modalBAButton" data-modal-field="questionBAModal" onclick="location.href='./func/changeBestAnswer.php?question_id={$question_id}&answer_id={$answerId}'">ベストアンサー</button>
+            <button class="button modalCloseButton" data-modal-field="questionBAModal">戻る</button>
+          </footer>
+        </div>
       </div>
     </div>
 EOS;
@@ -341,7 +363,9 @@ EOS;
 <script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script src="js/viewToggle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js" integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js"
+        integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     lottie.loadAnimation({
         container: document.getElementById('bestAnswer'),
@@ -367,7 +391,9 @@ EOS;
             })
         }
 
-        if (<?php echo $bestAnswerFlg?> == 1) {
+        if (<?php echo $bestAnswerFlg?> == 1
+    )
+        {
             console.log('work');
             toggleViewAboutBestAnswer();
         }
