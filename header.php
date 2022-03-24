@@ -13,7 +13,7 @@
         <a href="./postQuestion.php" class="header-link">質問する</a>
         <a href="./changeUserInfo.php" class="header-link">ユーザー情報</a>
         <a href="./home.php" class="header-link">ホーム</a>
-        <a href="./logout.php" class="header-link">ログアウト</a>
+        <a href="./func/logout.php" class="header-link">ログアウト</a>
       </div>
       <div class="humburger-menu">
         <div class="menu-btn">
@@ -34,7 +34,7 @@
           <a href="./postQuestion.php" class="header-link">質問する</a>
           <a href="./changeUserInfo.php" class="header-link">ユーザー情報</a>
           <a href="./home.php" class="header-link">ホーム</a>
-          <a href="./logout.php" class="header-link">ログアウト</a>
+          <a href="./func/logout.php" class="header-link">ログアウト</a>
       </div>
     </div>
     <script src="./js/jquery-3.6.0.min.js"></script>

@@ -1,7 +1,6 @@
 <?php
     session_start();
 
-    include 'header.php';
     require_once dirname(__FILE__).'/db/UserDb.php';
     require_once dirname(__FILE__).'/func/UsersFunc.php';
 
