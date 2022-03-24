@@ -344,7 +344,7 @@ EOS;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js" integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     lottie.loadAnimation({
-        container: document.getElementById('bestAnswer1'),
+        container: document.getElementById('bestAnswer'),
         renderer: 'svg',
         loop: true,
         autoplay: true,
@@ -357,7 +357,7 @@ EOS;
 <script src="js/main.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
-        const viewAboutBestAnswer = document.getElementsByClassName('viewAboutBA');
+        const viewAboutBestAnswer = Array.from(document.getElementsByClassName('viewAboutBA'));
 
         function toggleViewAboutBestAnswer() {
             viewAboutBestAnswer.forEach((val) => {
@@ -367,14 +367,10 @@ EOS;
             })
         }
 
-      <?php
-      if (isset($bestAnswerFlg)) {
-        if ($bestAnswerFlg) {
-          echo '<script>'.'toggleViewAboutBestAnswer()'.'</script>';
+        if (<?php echo $bestAnswerFlg?> == 1) {
+            console.log('work');
+            toggleViewAboutBestAnswer();
         }
-      }
-      ?>
-
     })
 </script>
 
