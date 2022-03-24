@@ -119,7 +119,7 @@ EOS;
         <div class="column is-10-mobile is-11-tablet">
           <div class="columns is-mobile is-multiline">
             <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
-              <span class="column is-size-3">{$quName}</span>
+              <span class="column is-size-3 is-clipped">{$quName}</span>
             </div>
             <div class="column mb-0 questionDateWrapper is-mobile columns is-vcentered userData bestAnswerUserData">
               <p class="has-text-left column is-4-tablet is-5-mobile is-offset-2-tablet is-offset-3-widescreen is-offset-2-mobile has-text-right p-0-mobile mb-0 is-size-7">
@@ -247,7 +247,7 @@ EOS;
         <div class="column is-10-mobile is-11-tablet">
           <div class="columns is-mobile is-multiline">
             <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
-              <span class="column is-size-3">{$ansUser}</span>
+              <span class="column is-size-3 is-clipped">{$ansUser}</span>
               <div id="bestAnswer" class="column p-0 is-2">
                 <!--              後でベストアンサーのアイコンを入れます。-->
               </div>
@@ -282,7 +282,7 @@ EOS;
         <div class="column is-10-mobile is-11-tablet">
           <div class="columns is-mobile is-multiline">
             <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
-              <span class="column is-size-3">{$ansUser}</span>
+              <span class="column is-size-3 is-clipped">{$ansUser}</span>
             </div>
             <div class="column mb-0 questionDateWrapper is-mobile columns is-vcentered userData bestAnswerUserData">
               <p class="has-text-left column is-4-tablet is-5-mobile is-offset-2-tablet is-offset-3-widescreen is-offset-2-mobile has-text-right p-0-mobile mb-0 is-size-7">
