@@ -2,17 +2,24 @@
     session_start();
 
     require_once dirname(__FILE__).'/db/UserDb.php';
-    // require_once dirname(__FILE__).'/func/editPass.php';
     require_once dirname(__FILE__).'/header.php';
 
     try{
         if(isset($_SESSION["user_id"])){
+            if(isset($_SESSION["changePwResult"])){
+                if($_SESSION["changePwResult"]){
+                    $result = '<p class="result">パスワードの変更に成功しました。</p>';
+                } else {
+                    $result ='<p class="result">パスワードの変更に失敗しました。<br>もう一度お願いします。</p>';
+                }
+            }
+
             if(isset($_POST["changedName"])){
                 $change_name_result = updateName($_POST["changedName"], $_SESSION["user_id"]);
                 if($change_name_result){
-                    echo "名前の変更に成功しました";
+                    $result = '<p class="result">名前の変更に成功しました。</p>';
                 } else {
-                    echo "名前の変更に失敗しました。<br>もう一度お願いいたします。";
+                    $result = '<p class="result">名前の変更に失敗しました。<br>もう一度お願いいたします。</p>';
                 }
             }
         } else {
@@ -38,6 +45,7 @@
 </head>
 <body>
     <main>
+        <?php echo $result!==""? $result:"" ?>
         <div class="center">
             <h1 class="question-text">どちらの情報を変更しますか？</h1>
             <div class="button-wrapper">
@@ -82,6 +90,5 @@
             </div>
         </div>
     </main>
-
 </body>
 </html>
