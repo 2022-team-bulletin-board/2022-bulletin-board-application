@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const changedPwFirst = document.getElementById('changedPwFirst');
     const changedPwSecond = document.getElementById('changedPwSecond');
 
+    // エラーテキスト表示用
+    const nameValueError = document.getElementById('nameValueError');
+    const pwValueError = document.getElementById('pwValueError');
+    const nullError = document.getElementById('nullError');
+
     // ポップアップの×ボタン
     const clearNameBtn = document.getElementById('clearNameBtn');
     const clearPwBtn = document.getElementById('clearPwBtn');
@@ -31,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     clearNameBtn.addEventListener('click', () => {
+        changedName.value = "";
         nameContainer.classList.remove('show');
+        nameValueError.classList.remove('show');
     })
 
     // 名前変更の実行ボタンが押されたとき
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(changedName.value != ""){
             changeNameForm.submit();
         } else {
-            // 空の場合のエラーメッセージ
+            nameValueError.classList.add('show');
         }
     })
 
@@ -49,22 +56,45 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     clearPwBtn.addEventListener('click', () => {
+        changedPwFirst.value = "";
+        changedPwSecond.value = "";
         pwContainer.classList.remove('show');
+        pwValueError.classList.remove('show');
     })
 
-    changedPwFirst.addEventListener('blur', ()=> {
+    changedPwFirst.addEventListener('input', ()=> {
+        if(changedPwFirst.value !== "" && changedPwSecond.value !== ""){
+            nullError.classList.remove('show');
+        }
         if(changedPwSecond.value != ""){
             if(changedPwFirst.value != changedPwSecond.value){
-                // 一致していないメッセージ
+                pwValueError.classList.add('show');
+            } else {
+                pwValueError.classList.remove('show');
             }
+        } else {
+            pwValueError.classList.remove('show');
         }
     })
 
-    changedPwSecond.addEventListener('blur', ()=> {
+    changedPwSecond.addEventListener('input', ()=> {
+        if(changedPwFirst.value !== "" && changedPwSecond.value !== ""){
+            nullError.classList.remove('show');
+        }
         if(changedPwFirst.value != changedPwSecond.value){
-            // 一致していないメッセージ
+            pwValueError.classList.add('show');
         } else {
+            pwValueError.classList.remove('show');
+        }
+    })
 
+    changePwBtn.addEventListener('click', () => {
+        if(changedPwFirst.value !== "" && changedPwSecond.value !== "") {
+            if(changedPwFirst.value == changedPwSecond.value){
+                changePwForm.submit();
+            }
+        } else {
+            nullError.classList.add('show');
         }
     })
 });
