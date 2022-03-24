@@ -1,0 +1,26 @@
+body {
+  background: #000;
+  overflow: hidden;
+}
+
+.fof {
+  margin: 10px 0;
+}
+
+.fof canvas,
+.fof img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  z-index: 1;
+  background: #000;
+}
+
+/*
+  Copyright (c) September 21, 2012 Hakim El Hattab(@hakimel)
+  Released under the MIT license
+  http://opensource.org/licenses/mit-license.php
+*/
+
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAiY3NzLzUweC5jc3MiLAoJInNvdXJjZXMiOiBbCgkJImNzcy9zY3NzLzUweC5zY3NzIgoJXSwKCSJzb3VyY2VzQ29udGVudCI6IFsKCQkiYm9keSB7XHJcbiAgYmFja2dyb3VuZDogIzAwMDtcclxuICBvdmVyZmxvdzogaGlkZGVuO1xyXG59XHJcblxyXG4uZm9mIHtcclxuICBtYXJnaW46IDEwcHggMDtcclxufVxyXG5cclxuLmZvZiBjYW52YXMsXHJcbi5mb2YgaW1nIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgaGVpZ2h0OiAxMDAlO1xyXG4gIG1hcmdpbi1ib3R0b206IDIwcHg7XHJcbiAgei1pbmRleDogMTtcclxuXHJcbiAgYmFja2dyb3VuZDogIzAwMDtcclxufVxyXG5cclxuLypcclxuICBDb3B5cmlnaHQgKGMpIFNlcHRlbWJlciAyMSwgMjAxMiBIYWtpbSBFbCBIYXR0YWIoQGhha2ltZWwpXHJcbiAgUmVsZWFzZWQgdW5kZXIgdGhlIE1JVCBsaWNlbnNlXHJcbiAgaHR0cDovL29wZW5zb3VyY2Uub3JnL2xpY2Vuc2VzL21pdC1saWNlbnNlLnBocFxyXG4qLyIKCV0sCgkibmFtZXMiOiBbXSwKCSJtYXBwaW5ncyI6ICJBQUFBLEFBQUEsSUFBSSxDQUFDO0VBQ0gsVUFBVSxFQUFFLElBQUk7RUFDaEIsUUFBUSxFQUFFLE1BQU07Q0FDakI7O0FBRUQsQUFBQSxJQUFJLENBQUM7RUFDSCxNQUFNLEVBQUUsTUFBTTtDQUNmOztBQUVELEFBQUEsSUFBSSxDQUFDLE1BQU07QUFDWCxJQUFJLENBQUMsR0FBRyxDQUFDO0VBQ1AsUUFBUSxFQUFFLFFBQVE7RUFDbEIsS0FBSyxFQUFFLElBQUk7RUFDWCxNQUFNLEVBQUUsSUFBSTtFQUNaLGFBQWEsRUFBRSxJQUFJO0VBQ25CLE9BQU8sRUFBRSxDQUFDO0VBRVYsVUFBVSxFQUFFLElBQUk7Q0FDakI7O0FBRUQ7Ozs7RUFJRSIKfQ== */

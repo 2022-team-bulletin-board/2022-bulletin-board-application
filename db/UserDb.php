@@ -23,6 +23,7 @@
       $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
       // 実行
       $res = $stmt->execute();
+      return $res;
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
     }

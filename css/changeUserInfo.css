@@ -1,10 +1,76 @@
-.center {
+main {
+    width: 100%;
+    height: calc(100vh - 80px);
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main > div {
+    width: 100%;
+}
+
+.result{
     text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+/* PWのバリデーションチェック------- */
+.checkError {
+    color: gray;
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.nullError {
+    color: red;
+    display: none;
+}
+
+.nullError.show {
+    display: block;
+}
+/* ------------------------------- */
+
+.center {
+    width: 100%;
+}
+
+.question-text {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.button-wrapper {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between
+}
+
+.btn.submit {
+    width: calc((100% - 100px * 1) / 2);
+    padding: 30px;
+    font-size: 40px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #17a2b8;
+    background: #17a2b8;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.btn.submit:hover {
+    transform: scale(0.95);
 }
 
 /* 名前変更-------------------------------------------------------------------------------- */
 /* ポップアップをまとめるdiv */
-.nameContainer {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -14,12 +80,16 @@
     display: none;
 }
 
-.nameContainer.show{
+#nameContainer.show {
+    display: block;
+}
+
+#pwContainer.show{
     display: block;
 }
 
 /* popup */
-.namePopup{
+.popup{
     width:400px;
     height: 300px;
     background:#fff;
@@ -28,12 +98,17 @@
     border-radius: 10px;
     top:50%;
     left:50%;
-    -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+#pwContainer .popup {
+    width:400px;
+    height: 400px;
 }
 
 /* 入力フォーム */
-.changeNameForm {
+.changeForm {
     width: 100%;
     height: 100%;
     display: flex;
@@ -42,7 +117,7 @@
 }
 
 /* 説明用のラベル */
-.changeNameForm label {
+.changeForm label {
     display: inline-block;
     margin-bottom: 5px;
     font-size: 14px;
@@ -50,7 +125,7 @@
 }
 
 /* 入力用のinput */
-#changedName {
+.form-item input {
     width: 250px;
     display: block;
     margin-bottom: 20px;
@@ -61,8 +136,18 @@
     font-size: 18px;
 }
 
+/* 入力された値がエラーの時 */
+.valueError {
+    color:red;
+    display: none;
+}
+
+.valueError.show{
+    display: block;
+}
+
 /* 実行ボタン */
-.change-name-btn {
+.change-btn {
     margin: 0 auto;
     padding: 5px 12px;
     display: block;
@@ -77,109 +162,28 @@
     transition: 0.4s;
 }
 
-.change-name-btn:hover {
+.change-btn:hover {
     color: #fff;
     background: #007bff;
 }
 
 /* ポップアップの削除ボタン */
-.clearNameBtn{
+.clearBtn{
     width: 30px;
     height: 30px;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 10px;
     position: absolute;
     color: black;
-}
-
-.clearNameBtn:hover {
-    cursor: pointer;
-}
-
-/* パスワード変更-------------------------------------------------------------------------------- */
-
-.pwContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0,0.5);
-    width: 100%;
-    height: 100vh;
-    display: none;
-}
-
-.pwContainer.show{
-    display: block;
-}
-
-.pwPopup{
-    width:400px;
-    height: 300px;
-    background:#fff;
-    box-sizing:border-box;
-    position:relative;
-    border-radius: 10px;
-    top:50%;
-    left:50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-.changePwForm {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.changePwForm label {
-    display: inline-block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #707070;
-}
-
-#changedName {
-    width: 250px;
-    display: block;
-    margin-bottom: 20px;
-    padding: 5px 10px;
-    border: none;
-    border: 1px solid #000;
-    border-radius: 5px;
-    font-size: 18px;
-}
-
-.change-pw-btn {
-    margin: 0 auto;
-    padding: 5px 12px;
-    display: block;
-    text-align: center;
-    border: none;
-    border: 1px solid #007bff;
-    background: #fff;
-    border-radius: 5px;
     outline: none;
-    color: #007bff;
-    cursor: pointer;
-    transition: 0.4s;
-}
-
-.change-pw-btn:hover {
-    color: #fff;
-    background: #007bff;
-}
-
-.clearPwBtn{
-    width: 30px;
-    height: 30px;
-    top: 0;
-    right: 0;
-    position: absolute;
-    color: black;
-}
-
-.clearPwBtn:hover {
+    border: 1px solid #343a40;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0,0.5);
     cursor: pointer;
 }
+
+.clearBtn:hover {
+    cursor: pointer;
+}
+

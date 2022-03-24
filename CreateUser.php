@@ -15,7 +15,10 @@
 
   // TODO
     // 管理者じゃないと実行できないようにする
-    // if (isset($_POST["管理者情報"])) {} else {indexへ遷移}
+  if (!isset($_SESSION["admin_id"])) {
+    header('Location: home.php');
+    exit();
+  }
 
 
   // リロードによるpostの再送信をできないようにする
@@ -78,13 +81,25 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="./css/createUser.css">
+  <script src="./js/jquery-3.6.0.min.js"></script>
+  <script src="./js/createUser.js"></script>
   <title>Document</title>
 </head>
 <body>
-  <form action="CreateUser.php" method="post" enctype="multipart/form-data">
-    <input type="file" name="upfile" id="">
-    <input type="hidden" name="hidden_str" value=<?php echo $_SESSION["rand_str"]; ?>>
-    <input type="submit" value="送信">
-  </form>
+  <?php include 'header.php' ?>
+  <main>
+    <div>
+      <h1 class="page-title">アカウント作成画面</h1>
+      <form action="CreateUser.php" method="post" enctype="multipart/form-data" class="createUser-form">
+        <label for="csv">CSVファイルを選択</label>
+        <input type="file" name="upfile" id="csv" class="file-upload">
+        <input type="hidden" name="hidden_str" value=<?php echo $_SESSION["rand_str"]; ?>>
+        <input type="submit" value="送信" class="file-submit-btn">
+        <p class="file-name"></p>
+      </form>
+    </div>
+  </main>
 </body>
 </html>
