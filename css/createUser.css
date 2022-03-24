@@ -1,0 +1,43 @@
+main {
+  height: calc(100vh - 80px);
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-title {
+  margin-bottom: 100px;
+}
+
+.file-upload {
+  padding: 6px 16px;
+  outline: none;
+}
+
+label {
+  padding: 10px 40px;
+  color: #ffffff;
+  background-color: #343a40;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-submit-btn {
+  padding: 6px 14px;
+  outline: none;
+  border: 1px	solid #007bff;
+  color: 	#007bff;
+  background: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.file-submit-btn:hover {
+  transform: scale(0.95);
+}
