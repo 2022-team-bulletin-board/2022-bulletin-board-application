@@ -68,6 +68,27 @@ pre[class*=language-] {
   color: #ae81ff
 }
 
+.number {
+  background-color: #272822;
+  align-items: normal;
+  display: initial;
+  font-size: 1em;
+  text-align: left;
+  padding: 0;
+  margin-right: 0;
+
+}
+
+.tag:not(body) {
+  background-color: #272822;
+  align-items: normal;
+  display: initial;
+  font-size: 1em;
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .token.attr-name,
 .token.builtin,
 .token.char,
