@@ -45,12 +45,14 @@
 </head>
 <body>
     <main>
-        <?php echo $result!==""? $result:"" ?>
-        <div class="center">
-            <h1 class="question-text">どちらの情報を変更しますか？</h1>
-            <div class="button-wrapper">
-                <button type="submit" id="name" class="submit btn">名前</button>
-                <button type="submit" id="password" class="submit btn">パスワード</button>
+        <div>
+            <?php echo $result!==""? $result:""; ?>
+            <div class="center">
+                <h1 class="question-text">どちらの情報を変更しますか？</h1>
+                <div class="button-wrapper">
+                    <button type="submit" id="name" class="submit btn">名前</button>
+                    <button type="submit" id="password" class="submit btn">パスワード</button>
+                </div>
             </div>
         </div>
 
@@ -76,6 +78,7 @@
                 <form action="./func/editPass.php" method="POST" id="changePwForm" class="changeForm">
                     <div>
                         <p id="pwValueError" class="valueError">パスワードが一致していません。</p>
+                        <p id="nullError" class="nullError">入力してください。</p>
                         <div class="form-item">
                             <label for="changedPwFirst">新規パスワード</label>
                             <input type="password" id="changedPwFirst" name="pw">
@@ -84,6 +87,7 @@
                             <label for="changedPwSecond">確認用パスワード</label>
                             <input type="password" id="changedPwSecond" name="rePw">
                         </div>
+                        <p id="pwCheckError" class="checkError">パスワードは大文字/小文字/数字を含めて<br>8文字以上100文字以下で設定して下さい。</p>
                         <input type="button" id="changePwBtn" value="パスワードを変更" class="change-btn">
                     </div>
                 </form>

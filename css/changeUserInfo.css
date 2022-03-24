@@ -7,6 +7,33 @@ main {
     align-items: center;
 }
 
+main > div {
+    width: 100%;
+}
+
+.result{
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+/* PWのバリデーションチェック------- */
+.checkError {
+    color: gray;
+    font-size: 11px;
+    margin-bottom: 25px;
+}
+
+.nullError {
+    color: red;
+    display: none;
+}
+
+.nullError.show {
+    display: block;
+}
+/* ------------------------------- */
+
 .center {
     width: 100%;
 }
@@ -73,6 +100,11 @@ main {
     left:50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
+}
+
+#pwContainer .popup {
+    width:400px;
+    height: 400px;
 }
 
 /* 入力フォーム */
