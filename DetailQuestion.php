@@ -12,6 +12,12 @@ if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "" &&
   isset($_GET["question_id"]) && $_GET["question_id"] !== ""
 ) {
 
+  if (isset($_SESSION["ansInsResult"])){
+    $alert = "<script type='text/javascript'>alert('" . $_SESSION["ansInsResult"][0]["result"] . "');</script>";
+    echo $alert;
+    unset($_SESSION["ansInsResult"]);
+  }
+
   if (isset($_SESSION["update_result"])) {
     $alert = "<script type='text/javascript'>alert('" . $_SESSION["update_result"][0]["result"] . "');</script>";
     echo $alert;
@@ -223,10 +229,12 @@ EOS;
       echo <<< "EOS"
     <div class="content answer mb-6 viewAboutBA" data-view-Ba="true">
       <h2 class="subtitle mt-6">回答する</h2>
-        <textarea name="Answer" id="Answer"></textarea>
-        <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn">
+      <form action="./db/answerInsert.php" method="post">
+        <textarea name="answer_detail" id="Answer"></textarea>
+        <button type="submit" class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn" name="question_id" value={$results[0]["question_id"]}>
           回答を投稿
         </button>
+      </form>
     </div>
 
 EOS;
