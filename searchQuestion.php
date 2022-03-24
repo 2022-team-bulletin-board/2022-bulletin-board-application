@@ -34,9 +34,9 @@
 <body>
   <?php include 'header.php';?>
   <main>
-    <section id="">
+    <section>
       <div class="container">
-        <div class="search-result-text"><?php echo $keyword === '' ? '' : "「${keyword}」の検索結果：${result_text}"?></div>
+        <div class="search-result-text"><?php echo $keyword === '' ? '' : "「${keyword}」の検索結果：<br class=\"sp\">${result_text}"?></div>
       
         <ul class="searched-list">
           <?php foreach($results as $result):?>
@@ -61,9 +61,9 @@
                   </span>
                 <?php endif; ?>
                 <!-- タグをつける場合ここで繰り返し 下記はダミー　-->
-                <span class="tag">Java</span>
+                <!-- <span class="tag">Java</span>
                 <span class="tag">PHP</span>
-                <span class="tag">基本情報技術者試験</span>
+                <span class="tag">基本情報技術者試験</span> -->
               </div>
               <span class="answered-date">投稿日時：<?php echo $result['question_created'];?></span>
             </div>
