@@ -58,17 +58,29 @@ document.addEventListener('DOMContentLoaded', () => {
         pwValueError.classList.remove('show');
     })
 
-    changedPwFirst.addEventListener('blur', ()=> {
+    changedPwFirst.addEventListener('input', ()=> {
         if(changedPwSecond.value != ""){
             if(changedPwFirst.value != changedPwSecond.value){
                 pwValueError.classList.add('show');
+            } else {
+                pwValueError.classList.remove('show');
             }
+        } else {
+            pwValueError.classList.remove('show');
         }
     })
 
     changedPwSecond.addEventListener('input', ()=> {
         if(changedPwFirst.value != changedPwSecond.value){
             pwValueError.classList.add('show');
+        } else {
+            pwValueError.classList.remove('show');
+        }
+    })
+
+    changePwBtn.addEventListener('click', () => {
+        if(changedPwFirst.value == changedPwSecond.value){
+            changePwForm.submit();
         }
     })
 });
