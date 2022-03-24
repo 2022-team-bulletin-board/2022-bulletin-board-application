@@ -6,7 +6,10 @@
     var_dump($questionId);
     var_dump($answerId);
     try {
-      $sql = "update question set question_bestanswer = (select answer_id from answer where answer.answer_id = :answerId and answer.question_id = :questionId) where question.user_id = :userId and question.question_id = :questionId2";
+      $sql = "update question set question_bestanswer = 
+        (select answer_id from answer 
+          where answer.answer_id = :answerId and answer.question_id = :questionId) 
+        where question.user_id = :userId and question.question_id = :questionId2";
 
       $stm = $pdo->prepare($sql);
 

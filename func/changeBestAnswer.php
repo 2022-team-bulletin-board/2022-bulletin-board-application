@@ -1,5 +1,5 @@
 <?php
-  require_once dirname(__FILE__).'/../db/bestAnswer.php';
+require_once dirname(__FILE__).'/../db/bestAnswer.php';
 
 session_start();
 
@@ -14,7 +14,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] != "" && isset($_GET["qu
 
   changeBestAnswer($userId, $questionId, $answerId);
 
-  header(`Location:../DetailQuestion.php?question_id={$questionId}`);
+  header("Location:../DetailQuestion.php?question_id=" . $questionId);
   exit();
 } else {
   header("Location:../index.php");

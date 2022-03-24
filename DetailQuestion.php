@@ -321,6 +321,10 @@ EOS;
       <div class="py-4 px-6 answerTextArea">
       <pre><code>{$answerDetail}</pre></code>
       </div>
+EOS;
+
+    if ($results[0]["qu_id"] === $user_id){
+      echo <<< "EOS"
       <div class="answerDateWrapper mb-5 has-text-right viewAboutBA" data-view-Ba="true">
           <button class="button is-success is-small modalButton" data-modal-field="questionBAModal">
             <span class="icon"><i class="fa-solid fa-check"></i></span>
@@ -343,8 +347,10 @@ EOS;
           </footer>
         </div>
       </div>
-    </div>
 EOS;
+    }
+
+    echo "</div>";
         }
       }
     }
