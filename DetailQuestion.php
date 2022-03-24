@@ -212,6 +212,10 @@ echo <<< "EOS"
         </div>
       </div>
     </div>
+EOS;
+//    ログインユーザの質問には回答フォームが表示されないようにする
+if ($results[0]["qu_id"] == $user_id) {
+  echo <<< "EOS"
     <div class="content answer mb-6 viewAboutBA" data-view-Ba="true">
       <h2 class="subtitle mt-6">回答する</h2>
         <textarea name="Answer" id="Answer"></textarea>
@@ -220,7 +224,7 @@ echo <<< "EOS"
         </button>
     </div>
 
-EOS;
+EOS;}
     if ($results[0]["ans_cnt"] !== 0) {
       $answerCount = count($results);
       $bestAnswerFlg = false;
