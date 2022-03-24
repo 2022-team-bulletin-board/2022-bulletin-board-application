@@ -15,7 +15,7 @@
 
   // TODO
     // 管理者じゃないと実行できないようにする
-  if (!isset($_POST["admin_flag"])) {
+  if (!isset($_SESSION["admin_id"])) {
     header('Location: home.php');
     exit();
   }

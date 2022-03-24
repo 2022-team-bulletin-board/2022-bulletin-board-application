@@ -1,6 +1,5 @@
 <?php 
   session_start();
-
   if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] !== "") {
 
     require_once dirname(__FILE__).'/db/question.php';
@@ -13,6 +12,8 @@
     header("Location:index.php");
     exit();
   }
+  var_dump($_SESSION);
+
 ?>
 
 <!DOCTYPE html>
