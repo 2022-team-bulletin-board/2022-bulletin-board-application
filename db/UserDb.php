@@ -4,7 +4,31 @@
   // 現在の関数
   // ・登録処理: insertUserSql
   // ・ログイン処理: selectUserSalt, selectUser
-  
+  // ・パスワード更新処理: updatePass
+
+  // パスワード更新処理
+  function updatePass($userId, $pw) {
+    // パスワードの更新の際は、saltも同時に更新する
+    require_once dirname(__FILE__).'/userConnetcion.php';
+    require_once dirname(__FILE__).'/../func/UsersFunc.php';
+    try {
+      $salt = randomStr();
+      $hashPw = hash256($pw, $salt);
+
+      $sql = 'update users set student_pass = :pw, student_salt = :salt where user_id = :id';
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':pw', $hashPw, PDO::PARAM_STR);
+      $stmt->bindValue(':salt', $salt, PDO::PARAM_STR);
+      $stmt->bindValue(':id', $userId, PDO::PARAM_INT);
+      // 実行
+      $res = $stmt->execute();
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+    }
+  }
+
+  // ・ユーザー情報変更処理:updateName  
   // 新規ユーザー作成関数
   function insertUserSql($sql) {
     // 管理者用のコネクションの挿入
@@ -60,6 +84,29 @@
         return $result;
       } else {
         return "passwordfail";
+      }
+    } catch (PDOException $e) {
+      echo 'Connection failed: ' . $e->getMessage();
+    }
+  }
+
+  // ユーザー情報の名前を変更するsql
+  function updateName($changedName, $userId) {
+    // ユーザー用のコネクションの挿入
+    include dirname(__FILE__).'/userConnetcion.php';
+    try {
+      $sql = 'UPDATE users SET student_name=:changedName WHERE user_id=:userId;';
+      // pdoのインスタンス化
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindValue(':changedName', $changedName, PDO::PARAM_STR);
+      $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+      // 実行
+      $res = $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      if(!$result){
+        return true;
+      } else {
+        return false;
       }
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
