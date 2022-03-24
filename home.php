@@ -73,8 +73,8 @@
             <ul id="myList" class="my-list">
               <?php foreach($myResults as $myResult): ?>
               <li class="list-item my-lists">
-                <a href="./DetailQuestion.php?question_id=<?php echo $result["question_id"]; ?>">
-                  <h3 class="question-title"><?php echo hsc($result["question_title"]); ?></h3>
+                <a href="./DetailQuestion.php?question_id=<?php echo $myResult["question_id"]; ?>">
+                  <h3 class="question-title"><?php echo hsc($myResult["question_title"]); ?></h3>
                 </a>
                 <div class="bottom-info">
                   <div class="tags">

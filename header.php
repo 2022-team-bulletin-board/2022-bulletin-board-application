@@ -10,7 +10,7 @@
         </form>
       </div>
       <div class="links-box">
-        <?php if($_SESSION["admin_id"]):?>
+        <?php if(isset($_SESSION["admin_id"]) && $_SESSION["admin_id"]):?>
           <a href="./CreateUser.php" class="header-link">アカウント作成</a>
         <?php endif;?>
         <a href="./postQuestion.php" class="header-link">質問する</a>
