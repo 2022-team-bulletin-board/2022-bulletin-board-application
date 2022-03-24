@@ -110,7 +110,7 @@ EOS ;
 if ($results[0]["qu_id"] == $user_id) {
         echo <<< "EOS"
 <!--      質問者にのみ表示するアイコン-->
-      <span class="icon is-small titleIcon" data-view="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
+      <span class="icon is-small titleIcon viewAboutBA" data-view="true" data-view-Ba="true"><i class="far fa-2x fa-edit toggleTitleEdit"></i></span>
     </div>
       <form action="./func/updateQuestionTitle.php" method="post" id="questionTitleEdit" class="columns has-addons control is-grouped is-vcentered toggleTitle" data-view="false">
       <input type="text" class="input is-8 mr-3" name="title" value="{$title}">
@@ -164,7 +164,7 @@ if ($results[0]["qu_id"] == $user_id) {
   echo <<< "EOS"
 <!--        質問者にのみ、編集、削除ボタンを表示する-->
 <!--        非表示にする際は、↓ の div を data-view="false" にする-->
-        <div class="column is-grouped questionEditButtonGroup" data-view="true">
+        <div class="column is-grouped questionEditButtonGroup viewAboutBA" data-view="true" data-view-Ba="true">
           <button class="button is-link is-inverted mr-3 modalButton"
                   data-modal-field="questionEditModal">
             <span class="icon"><i class="fas fa-edit"></i></span>
@@ -212,7 +212,7 @@ echo <<< "EOS"
         </div>
       </div>
     </div>
-    <div class="content answer mb-6">
+    <div class="content answer mb-6 viewAboutBA" data-view-Ba="true">
       <h2 class="subtitle mt-6">回答する</h2>
         <textarea name="Answer" id="Answer"></textarea>
         <button type="button" class="button is-large mt-5 mb-6 customButton answerButton" id="ans_btn">
@@ -223,6 +223,7 @@ echo <<< "EOS"
 EOS;
     if ($results[0]["ans_cnt"] !== 0) {
       $answerCount = count($results);
+      $bestAnswerFlg = false;
       echo "<h2 class=\"subtitle mt-6 answerTitle\">${answerCount}件の回答</h2>";
       foreach ($results as $result) {
         $answerId = hsc($result["answer_id"] > $answerId ? $result["answer_id"] : $answerId);
@@ -231,6 +232,10 @@ EOS;
 //        ベストアンサーの判定をboolで行うか、文字列をそのまま表示するのか
 //        $best = hsc($results[0]["question_bestanswer"] === $result["answer_id"] ? "ベストアンサー" : "");
         $best = $results[0]["question_bestanswer"] === $result["answer_id"] ? true : false;
+//        ベストアンサーが存在する時、bestAnswerFlg を true に変更する
+        if ($bestAnswerFlg === false && $best === true) {
+          $bestAnswerFlg = true;
+        }
         $answerDate = checkDiffTime($result['answer_date']);
         $answerDetail = hsc($result["answer_detail"]);
         $answerDetail = preg_replace_callback(
@@ -346,5 +351,28 @@ EOS;
     });
 </script>
 <script src="js/main.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const viewAboutBestAnswer = document.getElementsByClassName('viewAboutBA');
+
+        function toggleViewAboutBestAnswer() {
+            viewAboutBestAnswer.forEach((val) => {
+                // false -> 非表示
+                // true -> 表示
+                val.dataset.viewBa = 'false';
+            })
+        }
+
+      <?php
+      if (isset($bestAnswerFlg)) {
+        if ($bestAnswerFlg) {
+          echo '<script>'.'toggleViewAboutBestAnswer()'.'</script>';
+        }
+      }
+      ?>
+
+    })
+</script>
+
 </body>
 </html>

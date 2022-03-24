@@ -118,6 +118,12 @@
     display: inline-block;
 }
 
+/* not found Best Answer */
+
+.viewAboutBA[data-view-Ba='false'] {
+    display: none;
+}
+
 /* easyMDE */
 .EasyMDEContainer {
     box-shadow: 1px 1px 4px #888888;
