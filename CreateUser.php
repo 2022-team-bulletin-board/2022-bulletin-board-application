@@ -15,7 +15,10 @@
 
   // TODO
     // 管理者じゃないと実行できないようにする
-    // if (isset($_POST["管理者情報"])) {} else {indexへ遷移}
+  if (!isset($_SESSION["admin_id"])) {
+    header('Location: home.php');
+    exit();
+  }
 
 
   // リロードによるpostの再送信をできないようにする
