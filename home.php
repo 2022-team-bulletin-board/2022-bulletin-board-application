@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/myList.css">
   <title>Document</title>
 </head>
 <body>
@@ -68,11 +69,11 @@
           </div>
           <div class="my-list-container">
             <div class="top-title">自分の質問</div>
-            <ul class="my-list">
-              <?php foreach($myResults as $myResult): ?>
-              <li class="list-item">
-                <a href="./DetailQuestion.php?question_id=<?php echo $myResult["question_id"]; ?>">
-                  <h3 class="question-title"><?php echo hsc($myResult["question_title"]); ?></h3>
+            <ul id="myList" class="my-list">
+              <?php foreach($myResults as $result): ?>
+              <li class="list-item my-lists">
+                <a href="./DetailQuestion.php?question_id=<?php echo $result["question_id"]; ?>">
+                  <h3 class="question-title"><?php echo hsc($result["question_title"]); ?></h3>
                 </a>
                 <div class="bottom-info">
                   <div class="tags">
@@ -95,10 +96,15 @@
               </li>
               <?php endforeach; ?>
             </ul>
+            <div id="viewButton" class="view-button">
+              <span>さらに表示</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
+  <script src="js/listToggle.js"></script>
 </body>
 </html>

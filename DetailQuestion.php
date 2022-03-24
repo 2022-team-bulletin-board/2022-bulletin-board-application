@@ -49,12 +49,16 @@
   <link rel="stylesheet" href="./css/framework/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://unpkg.com/easymde/dist/easymde.min.css">
   <link rel="stylesheet" href="./css/detailQuestion.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="./css/main.css">
+<!--  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <script src="js/prism.js"></script>
 
   <title>質問詳細</title>
 </head>
 <body>
+<?php require_once './header.php'?>
+
 <section class="main section">
   <div class="column is-centered is-8-widescreen is-10-tablet is-offset-2-widescreen is-offset-1-tablet is-offset-1">
     <?php
@@ -121,32 +125,27 @@ EOS;
     echo <<< "EOS"
     <!--    ユーザー情報の表示部分   -->
     <div class="content columns is-mobile is-multiline mt-4 userInfo">
-      <figure class="image is-64x64 is-vcentered">
-        <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
-      </figure>
-      <div class="column pb-0 userInfoDiv">
-        <p class="is-size-6-widescreen is-size-7-mobile mb-0">
-          {$quName}
-        </p>
-        <div class="columns questionDateWrapper is-mobile">
-          <p class="column is-3 is-offset-7-widescreen is-offset-6
-           pb-0 mb-1 has-text-right">
-            質問日時
-          </p>
-          <p class="column is-3 has-text-right
-            pb-0 mb-0">
-            {$questionCreated}
-          </p>
+      <div class="column is-2-mobile is-2-tablet is-1-widescreen has-text-left">
+          <figure class="image is-64x64 is-vcentered mx-0">
+            <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
+          </figure>
         </div>
-      </div>
-      <div class="column is-12 is-mobile mb-2 mr-2">
-        <div class="columns is-mobile">
-          <p class="has-text-right column mb-0 py-0 is-2 is-offset-8-widescreen is-offset-8">閲覧数</p>
-          <p class="has-text-centered mb-0 pt-0 column is-2">
-            <span>{$view}</span>回
-          </p>
+        <div class="column is-10-mobile is-11-tablet">
+          <div class="columns is-mobile is-multiline">
+            <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
+              <span class="column is-size-3 is-clipped">{$quName}</span>
+            </div>
+            <div class="column mb-0 questionDateWrapper is-mobile columns is-vcentered userData bestAnswerUserData">
+              <p class="has-text-left column is-4-tablet is-5-mobile is-offset-2-tablet is-offset-3-widescreen is-offset-2-mobile has-text-right p-0-mobile mb-0 is-size-7">
+                質問日時 <span>{$questionCreated}</span>
+              </p>
+              <p class="has-text-left column is-5-tablet is-5-mobile has-text-right p-0-mobile is-size-7">
+                最終編集日時 <span>{$updateDate}</span>
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+
     </div>
 
     <div class="content question">
@@ -210,10 +209,6 @@ EOS ;
 echo <<< "EOS"
         
         <div class="columns questionDateWrapper is-mobile">
-          <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
-          <p class="has-text-left column is-3 has-text-right">
-            {$updateDate}
-          </p>
         </div>
       </div>
     </div>
@@ -260,21 +255,27 @@ EOS;
           echo <<<"EOS"
     <div class="content bestAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
-        <figure class="image is-64x64 is-vcentered">
-          <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
-        </figure>
-        <div class="column">
-          <p class="is-size-6-widescreen is-size-7-mobile mb-0">
-            {$ansUser}
-          </p>
-          <div class="columns questionDateWrapper is-mobile">
-            <div id="bestAnswer" class="column p-0 has-text-right is-offset-3 is-offset-4-widescreen">
-              <!--              後でベストアンサーのアイコンを入れます。-->
+        <div class="column is-2-mobile is-2-tablet is-1-widescreen has-text-left">
+          <figure class="image is-64x64 is-vcentered mx-0">
+            <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
+          </figure>
+        </div>
+        <div class="column is-10-mobile is-11-tablet">
+          <div class="columns is-mobile is-multiline">
+            <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
+              <span class="column is-size-3 is-clipped">{$ansUser}</span>
+              <div id="bestAnswer" class="column p-0 is-2">
+                <!--              後でベストアンサーのアイコンを入れます。-->
+              </div>
             </div>
-            <p class="has-text-left column is-3 has-text-right">質問日時</p>
-            <p class="has-text-left column is-3 has-text-right">
-              {$answerDate}
-            </p>
+            <div class="column mb-0 questionDateWrapper is-mobile columns is-vcentered userData bestAnswerUserData">
+              <p class="has-text-left column is-4-tablet is-5-mobile is-offset-2-tablet is-offset-3-widescreen is-offset-2-mobile has-text-right p-0-mobile mb-0 is-size-7">
+                質問日時 <span>{$answerDate}</span>
+              </p>
+              <p class="has-text-left column is-5-tablet is-5-mobile has-text-right p-0-mobile is-size-7">
+                最終編集日時 <span>{$ansUpdate}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -282,12 +283,6 @@ EOS;
         {$answerDetail}
       </div>
       <div class="columns answerDateWrapper mb-5 is-mobile">
-        <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
-        <p class="has-text-left column is-3 has-text-right">
-          {$ansUpdate}
-          <!--            日付の表示を、桁が変わったタイミングで更新する   -->
-          <!--            バックエンドかフロントで処理する    -->
-        </p>
       </div>
     </div>
 EOS;
@@ -295,18 +290,24 @@ EOS;
           echo <<<"EOS"
     <div class="content normalAnswer">
       <div class="content columns is-mobile mt-4 userInfo">
-        <figure class="image is-64x64 is-vcentered">
-          <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
-        </figure>
-        <div class="column">
-          <p class="is-size-6-widescreen is-size-7-mobile mb-0">
-            {$ansUser}
-          </p>
-          <div class="columns questionDateWrapper is-mobile">
-            <p class="has-text-left column is-3 has-text-right is-offset-6 is-offset-7-widescreen">質問日時</p>
-            <p class="has-text-left column is-3 has-text-right">
-              {$answerDate}
-            </p>
+        <div class="column is-2-mobile is-2-tablet is-1-widescreen has-text-left">
+          <figure class="image is-64x64 is-vcentered mx-0">
+            <img src="https://placehold.jp/24/1fc7bb/ffffff/150x150.png?text=user%20image" alt="ダミー画像" class="is-rounded">
+          </figure>
+        </div>
+        <div class="column is-10-mobile is-11-tablet">
+          <div class="columns is-mobile is-multiline">
+            <div class="column is-12-mobile is-4-tablet columns mb-0 is-mobile is-vcentered userData">
+              <span class="column is-size-3 is-clipped">{$ansUser}</span>
+            </div>
+            <div class="column mb-0 questionDateWrapper is-mobile columns is-vcentered userData bestAnswerUserData">
+              <p class="has-text-left column is-4-tablet is-5-mobile is-offset-2-tablet is-offset-3-widescreen is-offset-2-mobile has-text-right p-0-mobile mb-0 is-size-7">
+                質問日時 <span>{$answerDate}</span>
+              </p>
+              <p class="has-text-left column is-5-tablet is-5-mobile has-text-right p-0-mobile is-size-7">
+                最終編集日時 <span>{$ansUpdate}</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -314,12 +315,6 @@ EOS;
         {$answerDetail}
       </div>
       <div class="columns answerDateWrapper mb-5 is-mobile">
-        <p class="has-text-left column is-4 is-offset-5 has-text-right" style="margin-bottom: 0;">最終編集日時</p>
-        <p class="has-text-left column is-3 has-text-right">
-          {$ansUpdate}
-          <!--            日付の表示を、桁が変わったタイミングで更新する   -->
-          <!--            バックエンドかフロントで処理する    -->
-        </p>
       </div>
     </div>
 EOS;
@@ -337,6 +332,19 @@ EOS;
 <script src="js/answer.js"></script>
 <script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
 <script src="js/viewToggle.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.1/lottie.min.js" integrity="sha512-CWKGqmXoxo+9RjazbVIaiFcD+bYEIcUbBHwEzPlT0FilQq3TCUac+/uxZ5KDmvYiXJvp32O8rcgchkYw6J6zOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    lottie.loadAnimation({
+        container: document.getElementById('bestAnswer1'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'css/animation/data.json',
+        rendererSettings: {
+            className: 'svgAnimation'
+        }
+    });
+</script>
+<script src="js/main.js"></script>
 </body>
 </html>

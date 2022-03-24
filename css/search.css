@@ -1,11 +1,15 @@
 @charset 'utf-8';
 
+main {
+  margin-top: 80px;
+}
+
 section {
   padding: 50px 0;
 }
 
 .container {
-  width: calc(80% - 100px);
+  width: calc(100% - 100px);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -44,6 +48,9 @@ section {
   color: #707070;
   text-indent :1em;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .bottom-info {
@@ -90,4 +97,32 @@ section {
 .answered-date {
   color: #707070;
   font-size: 0.8rem;
+}
+
+.sp {
+  display: none;
+}
+
+@media screen and (max-width:767px) {
+  .container {
+    width: calc(100% - 60px);
+  }
+
+  .search-result-text {
+    font-size: 1rem;
+    padding-left: 0;
+  }
+
+  .question-title {
+    font-size: 1.2rem;
+  }
+
+  .searched-list {
+    width: 100%;
+    min-width: initial;
+  }
+
+  .sp {
+    /* display: block; */
+  }
 }
